@@ -27,6 +27,7 @@ class LibroAdmin(admin.ModelAdmin):
     list_search = ("titulo",)
     list_filter = ("activo",)
 
+
 admin.site.register(Libro,LibroAdmin)
 
 class PrestamoAdmin(admin.ModelAdmin):
@@ -34,3 +35,4 @@ class PrestamoAdmin(admin.ModelAdmin):
     list_search = ('socio', "libro" ,"empleado")
 
 admin.site.register(Prestamo_libro, PrestamoAdmin)
+
