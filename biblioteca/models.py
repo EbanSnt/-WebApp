@@ -1,14 +1,20 @@
 from django.db import models
 
-<<<<<<< HEAD
+# Create your models here.
 class Autor(models.Model):
 
     nombre = models.CharField(max_length=30)
     apellido = models.CharField(max_length=30)
     nacionalidad = models.CharField(max_length=30)
     activo = models.BooleanField(default=True)
-=======
-# Create your models here.
+
+
+class Empleado(models.Model):
+    nombre = models.CharField(max_length=30)
+    apellido = models.CharField(max_length=30)
+    numero_legajo = models.CharField(max_length=30)
+    activo = models.BooleanField(default=True)
+    
 
 class Socio(models.Model):
     
@@ -16,4 +22,4 @@ class Socio(models.Model):
     apellido = models.CharField()
     fecha_nacimiento = models.DateField()
     activo = models.BooleanField(default=True)
->>>>>>> origin/SC5S2-16
+
