@@ -4,6 +4,7 @@ from django.shortcuts import redirect, render
 
 def registrar_empleado(request):
     form = EmpleadoForm()
+    
     if request.method =="POST":
         form = EmpleadoForm(request.POST)
         if form.is_valid():
@@ -14,6 +15,7 @@ def registrar_empleado(request):
                 numero_legajo = form.cleaned_data["numero_legajo"],
                 activo = form.cleaned_data["activo"]
             )
+
             empl.save()
             return redirect("/empleado_lista/")
     else:   
