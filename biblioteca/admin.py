@@ -22,8 +22,9 @@ class EmpleadoAdmin(admin.ModelAdmin):
 
 admin.site.register(Empleado, EmpleadoAdmin)
 
-class PrestamoAdmin(admin.ModelAdmin):
-    list_display = ('socio',"empleado","libro","fecha_prestamo","fecha_devolucion")
-    list_search = ("socio","libro","empleado")
+class LibroAdmin(admin.ModelAdmin):
+    list_display =("titulo","descripcion","isbn","autor","activo")
+    list_search = ("titulo",)
+    list_filter = ("activo",)
 
-admin.site.register(Prestamo_libro,PrestamoAdmin)
+admin.site.register(Libro,LibroAdmin)
