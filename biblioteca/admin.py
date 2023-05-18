@@ -2,16 +2,6 @@ from django.contrib import admin
 
 # Register your models here.
 
-
-
-
-
-
-
-
-
-
-
 class AutorAdmin(admin.ModelAdmin):
     #Lista por donde como se muestra en el django admin
     list_display = ('nombre', 'apellido', 'nacionalidad', 'activo' )
@@ -21,3 +11,10 @@ class AutorAdmin(admin.ModelAdmin):
     list_filtet = ('activo', 'nacionalidad')
 
 admin.site.register(Autor, AutorAdmin)
+
+class MemberAdmin(admin.ModelAdmin):
+    list_display = ("nombre", "apellido", "numero_legajo","activo",)
+    list_filter = ('activo',)
+    list_search = ('nombre', 'apellido',)
+
+admin.site.register(Empleado, MemberAdmin)
