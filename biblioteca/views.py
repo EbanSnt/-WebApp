@@ -1,6 +1,7 @@
 from multiprocessing import context
 from django.shortcuts import redirect, render
 from .forms import *
+from django.views.decorators.csrf import csrf_exempt
 # Create your views here.
 #HEADER PRESENTE EN TODAS LAS PAGINAS
 def index(request):
@@ -43,3 +44,24 @@ def registrar_empleado(request):
 
     # renderiza el template cambiar el nombre dependiendo del template
     return render(request, "empleado_form.html", context) 
+
+@csrf_exempt
+def actualizar_empleado(request,id):
+    """permitir actualizar datos de empleados en el sistema"""
+    
+    empleado = Empleado.objects.get(id=id)
+    if request.method =="POST": 
+        print(request.POST["nlegajo"])
+        empleado.nombre = request.POST["nombre"]
+        empleado.apellido = request.POST["apellido"]
+        empleado.numero_legajo = request.POST["nlegajo"]
+        if request.POST.get("activo") == None:
+            empleado.activo = False
+        else:
+            empleado.activo = True
+
+        empleado.save()
+        return redirect("empleado_lista")
+
+    else:
+        return render(request,"empleado_actualizar.jinja2",{"empleado":empleado})

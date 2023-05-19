@@ -5,7 +5,7 @@
     <h1>Actualizar Autor</h1>
   </div>
   <form method="post">
-    {% csrf_token %}
+  <input type="hidden" name="_csrf_token" value="{0}">
     <label for="nombre" class="form-label">Nombre:</label>
     <input type="text" class="form-control" id="nombre" name="nombre" value="{{ empleado.nombre }}" />
     <br />
@@ -24,7 +24,7 @@
       id="nlegajo"
       name="nlegajo"
       class="form-control"
-      value="{{ empleado.nacionalidad }}"
+      value="{{ empleado.numero_legajo }}"
     />
     <br />
     <div class="mb-3 form-check">
