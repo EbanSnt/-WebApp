@@ -1,0 +1,38 @@
+{% extends 'header.jinja2' %}{% block content %}
+
+<div class="container py-3">
+  <div class="d-flex w-100 justify-content-center">
+    <h1>Actualizar Autor</h1>
+  </div>
+  <form method="post">
+    {% csrf_token %}
+    <label for="nombre" class="form-label">Nombre:</label>
+    <input type="text" class="form-control" id="nombre" name="nombre" value="{{ autor.nombre }}" />
+    <br />
+    <label for="apellido" class="form-label">Apellido:</label>
+    <input
+      type="text"
+      id="apellido"
+      class="form-control"
+      name="apellido"
+      value="{{ autor.apellido }}"
+    />
+    <br />
+    <label for="nacionalidad"  class="form-label">Nacionalidad:</label>
+    <input
+      type="text"
+      id="nacionalidad"
+      name="nacionalidad"
+      class="form-control"
+      value="{{ autor.nacionalidad }}"
+    />
+    <br />
+    <div class="mb-3 form-check">
+      <input type="checkbox" class="form-check-input" id="activo" name="activo" value="True" {% if autor.activo %}checked{% endif %} />
+      <label class="form-check-label" for="activo" >Activo</label>
+    <br />
+    </div>
+    <input class="btn btn-success" type="submit" value="Actualizar" />
+  </form>
+</div>
+{% endblock %}
