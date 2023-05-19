@@ -4,10 +4,11 @@
   <div class="d-flex w-100 justify-content-center">
     <h1>Actualizar Autor</h1>
   </div>
-  <form method="post">
+  <form method="post" id="form">
   <input type="hidden" name="_csrf_token" value="{0}">
     <label for="nombre" class="form-label">Nombre:</label>
     <input type="text" class="form-control" id="nombre" name="nombre" value="{{ empleado.nombre }}" />
+    <span id="nombre-error" class="text-danger my-2"></span>
     <br />
     <label for="apellido" class="form-label">Apellido:</label>
     <input
@@ -17,10 +18,11 @@
       name="apellido"
       value="{{ empleado.apellido }}"
     />
+    <span id="apellido-error" class="text-danger  my-2"></span>
     <br />
     <label for="nlegajo"  class="form-label">Nº de Legajo:</label>
     <input
-      type="text"
+      type="number"
       id="nlegajo"
       name="nlegajo"
       class="form-control"
@@ -32,7 +34,24 @@
       <label class="form-check-label" for="activo" >Activo</label>
     <br />
     </div>
-    <input class="btn btn-success" type="submit" value="Actualizar" />
+    <input id="button" class="btn btn-success" type="submit" value="Actualizar" />
   </form>
+  <script>
+    var form = document.getElementById("form")
+    var button = document.getElementById("button")
+    let empty;
+    form.addEventListener('input', function() {
+      empty = Array.from(form.elements).some(function(element) {
+        span = document.getElementById(`${element.id}-error`)
+        if(element.value === ""){
+          span.innerText = "Campo vacío"
+        }
+        return element.value === '';
+      })
+      button.disabled = empty;
+    }) 
+
+  </script>
+    
 </div>
 {% endblock %}
