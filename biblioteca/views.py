@@ -2,6 +2,7 @@ from multiprocessing import context
 from django.shortcuts import redirect, render
 from .forms import *
 from django.views.decorators.csrf import csrf_exempt
+from django.contrib import messages
 # Create your views here.
 #HEADER PRESENTE EN TODAS LAS PAGINAS
 def index(request):
@@ -21,7 +22,7 @@ def empleado_lista(request):
 
 
 #Crea un nuevo empleado y lo guarda en la base de datos
-def registrar_empleado(request):
+'''def registrar_empleado(request):
     form = EmpleadoForm()
     
     if request.method =="POST":
@@ -43,7 +44,20 @@ def registrar_empleado(request):
     context = { "form": form }
 
     # renderiza el template cambiar el nombre dependiendo del template
-    return render(request, "empleado_form.html", context) 
+    return render(request, "empleado_nuevo.jinja2", context) '''
+@csrf_exempt
+def registrar_empleado(request):
+    form = EmpleadoForm()
+    if request.method == "POST":
+        form = EmpleadoForm(request.POST)
+        if form.is_valid():
+            form.save()
+        else:
+            return redirect("templates/empleado_lista/")
+    context = {'form': form}
+    return render(request, "empleado_nuevo.jinja2", context)
+
+
 
 @csrf_exempt
 def actualizar_empleado(request,id):
@@ -65,3 +79,16 @@ def actualizar_empleado(request,id):
 
     else:
         return render(request,"empleado_actualizar.jinja2",{"empleado":empleado})
+    
+
+
+def desactivar_empleado(request, id):
+    empleado = Empleado.objects.get(id=id)
+    if request.method == "POST":
+        empleado.activo = False
+        empleado.save()
+        messages.success(request, "El empleado ha sido desactivado exitosamente.")
+        return redirect("empleado_lista")
+    else:
+        return render(request, "empleado_actualizar.jinja2", {"empleado": empleado})
+
