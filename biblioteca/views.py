@@ -1,6 +1,9 @@
 from django.shortcuts import redirect, render
 
 # Create your views here.
+#HEADER PRESENTE EN TODAS LAS PAGINAS
+def index(request):
+    return render(request,"index.jinja2")
 
 def registrar_empleado(request):
     form = EmpleadoForm()
