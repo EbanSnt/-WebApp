@@ -1,5 +1,5 @@
 from django.shortcuts import redirect, render
-
+from .forms import *
 # Create your views here.
 #HEADER PRESENTE EN TODAS LAS PAGINAS
 def index(request):
@@ -20,9 +20,11 @@ def registrar_empleado(request):
             )
 
             empl.save()
-            return redirect("/empleado_lista/")
+            return redirect("biblioteca/empleado_lista/")
     else:   
-        return redirect("/empleado_lista/")
+        return redirect("biblioteca/empleado_lista/")
+    
     context = { "form": form }
 
-    return render(request, "empleado_form.html", context)
+    # renderiza el template cambiar el nombre dependiendo del template
+    return render(request, "empleado_form.html", context) 
