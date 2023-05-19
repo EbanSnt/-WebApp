@@ -22,29 +22,6 @@ def empleado_lista(request):
 
 
 #Crea un nuevo empleado y lo guarda en la base de datos
-'''def registrar_empleado(request):
-    form = EmpleadoForm()
-    
-    if request.method =="POST":
-        form = EmpleadoForm(request.POST)
-        if form.is_valid():
-
-            empl = Empleado(
-                nombre = form.cleaned_data["nombre"],
-                apellido = form.cleaned_data["apellido"],
-                numero_legajo = form.cleaned_data["numero_legajo"],
-                activo = form.cleaned_data["activo"]
-            )
-
-            empl.save()
-            return redirect("templates/empleado_lista/")
-    else:   
-        return redirect("templates/empleado_lista/")
-    
-    context = { "form": form }
-
-    # renderiza el template cambiar el nombre dependiendo del template
-    return render(request, "empleado_nuevo.jinja2", context) '''
 @csrf_exempt
 def registrar_empleado(request):
     form = EmpleadoForm()
