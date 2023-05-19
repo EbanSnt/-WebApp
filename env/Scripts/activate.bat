@@ -1,4 +1,4 @@
-@set "VIRTUAL_ENV=E:\-WebApp\env"
+@set "VIRTUAL_ENV=C:\Users\Casa\Documents\-WebApp\env"
 
 @if defined _OLD_VIRTUAL_PROMPT (
     @set "PROMPT=%_OLD_VIRTUAL_PROMPT%"
