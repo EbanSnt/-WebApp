@@ -7,7 +7,7 @@
   <form method="post">
     {% csrf_token %}
     <label for="nombre" class="form-label">Nombre:</label>
-    <input type="text" class="form-control" id="nombre" name="nombre" value="{{ autor.nombre }}" />
+    <input type="text" class="form-control" id="nombre" name="nombre" value="{{ empleado.nombre }}" />
     <br />
     <label for="apellido" class="form-label">Apellido:</label>
     <input
@@ -15,20 +15,20 @@
       id="apellido"
       class="form-control"
       name="apellido"
-      value="{{ autor.apellido }}"
+      value="{{ empleado.apellido }}"
     />
     <br />
-    <label for="nacionalidad"  class="form-label">Nacionalidad:</label>
+    <label for="nlegajo"  class="form-label">Nº de Legajo:</label>
     <input
       type="text"
-      id="nacionalidad"
-      name="nacionalidad"
+      id="nlegajo"
+      name="nlegajo"
       class="form-control"
-      value="{{ autor.nacionalidad }}"
+      value="{{ empleado.nacionalidad }}"
     />
     <br />
     <div class="mb-3 form-check">
-      <input type="checkbox" class="form-check-input" id="activo" name="activo" value="True" {% if autor.activo %}checked{% endif %} />
+      <input type="checkbox" class="form-check-input" id="activo" name="activo" value="True" {% if empleado.activo %}checked{% endif %} />
       <label class="form-check-label" for="activo" >Activo</label>
     <br />
     </div>
