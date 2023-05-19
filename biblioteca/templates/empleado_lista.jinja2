@@ -10,19 +10,18 @@
           <th>ID</th>
           <th>Nombre</th>
           <th>Apellido</th>
-          <th>Nacionalidad</th>
+          <th>Nº de legajo</th>
           <th>Activo</th>
-          <th>Acciones</th>
         </tr>
       </thead>
       <tbody>
-        {% for autor in autores -%}
+        {% for empleado in empleados -%}
         <tr>
-          <td>{{autor.id}}</td>
-          <td>{{ autor.nombre }}</td>
-          <td>{{ autor.apellido }}</td>
-          <td>{{ autor.nacionalidad }}</td>
-          <td>{{ autor.activo }}</td>
+          <td>{{empleado.id}}</td>
+          <td>{{ empleado.nombre }}</td>
+          <td>{{ empleado.apellido }}</td>
+          <td>{{ empleado.numero_legajo }}</td>
+          <td>{{ empleado.activo }}</td>
           <td>
             <form action="api/empleados/{{id}}/eliminar" method="post">
               {% csrf_token %}
@@ -43,7 +42,7 @@
           </td>
         </tr>
         {% empty %}
-        <li>No hay Productos registrados</li>
+        <li>No hay empleados registrados</li>
         {% endfor -%}
       </tbody>
     </table>
