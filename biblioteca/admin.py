@@ -39,6 +39,6 @@ admin.site.register(Prestamo_libro, PrestamoAdmin)
 class SocioAdmin(admin.ModelAdmin):
     list_display = ("nombre","apellido","fecha_nacimiento","activo")
     list_search = ('nombre', "apellido")
-    list_filter = ("activo")
+    list_filter = ("activo",)
 
 admin.site.register(Socio, SocioAdmin)
