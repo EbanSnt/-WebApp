@@ -30,7 +30,7 @@ def registrar_empleado(request):
         if form.is_valid():
             form.save()
         else:
-            return redirect("templates/empleado_lista/")
+            return redirect("empleado_lista")
     context = {'form': form}
     return render(request, "empleado_nuevo.jinja2", context)
 
