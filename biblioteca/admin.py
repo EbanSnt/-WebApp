@@ -35,4 +35,3 @@ class PrestamoAdmin(admin.ModelAdmin):
     list_search = ('socio', "libro" ,"empleado")
 
 admin.site.register(Prestamo_libro, PrestamoAdmin)
-

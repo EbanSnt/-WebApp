@@ -56,7 +56,7 @@ ROOT_URLCONF = 'WebApp.urls'
 TEMPLATES = [
         {
         'BACKEND': 'django.template.backends.jinja2.Jinja2',
-        'DIRS': [os.path.join(BASE_DIR, "templates")],
+        'DIRS': [BASE_DIR / "biblioteca"/ "templates"],
         'APP_DIRS': True,
     },
     {
