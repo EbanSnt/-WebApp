@@ -1,3 +1,4 @@
+from multiprocessing import context
 from django.shortcuts import redirect, render
 from .forms import *
 # Create your views here.
@@ -5,6 +6,20 @@ from .forms import *
 def index(request):
     return render(request,"index.jinja2")
 
+def empleado_lista(request):
+    try:
+        empleados = Empleado.objects.all()
+
+        context = {"empleados": empleados }
+
+        return render(request, "empleado_lista.jinja2", context)
+    
+    except Exception:
+
+        return render(request, "empleado_lista.jinja2")
+
+
+#Crea un nuevo empleado y lo guarda en la base de datos
 def registrar_empleado(request):
     form = EmpleadoForm()
     
@@ -20,9 +35,9 @@ def registrar_empleado(request):
             )
 
             empl.save()
-            return redirect("biblioteca/empleado_lista/")
+            return redirect("templates/empleado_lista/")
     else:   
-        return redirect("biblioteca/empleado_lista/")
+        return redirect("templates/empleado_lista/")
     
     context = { "form": form }
 
