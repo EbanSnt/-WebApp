@@ -55,14 +55,19 @@ def registrar_empleado(request):
         en caso de que los datos no sean validos, se redirecciona a la pagina de registro de empleados y ser mostrados @empleado_lista
     """
     form = EmpleadoForm()
+    context = {'form': form, "mensaje":""}
     if request.method == "POST":
         form = EmpleadoForm(request.POST)
         if form.is_valid():
+            nlegajo = form.cleaned_data["numero_legajo"]
+            if(Empleado.objects.filter(numero_legajo = nlegajo).exists()):
+               context["mensaje"] = "Nº de Legajo ya existe en la base de datos"
+               return render(request, "empleado_nuevo.html", context) 
             form.save()
             return redirect("empleado_lista")   # añadido redireccion al listado para cargar el nuevo 
         else:
             return redirect("empleado_lista")
-    context = {'form': form}
+  
     return render(request, "empleado_nuevo.html", context)
 
 
