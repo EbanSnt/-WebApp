@@ -1,7 +1,7 @@
 from django.urls import path
 from .views import *
 
-#REMOVER EL # PARA DEJAR FUNCIONAL EL PATH ALA URL mostrada 
+#REMOVER EL # PARA DEJAR FUNCIONAL EL PATH A LA URL mostrada 
 
 urlpatterns = [
     path("",index,name="index"), 
@@ -9,4 +9,5 @@ urlpatterns = [
     path("empleados/nuevo/",registrar_empleado, name="registrar_empleado"),
     path("empleados/<int:id>/modificar/",actualizar_empleado, name="actualizar_empleado"),
     #path("socios", socio_lista, name="socio_lista"),
+    #path("autores", registrar_autor, name="registrar_autor")
 ]
