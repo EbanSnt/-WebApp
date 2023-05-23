@@ -1,4 +1,3 @@
-from email import message
 from django.shortcuts import redirect, render
 from .forms import *
 from django.views.decorators.csrf import csrf_exempt
