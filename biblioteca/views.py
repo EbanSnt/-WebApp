@@ -111,3 +111,13 @@ def desactivar_empleado(request, id):
     else:
         return render(request, "empleado_actualizar.html", {"empleado": empleado})
 
+
+def desactvar_autor(request, id):
+    autor = Autor.objects.get(id = id)
+    if request.method =="POST":
+        autor.activo = False
+        autor.save()
+        messages.success(request, "El Autor ha sido desactivado exitosamente")
+        return redirect("autor_lista")
+    else:
+        return render(request, "autor_actulizar.html", {"autor": autor})
