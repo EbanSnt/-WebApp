@@ -112,6 +112,15 @@ def desactivar_empleado(request, id):
 
 
 def desactvar_autor(request, id):
+    """_summary_
+
+    Args:
+        request (_type_): _description_
+        id (_type_): _description_
+
+    Returns:
+        _type_: _description_
+    """
     autor = Autor.objects.get(id = id)
     if request.method =="POST":
         autor.activo = False
