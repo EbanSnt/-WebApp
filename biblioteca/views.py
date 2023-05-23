@@ -179,13 +179,12 @@ def socio_lista(request):
     except Exception:
          return render(request, "socio_lista.html")  
     
-def desactivar_autor(request, id):
-    # Falta agregar la url para autores
-    autor = Autor.objects.get(id=id)
+def desactivar_socio(request, id):
+    socio = Socio.objects.get(id=id)
     if request.method == "POST":
-        autor.activo = False
-        autor.save()
-        messages.success(request, "El autor ha sido desactivado exitosamente.")
-        return redirect("autor_lista")
+        socio.activo = False
+        socio.save()
+        messages.success(request, "El Socio ha sido desactivado exitosamente.")
+        return redirect("socio_lista")
     else:
-        return render(request, "autores_actualizar.html", {"autor": autor})
+        return render(request, "socio_lista.html", {"socio": socio})
