@@ -129,3 +129,52 @@ def desactvar_autor(request, id):
         return redirect("autor_lista")
     else:
         return render(request, "autor_actulizar.html", {"autor": autor})
+    
+@csrf_exempt
+def registrar_autor(request):
+    form = AutorForm() #REEMPLAZAR POR EL FORM PARA ESTE CAMPO
+    if request.method == "POST":
+        form = AutorForm(request.POST)
+        if form.is_valid():
+            form.save()
+        else:
+            return redirect("autor_lista.html") #REEMPLAZAR POR EL TEMPLATE PARA ESTE CAMPO
+    context = {"form":form}
+    return render(request, "registrar_autor.html", context) #REEMPLAZAR POR EL TEMPLATE QUE SE CREARÁ
+
+# ACTIVAR UN REGISTRO DE AUTOR
+def activo_cambiar_autor(request, id):
+    autor = Autor.objects.get(id=id)
+    if request.method == "POST":
+        if autor.activo == False:
+            autor.activo = True
+        else:
+            autor.activo = False
+        autor.save()
+        return redirect("autor_lista") #REEMPLAZAR POR EL NAME DEL PATH QUE SE COLOCARÁ
+    return render(request,"autor_lista") #REEMPLAZAR POR EL NAME DEL PATH QUE SE COLOCARÁ 
+        
+@csrf_exempt
+# ACTUALIZAR REGISTRO DE UN SOCIO
+def actualizar_socio(request,id):
+    socio = Socio.objects.get(id=id)
+    if request.method =="POST": 
+        socio.nombre = request.POST["nombre"]
+        socio.apellido = request.POST["apellido"]
+        socio.fecha_nacimiento= request.POST["fnacimiento"]
+        if request.POST.get("activo") == None:
+            socio.activo = False
+        else:
+            socio.activo = True
+        socio.save()
+        return redirect("socio_lista")
+    else:
+        return render(request,"socio_actualizar.html",{"socio":socio})
+    
+def socio_lista(request):
+    try:
+        socios = Socio.objects.all()
+        context = {"socios": socios }
+        return render(request, "socio_lista.html", context)
+    except Exception:
+         return render(request, "socio_lista.html")  

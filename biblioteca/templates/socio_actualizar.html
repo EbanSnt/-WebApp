@@ -5,9 +5,15 @@
     <h1>Actualizar Socio</h1>
   </div>
   <form method="post" id="form">
-  <input type="hidden" name="_csrf_token" value="{0}">
+    <input type="hidden" name="_csrf_token" value="{0}" />
     <label for="nombre" class="form-label">Nombre:</label>
-    <input type="text" class="form-control" id="nombre" name="nombre" value="{{ empleado.nombre }}" />
+    <input
+      type="text"
+      class="form-control"
+      id="nombre"
+      name="nombre"
+      value="{{ socio.nombre }}"
+    />
     <span id="nombre-error" class="text-danger my-2"></span>
     <br />
     <label for="apellido" class="form-label">Apellido:</label>
@@ -18,11 +24,11 @@
       name="apellido"
       value="{{ socio.apellido }}"
     />
-    <span id="apellido-error" class="text-danger  my-2"></span>
+    <span id="apellido-error" class="text-danger my-2"></span>
     <br />
-    <label for="fnacimiento"  class="form-label">Fecha de Nacimiento:</label>
+    <label for="fnacimiento" class="form-label">Fecha de Nacimiento:</label>
     <input
-      type="number"
+      type="date"
       id="fnacimiento"
       name="fnacimiento"
       class="form-control"
@@ -30,33 +36,48 @@
     />
     <br />
     <div class="mb-3 form-check">
-      <input type="checkbox" class="form-check-input" id="activo" name="activo" value="True" {% if socio.activo %}checked{% endif %} />
-      <label class="form-check-label" for="activo" >Activo</label>
-    <br />
+      <input
+        type="checkbox"
+        class="form-check-input"
+        id="activo"
+        name="activo"
+        value="True"
+        {%
+        if
+        socio.activo
+        %}checked{%
+        endif
+        %}
+      />
+      <label class="form-check-label" for="activo">Activo</label>
+      <br />
     </div>
-    <input id="button" class="btn btn-success" type="submit" value="Actualizar" />
-    <div class="mt-2 ">
+    <input
+      id="button"
+      class="btn btn-success"
+      type="submit"
+      value="Actualizar"
+    />
+    <div class="mt-2">
       <a class="btn btn-primary text-light" class="" href="/api/socios">
         Volver
       </a>
     </div>
   </form>
   <script>
-    var form = document.getElementById("form")
-    var button = document.getElementById("button")
+    var form = document.getElementById("form");
+    var button = document.getElementById("button");
     let empty;
-    form.addEventListener('input', function() {
-      empty = Array.from(form.elements).some(function(element) {
-        span = document.getElementById(`${element.id}-error`)
-        if(element.value === ""){
-          span.innerText = "Campo vacío"
+    form.addEventListener("input", function () {
+      empty = Array.from(form.elements).some(function (element) {
+        span = document.getElementById(`${element.id}-error`);
+        if (element.value === "") {
+          span.innerText = "Campo vacío";
         }
-        return element.value === '';
-      })
+        return element.value === "";
+      });
       button.disabled = empty;
-    }) 
-
+    });
   </script>
-    
 </div>
 {% endblock %}
