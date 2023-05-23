@@ -9,6 +9,8 @@ class Autor(models.Model):
     nacionalidad = models.CharField(max_length=30)
     activo = models.BooleanField(default=True)
 
+    def __str__(self):
+        return self.nombre
     
 class Libro(models.Model):
     titulo = models.CharField(max_length=100)
