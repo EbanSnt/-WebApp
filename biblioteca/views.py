@@ -137,9 +137,9 @@ def desactvar_autor(request, id):
     
 @csrf_exempt
 def registrar_autor(request):
-    form = AutorForm() #REEMPLAZAR POR EL FORM PARA ESTE CAMPO
+    form = AutoresForm() #REEMPLAZAR POR EL FORM PARA ESTE CAMPO
     if request.method == "POST":
-        form = AutorForm(request.POST)
+        form = AutoresForm(request.POST)
         if form.is_valid():
             form.save()
         else:
@@ -183,3 +183,13 @@ def socio_lista(request):
         return render(request, "socio_lista.html", context)
     except Exception:
          return render(request, "socio_lista.html")  
+    
+def desactivar_socio(request, id):
+    socio = Socio.objects.get(id=id)
+    if request.method == "POST":
+        socio.activo = False
+        socio.save()
+        messages.success(request, "El Socio ha sido desactivado exitosamente.")
+        return redirect("socio_lista")
+    else:
+        return render(request, "socio_lista.html", {"socio": socio})
