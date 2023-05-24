@@ -137,15 +137,15 @@ def desactvar_autor(request, id):
     
 @csrf_exempt
 def registrar_autor(request):
-    form = AutorForm() #REEMPLAZAR POR EL FORM PARA ESTE CAMPO
+    form = AutoresForm() #REEMPLAZAR POR EL FORM PARA ESTE CAMPO
     if request.method == "POST":
-        form = AutorForm(request.POST)
+        form = AutoresForm(request.POST)
         if form.is_valid():
             form.save()
         else:
             return redirect("autor_lista.html") #REEMPLAZAR POR EL TEMPLATE PARA ESTE CAMPO
     context = {"form":form}
-    return render(request, "registrar_autor.html", context) #REEMPLAZAR POR EL TEMPLATE QUE SE CREARÁ
+    return render(request, "autores_nuevo.html", context) #REEMPLAZAR POR EL TEMPLATE QUE SE CREARÁ
 
 # ACTIVAR UN REGISTRO DE AUTOR
 def activo_cambiar_autor(request, id):
