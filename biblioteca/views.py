@@ -145,7 +145,7 @@ def registrar_autor(request):
         else:
             return redirect("autor_lista.html") #REEMPLAZAR POR EL TEMPLATE PARA ESTE CAMPO
     context = {"form":form}
-    return render(request, "registrar_autor.html", context) #REEMPLAZAR POR EL TEMPLATE QUE SE CREARÁ
+    return render(request, "autores_nuevo.html", context) #REEMPLAZAR POR EL TEMPLATE QUE SE CREARÁ
 
 # ACTIVAR UN REGISTRO DE AUTOR
 def activo_cambiar_autor(request, id):
