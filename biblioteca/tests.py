@@ -13,7 +13,7 @@ class AutorNuevoTest(TestCase):
         response = self.client.post("/api/autores/nuevo/",{"nombre":"Adrian","apellido":"Rodriguez","nacionalidad":"Argentino","activo":True})
         
         #ACÁ SE TESTEA SI SE PUEDO HACER EL POST, SI SALE 404, ENTONCES ESTA MAL EL URL
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, 302)
 
         #ACA SE OBTIENE UN FILTER SOBRE LO QUE PUSISTE Y LO GUARDA
         autor_db= Autor.objects.filter(nombre ="Adrian", apellido="Rodriguez",nacionalidad="Argentino", activo=True)
@@ -37,3 +37,23 @@ class AutorNuevoTest(TestCase):
        
        # DEBIDO A QUE NO HACE FALTA UN TEMPLATE, EL CODIGO SERA 302 YA QUE ES UN REDIRECCIONAMIENTO A LA LISTA AUTORES
        self.assertEqual(response.status_code,302)
+
+    def test_show_Autores(self):
+        #TEST PARA VER SI SE RENDERIZA EL TITULO DEL TEMPLATE UTILIZADO
+
+        response = self.client.get("/api/autores/")
+        self.assertContains(response, "Lista de Autores")
+
+    def test_actualizar_autor(self):
+        #TEST PARA VER SI FUNCIONA EL FORM
+        newAutor =Autor.objects.create(nombre="Juan", apellido="Pérez", nacionalidad="Argentino", activo=False)
+
+        url = reverse("actualizar_autor",kwargs={"id":newAutor.id})
+        
+        response = self.client.post(url,{"nombre":"Javier","apellido":"Pérez", "nacionalidad":"Argentino", "activo":False})
+        
+        self.assertEqual(response.status_code,302)
+        
+        autor_db= Autor.objects.filter(nombre ="Javier", apellido="Pérez",nacionalidad="Argentino", activo=True)
+
+        self.assertEqual(autor_db.count(),1)
