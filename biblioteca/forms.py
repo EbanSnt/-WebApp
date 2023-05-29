@@ -25,11 +25,12 @@ class AutoresForm(forms.ModelForm):
         }
 
 class SociosForm(forms.ModelForm):
-    model = Socio
-    field = '__all__'
-    widgets = {
-        "nombre": forms.TextInput(attrs={"class":"form-control my-3"}),
-        "apellido": forms.TextInput(attrs={"class":"form-cotrol my-3"}),
-        "fecha_nacimiento": forms.DateInput(attrs={"class":"form-control my-3"}),
-        "activo": forms.CheckboxInput(attrs={"class":"form-check-input my-3"})
-    }
+    class Meta():
+        model = Socio
+        fields = '__all__'
+        widgets = {
+            "nombre": forms.TextInput(attrs={"class":"form-control my-3"}),
+            "apellido": forms.TextInput(attrs={"class":"form-cotrol my-3"}),
+            "fecha_nacimiento": forms.DateInput(attrs={"class":"form-control my-3"}),
+            "activo": forms.CheckboxInput(attrs={"class":"form-check-input my-2"})
+        }
