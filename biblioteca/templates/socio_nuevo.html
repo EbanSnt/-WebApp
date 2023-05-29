@@ -2,7 +2,7 @@
 
 {% block content %}
     <div class="container my-5">
-        <h1 class="text-center">Crear Nuevo Autor</h1>
+        <h1 class="text-center">Crear Nuevo Socio</h1>
 
         <form action="" method="post">
             <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
@@ -11,11 +11,11 @@
             <button class="btn btn-success"type="submit" onclick="window.location.href='/autores'">Crear</button>
             </div>
         </form>
-        <div class="mt-2">
-          <a class="btn btn-primary text-light" class="" href="/api/autores">
-            Volver
-          </a>
-        </div>
+        <div class="mt-2 ">
+            <a class="btn btn-primary text-light" href="/api/socios">
+              Volver
+            </a>
+          </div>
     </div>
 {% endblock %}
 

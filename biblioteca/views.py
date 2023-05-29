@@ -116,6 +116,15 @@ def desactivar_empleado(request, id):
         return render(request, "empleado_actualizar.html", {"empleado": empleado})
 
 
+def autor_lista(request):
+    try:
+        autores = Autor.objects.all()
+        context = {"autores": autores }
+        return render(request, "autor_lista.html", context)
+    except Exception:
+         return render(request, "autor_lista.html")  
+    
+
 def desactvar_autor(request, id):
     """_summary_
 
@@ -142,10 +151,43 @@ def registrar_autor(request):
         form = AutoresForm(request.POST)
         if form.is_valid():
             form.save()
+            return redirect("autor_lista")
         else:
             return redirect("autor_lista.html") #REEMPLAZAR POR EL TEMPLATE PARA ESTE CAMPO
     context = {"form":form}
     return render(request, "autores_nuevo.html", context) #REEMPLAZAR POR EL TEMPLATE QUE SE CREARÁ
+
+
+@csrf_exempt
+def registrar_socio(request):
+    form = SociosForm() #REEMPLAZAR POR EL FORM PARA ESTE CAMPO
+    if request.method == "POST":
+        form = SociosForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect("socio_lista")
+        else:
+            return redirect("socio_lista.html") #REEMPLAZAR POR EL TEMPLATE PARA ESTE CAMPO
+    context = {"form":form}
+    return render(request, "socio_nuevo.html", context) #REEMPLAZAR POR EL TEMPLATE QUE SE CREARÁ
+
+
+@csrf_exempt
+# ACTUALIZAR REGISTRO DE UN AUTOR
+def actualizar_autor(request,id):
+    autor = Autor.objects.get(id=id)
+    if request.method =="POST": 
+        autor.nombre = request.POST["nombre"]
+        autor.apellido = request.POST["apellido"]
+        autor.nacionalidad= request.POST["nacionalidad"]
+        if request.POST.get("activo") == None:
+            autor.activo = False
+        else:
+            autor.activo = True
+        autor.save()
+        return redirect("autor_lista")
+    else:
+        return render(request,"autores_actualizar.html",{"autor":autor})
 
 # ACTIVAR UN REGISTRO DE AUTOR
 def activo_cambiar_autor(request, id):
@@ -159,6 +201,7 @@ def activo_cambiar_autor(request, id):
         return redirect("empleado_lista") #REEMPLAZAR POR EL NAME DEL PATH QUE SE COLOCARÁ
     return render(request,"activar_autor") #REEMPLAZAR POR EL NAME DEL PATH QUE SE COLOCARÁ 
         
+
 @csrf_exempt
 # ACTUALIZAR REGISTRO DE UN SOCIO
 def actualizar_socio(request,id):
@@ -183,6 +226,9 @@ def socio_lista(request):
         return render(request, "socio_lista.html", context)
     except Exception:
          return render(request, "socio_lista.html")  
+
+
+
     
 def desactivar_socio(request, id):
     socio = Socio.objects.get(id=id)
@@ -190,6 +236,17 @@ def desactivar_socio(request, id):
         socio.activo = False
         socio.save()
         messages.success(request, "El Socio ha sido desactivado exitosamente.")
+        return redirect("socio_lista")
+    else:
+        return render(request, "socio_lista.html", {"socio": socio})
+    
+
+def activar_socio(request, id):
+    socio = Socio.objects.get(id=id)
+    if request.method == "POST":
+        socio.activo = True
+        socio.save()
+        messages.success(request, "El Socio ha sido activado exitosamente.")
         return redirect("socio_lista")
     else:
         return render(request, "socio_lista.html", {"socio": socio})
