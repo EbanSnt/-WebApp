@@ -156,8 +156,8 @@ def activo_cambiar_autor(request, id):
         else:
             autor.activo = False
         autor.save()
-        return redirect("autor_lista") #REEMPLAZAR POR EL NAME DEL PATH QUE SE COLOCARÁ
-    return render(request,"autor_lista") #REEMPLAZAR POR EL NAME DEL PATH QUE SE COLOCARÁ 
+        return redirect("empleado_lista") #REEMPLAZAR POR EL NAME DEL PATH QUE SE COLOCARÁ
+    return render(request,"activar_autor") #REEMPLAZAR POR EL NAME DEL PATH QUE SE COLOCARÁ 
         
 @csrf_exempt
 # ACTUALIZAR REGISTRO DE UN SOCIO

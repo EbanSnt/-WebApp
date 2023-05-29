@@ -1,5 +1,6 @@
 from django.test import TestCase
 from .models import * 
+from django.urls import reverse
 
 # Create your tests here.
 """
@@ -20,3 +21,19 @@ class AutorNuevoTest(TestCase):
         #ACA SE TESTEA SI HAY ALGO EN LA VARIABLE ANTERIOR, SI ES 0 FALLA
         self.assertEqual(autor_db.count(),1)
 
+    def test_changestatus_autores(self):
+       #PROBAR QUE LA VIEW QUE CAMBIAR AUTOR.ACTIVO DE FALSE A TRUE Y VICEVERSA 
+       #FUNCIONE DE MANERA CORRECTA
+       
+       newAutor =Autor.objects.create(nombre="Juan", apellido="Pérez", nacionalidad="Argentino", activo=False)
+       
+       url = reverse("activar_autor", kwargs={"id":newAutor.id})
+       
+       response = self.client.post(url)
+       
+       autorChange = Autor.objects.get(id=newAutor.id)
+       
+       self.assertTrue(autorChange.activo)
+       
+       # DEBIDO A QUE NO HACE FALTA UN TEMPLATE, EL CODIGO SERA 302 YA QUE ES UN REDIRECCIONAMIENTO A LA LISTA AUTORES
+       self.assertEqual(response.status_code,302)
