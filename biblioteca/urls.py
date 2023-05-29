@@ -11,9 +11,9 @@ urlpatterns = [
     path("socios/", socio_lista, name="socio_lista"),
     path("socios/<int:id>/modificar/", actualizar_socio, name="actualizar_socio"),
     #path("autores/<int:id>/modificar/",modificar_autor,name="modificar_autor"),
-    #path("autores/nuevo/",registrar_autor,name="registrar_autor"),
+    path("autores/nuevo/",registrar_autor,name="registrar_autor"),
     #path("autores/",autores_lista, name="autores_lista"),
-    path("autores/<int:id>/activar,",activo_cambiar_autor,name="autor_lista"),
+    path("autores/<int:id>/activar",activo_cambiar_autor,name="activar_autor"),
     #path("autores/<int:id>/desactivar,",desactivar_autor,name="desactivar_autor")
     path("autores", registrar_autor, name="registrar_autor"),
 ]
