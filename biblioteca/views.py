@@ -115,6 +115,17 @@ def desactivar_empleado(request, id):
     else:
         return render(request, "empleado_actualizar.html", {"empleado": empleado})
 
+# ACTIVAR_DESACTIVAR UN REGISTRO DE EMPLEADO / FUSION DE CODIGO 
+def activo_cambiar_empleado(request, id):
+    empleado = Empleado.objects.get(id=id)
+    if request.method == "POST":
+        if empleado.activo == False:
+            empleado.activo = True
+        else:
+            empleado.activo = False
+        empleado.save()
+        return redirect("empleado_lista") #REEMPLAZAR POR EL NAME DEL PATH QUE SE COLOCARÁ
+    return render(request,"status_empleado") #REEMPLAZAR POR EL NAME DEL PATH QUE SE COLOCARÁ 
 
 def autor_lista(request):
     try:
@@ -198,8 +209,8 @@ def activo_cambiar_autor(request, id):
         else:
             autor.activo = False
         autor.save()
-        return redirect("empleado_lista") #REEMPLAZAR POR EL NAME DEL PATH QUE SE COLOCARÁ
-    return render(request,"activar_autor") #REEMPLAZAR POR EL NAME DEL PATH QUE SE COLOCARÁ 
+        return redirect("autor_lista") #REEMPLAZAR POR EL NAME DEL PATH QUE SE COLOCARÁ
+    return render(request,"status_autor") #REEMPLAZAR POR EL NAME DEL PATH QUE SE COLOCARÁ 
         
 
 @csrf_exempt
@@ -250,3 +261,15 @@ def activar_socio(request, id):
         return redirect("socio_lista")
     else:
         return render(request, "socio_lista.html", {"socio": socio})
+
+#FUSION DE CODIGO
+def activar_cambiar_socio(request,id):
+    socio = Socio.objects.get(id=id)
+    if request.method == "POST":
+        if socio.activo == False:
+            socio.activo = True
+        else:
+            socio.activo = False
+        socio.save()
+        return redirect("socio_lista") #REEMPLAZAR POR EL NAME DEL PATH QUE SE COLOCARÁ
+    return render(request,"status_socio") #REEMPLAZAR POR EL NAME DEL PATH QUE SE COLOCARÁ  
