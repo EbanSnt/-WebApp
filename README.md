@@ -26,25 +26,26 @@ Este es un proyecto de Biblioteca desarrollado con Django 4.0 y Jinja2.
 
 ## Funcionalidades (Features)
  - Autores
-    [ ] Registro
-    [ ] Listado
-    [ ] Actualización
-    [ ] Eliminación
+    - [ ] Registro
+    - [ ] Listado
+    - [ ] Actualización
+    - [ ] Eliminación
  - Libros
-    [ ] Registro
-    [ ] Listado
-    [ ] Actualización
-    [ ] Eliminación
+    - [ ] Registro
+    - [ ] Listado
+    - [ ] Actualización
+    - [ ] Eliminación
  - Empleados
-    [x] Registro
-    [x] Listado
-    [x] Actualización
-    [ ] Eliminación
+    - [x] Registro
+    - [x] Listado
+    - [x] Actualización
+    - [ ] Eliminación
  - Socios
-    [ ] Registro
-    [x] Listado
-    [x] Actualización
-    [ ] Eliminación
+    - [ ] Registro
+    - [x] Listado
+    - [x] Actualización
+    - [ ] Eliminación
+
 ## Requisitos previos
 
 - Python 3.9 o superior
