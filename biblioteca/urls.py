@@ -16,7 +16,8 @@ urlpatterns = [
     path("autores/<int:id>/modificar/", actualizar_autor,name="actualizar_autor"),
     path("autores/nuevo/",registrar_autor,name="registrar_autor"),
     path("autores/",autor_lista, name="autor_lista"),
-    path("autores/<int:id>/changeStatus",activo_cambiar_autor,name="activar_autor"),
+    path("autores/<int:id>/changeStatus",activo_cambiar_autor,name="status_autor"),
+    path("endpoint/libros/", end_libros_todos,name="getLibrosAll")
     #path("autores/<int:id>/desactivar,",desactivar_autor,name="desactivar_autor")
     #path("autores", registrar_autor, name="registrar_autor"),
 ]
