@@ -17,7 +17,11 @@ urlpatterns = [
     path("autores/nuevo/",registrar_autor,name="registrar_autor"),
     path("autores/",autor_lista, name="autor_lista"),
     path("autores/<int:id>/changeStatus",activo_cambiar_autor,name="status_autor"),
-    path("endpoint/libros/", end_libros_todos,name="getLibrosAll")
+    path("endpoint/libros/", end_libros_todos,name="getLibrosAll"),
+    path("libros/nuevo/", registrar_libro,name="registrar_libro"),
+    path("libros/", libro_lista, name="libros_lista"),
+    path("libros/<int:id>/modificar/", actualizar_libro, name="actualizar_socio"),
+    path("libros/<int:id>/changeStatus", activar_cambiar_libro, name="status_libros"),
     #path("autores/<int:id>/desactivar,",desactivar_autor,name="desactivar_autor")
     #path("autores", registrar_autor, name="registrar_autor"),
 ]
