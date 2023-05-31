@@ -1,4 +1,4 @@
-from django.shortcuts import redirect, render
+from django.shortcuts import get_object_or_404, redirect, render
 from .forms import *
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib import messages
@@ -307,6 +307,17 @@ def actualizar_libro(request,id):
         return render(request,"libro_actualizar.html",{"libro":libro}) #REEMPLAZAR CON EL NOMBRE DEL TEMPLATE QUE SE USARÁ
     
 
+#FUSION DE CODIGO
+def activar_cambiar_libro(request,id):
+    libro = Libro.objects.get(id=id)
+    if request.method == "POST":
+        if libro.activo == False:
+            libro.activo = True
+        else:
+            libro.activo = False
+        libro.save()
+        return redirect("libros_lista") 
+    return render(request,"status_libros") 
 """
     VIEWS PRESTAMOS
     BEGINS HERE
@@ -358,13 +369,22 @@ def end_libros_todos(request):
     return JsonResponse(libros_data,safe=False)
 
 
-
 def borrar_prestamo_libro(request, id):
     try:
-      if request.method == "POST":
-        prestamo = Prestamo_libro.objects.get(id=id)
-        prestamo.delete()
-        messages.success(request, "El prestamo ha sido eliminado exitosamente.")
-        return redirect("index") # al listado de prestamos ??
-    except Exception:
-        return redirect("index") # por algo que muestre el error que no se puede mostrar
+        prestamo = get_object_or_404(Prestamo_libro, id=id) # en caso de no encontrar el ID retorna un 404 
+
+        if request.method == "POST":
+            prestamo.delete()
+            messages.success(request, "El préstamo ha sido eliminado exitosamente.")
+            return redirect("prestamos_lista") #
+
+        return render(request, "borrar_prestamo_libro.html", {"prestamo": prestamo}) # Agregue una web para borrado exitoso 
+    
+    except Exception as e:
+        messages.error(request, f"No se puede eliminar el préstamo: {e}")
+        return redirect("error") # se agrego la URL
+    
+
+# MOVER LA VIEW A DONDE SE QUIERA ESTA SOLO RENDERIZA UN TEMPLATE PAR ERROR
+def error(request):
+    return render(request, "error.html") # se agrego la URL
