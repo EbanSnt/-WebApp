@@ -24,7 +24,6 @@ urlpatterns = [
     path("autores/<int:id>/changeStatus",activo_cambiar_autor,name="status_autor"),
     #LIBROS
     path("endpoint/libros/", end_libros_todos,name="getLibrosAll"),
-    path("prestamos/eliminar/<int:id>" ,name="libro_lista"), #<- cambio arreglado de url, parte de mi tarea anterior
-    
+    path("prestamos/eliminar/<int:id>", borrar_prestamo_libro ,name="borrar_prestamo") #<- cambio arreglado de url, parte de mi tarea anterior
     
 ]
