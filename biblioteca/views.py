@@ -361,10 +361,12 @@ def end_libros_todos(request):
 
 def borrar_prestamo_libro(request, id):
     try:
-      if request.method == "POST":
-        prestamo = Prestamo_libro.objects.get(id=id)
-        prestamo.delete()
-        messages.success(request, "El prestamo ha sido eliminado exitosamente.")
-        return redirect("index") # al listado de prestamos ??
+        if request.method == "POST":
+            prestamo = Prestamo_libro.objects.get(id=id)
+            prestamo.delete()
+            messages.success(request, "El prestamo ha sido eliminado exitosamente.")
+            return redirect("prestamo_lista/")
+        
+        return render(request , "", {"prestamo":prestamo }) # al listado de prestamos ??
     except Exception:
-        return redirect("index") # por algo que muestre el error que no se puede mostrar
+        return redirect(request ,"error", ) # falta algo que muestre el error que no se puede mostrar
