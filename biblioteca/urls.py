@@ -5,6 +5,8 @@ from .views import *
 
 urlpatterns = [
     path("",index,name="index"), 
+    path("error/", error, name="error"),
+
     #EMPLEADOS
     path("empleados/",empleado_lista, name="empleado_lista"), 
     path("empleados/nuevo/",registrar_empleado, name="registrar_empleado"),
@@ -23,5 +25,6 @@ urlpatterns = [
     #LIBROS
     path("endpoint/libros/", end_libros_todos,name="getLibrosAll"),
     path("prestamos/eliminar/<int:id>" ,name="libro_lista"), #<- cambio arreglado de url, parte de mi tarea anterior
+    
     
 ]
