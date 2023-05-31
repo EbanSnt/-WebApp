@@ -307,6 +307,17 @@ def actualizar_libro(request,id):
         return render(request,"libro_actualizar.html",{"libro":libro}) #REEMPLAZAR CON EL NOMBRE DEL TEMPLATE QUE SE USARÁ
     
 
+#FUSION DE CODIGO
+def activar_cambiar_libro(request,id):
+    libro = Libro.objects.get(id=id)
+    if request.method == "POST":
+        if libro.activo == False:
+            libro.activo = True
+        else:
+            libro.activo = False
+        libro.save()
+        return redirect("libros_lista") 
+    return render(request,"status_libros") 
 """
     VIEWS PRESTAMOS
     BEGINS HERE
