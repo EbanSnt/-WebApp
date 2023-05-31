@@ -2,7 +2,7 @@ from django.shortcuts import redirect, render
 from .forms import *
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib import messages
-
+from django.http import JsonResponse
 
 
 # Create your views here.
@@ -273,3 +273,86 @@ def activar_cambiar_socio(request,id):
         socio.save()
         return redirect("socio_lista") #REEMPLAZAR POR EL NAME DEL PATH QUE SE COLOCARÁ
     return render(request,"status_socio") #REEMPLAZAR POR EL NAME DEL PATH QUE SE COLOCARÁ  
+
+"""
+    VIEWS LIBROS
+    BEGINS HERE
+"""
+#MOSTRAR LA LISTA DE LIBROS
+def libro_lista(request):
+    try:
+        empleados = Empleado.objects.all()
+        context = {"empleados": empleados }
+        return render(request, "libro_lista.html", context) #REEMPLAZAR POR EL NAME DEL TEMPLATE
+    except Exception:
+        return render(request,"libro_lista.html") 
+
+@csrf_exempt
+# ACTUALIZAR REGISTRO DE UN LIBRO
+def actualizar_libro(request,id):
+    libro = Libro.objects.get(id=id)
+    if request.method =="POST": 
+        libro.nombre = request.POST["titulo"]
+        libro.apellido = request.POST["descripcion"]
+        libro.nacionalidad= request.POST["isbn"]
+        libro.nacionalidad= request.POST["autor"]
+        libro.nacionalidad= request.POST["activo"]
+        if request.POST.get("activo") == None:
+            libro.activo = False
+        else:
+            libro.activo = True
+        libro.save()
+        return redirect("libro_lista") #REEMPLAZAR AQUI CON EL NAME DE LA RUTA EN URLS.PY
+    else:
+        return render(request,"libro_actualizar.html",{"libro":libro}) #REEMPLAZAR CON EL NOMBRE DEL TEMPLATE QUE SE USARÁ
+    
+
+"""
+    VIEWS PRESTAMOS
+    BEGINS HERE
+"""
+#def PrestarForm(request):
+#    form = PrestamoLibroForm()
+#    if request.method == "POST":
+#        form = PrestamoLibroForm(request.POST)
+#        if form.is_valid():
+#            prestamo = form.save(commit=False)  # PARA QUE NO GUARDE AL DAR AL BOTON DE ENVIAR
+#
+#            # CALCULOS PARA LA FECHA DE DEVOLUCION DEL LIBRO
+#            fecha_prestamo = prestamo.fecha_prestamo
+#            prestamo.fecha_devolucion = fecha_prestamo + timedelta(days=2)
+#
+#            prestamo.save()  # GUARDAMOS RECIEN AQUI EL REGISTRO
+#            return redirect('index')
+#    else:
+#        form = PrestamoLibroForm()
+#
+#    context = {'form': form}
+#    return render(request, 'libros_prestar.html', context)
+
+"""
+    VIEWS ENDPOINT
+    BEGINS HERE
+"""
+
+def end_libros_todos(request):
+    #TRAEMOS TODOS LOS LIBROS
+    libros = Libro.objects.all().values()
+    print(libros)
+
+    #CREAMOS UNA LISTA VACIA
+    libros_data =[]
+    
+
+    for libro in libros:
+        #HAY QUE TENER ENCUENTA SI TRABAJAMOS CON FOREIGN KEY, DEBEMOS BUSCAR EL FK EN SU MODELO CORRESPONDIENTE
+
+        autor = Autor.objects.get(id=libro["autor_id"])
+        
+        #CREAMOS UN ELEMENTO PARA AGREGARLO A LIBROS_DATA
+        libro_data ={"id":libro["id"], "titulo":libro["titulo"], "autor":autor.nombre}
+    
+        libros_data.append(libro_data)
+    
+    #RETORNAMO LA LISTA EN UN JSON
+    return JsonResponse(libros_data,safe=False)
