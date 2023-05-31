@@ -1,4 +1,4 @@
-from django.shortcuts import redirect, render
+from django.shortcuts import get_object_or_404, redirect, render
 from .forms import *
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib import messages
@@ -358,15 +358,22 @@ def end_libros_todos(request):
     return JsonResponse(libros_data,safe=False)
 
 
-
 def borrar_prestamo_libro(request, id):
     try:
+        prestamo = get_object_or_404(Prestamo_libro, id=id) # en caso de no encontrar el ID retorna un 404 
+
         if request.method == "POST":
-            prestamo = Prestamo_libro.objects.get(id=id)
             prestamo.delete()
-            messages.success(request, "El prestamo ha sido eliminado exitosamente.")
-            return redirect("prestamo_lista/")
-        
-        return render(request , "", {"prestamo":prestamo }) # al listado de prestamos ??
-    except Exception:
-        return redirect(request ,"error", ) # falta algo que muestre el error que no se puede mostrar
+            messages.success(request, "El préstamo ha sido eliminado exitosamente.")
+            return redirect("prestamos_lista") #
+
+        return render(request, "borrar_prestamo_libro.html", {"prestamo": prestamo}) # Agregue una web para borrado exitoso 
+    
+    except Exception as e:
+        messages.error(request, f"No se puede eliminar el préstamo: {e}")
+        return redirect("error") # se agrego la URL
+    
+
+# MOVER LA VIEW A DONDE SE QUIERA ESTA SOLO RENDERIZA UN TEMPLATE PAR ERROR
+def error(request):
+    return render(request, "error.html") # se agrego la URL
