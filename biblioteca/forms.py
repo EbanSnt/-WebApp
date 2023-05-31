@@ -34,3 +34,17 @@ class SociosForm(forms.ModelForm):
             "fecha_nacimiento": forms.DateInput(attrs={"class":"form-control my-3"}),
             "activo": forms.CheckboxInput(attrs={"class":"form-check-input my-2"})
         }
+
+
+class PrestamoLibroForm(forms.ModelForm):
+
+    class Meta():
+        model = Prestamo_libro
+        field = '__all__'
+        widgets = {
+            "socio": forms.Select(attrs={"class":"form-control my-3"}),
+            "libro": forms.Select(attrs={"class":"form-control my-3"}),
+            "empleado": forms.Select(attrs={"class":"form-control my-3"}),
+            "fecha_prestamo": forms.DateInput(attrs={"class":"form-control my-3"}),
+            "fecha_devolucion": forms.DateInput(attrs={"class":"form-control my-3"}),
+        }
