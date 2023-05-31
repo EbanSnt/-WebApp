@@ -356,3 +356,15 @@ def end_libros_todos(request):
     
     #RETORNAMO LA LISTA EN UN JSON
     return JsonResponse(libros_data,safe=False)
+
+
+
+def borrar_prestamo_libro(request, id):
+    try:
+      if request.method == "POST":
+        prestamo = Prestamo_libro.objects.get(id=id)
+        prestamo.delete()
+        messages.success(request, "El prestamo ha sido eliminado exitosamente.")
+        return redirect("index") # al listado de prestamos ??
+    except Exception:
+        return redirect("index") # por algo que muestre el error que no se puede mostrar
