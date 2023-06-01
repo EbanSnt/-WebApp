@@ -396,3 +396,22 @@ def borrar_prestamo_libro(request, id):
 # MOVER LA VIEW A DONDE SE QUIERA ESTA SOLO RENDERIZA UN TEMPLATE PAR ERROR
 def error(request):
     return render(request, "error.html") # se agrego la URL
+
+def end_libros_id(request,id):
+    try:
+        #TRAEMOS EL LIBRO
+        libro = Libro.objects.get(id=id)
+        print(libro)
+        #CREAMOS UNA LISTA VACIA
+        libro_data =[]
+        #HAY QUE TENER ENCUENTA SI TRABAJAMOS CON FOREIGN KEY, DEBEMOS BUSCAR EL FK EN SU MODELO CORRESPONDIENTE
+        autor = Autor.objects.get(id=libro.id)
+        #CREAMOS UN ELEMENTO PARA AGREGARLO A LIBRO_DATA
+        libro ={"id":libro.id, "titulo":libro.titulo,"descripcion":libro.descripcion,"autor":autor.nombre}
+
+        libro_data.append(libro)
+        #RETORNAMO LA LISTA EN UN JSON
+        return JsonResponse(libro_data,safe=False)
+    except:
+        libro_data =[]
+        return JsonResponse(libro_data,safe=False)
