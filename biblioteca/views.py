@@ -322,6 +322,14 @@ def activar_cambiar_libro(request,id):
     VIEWS PRESTAMOS
     BEGINS HERE
 """
+def prestamos_lista(request):
+    try:
+        prestamo = Prestamo_libro.objects.all()
+        ctx = {"prestamo":prestamo}
+        return render(request,"prestamos_lista.html",ctx)
+    except:
+        return render(request,"prestamos_lista.html")
+
 #def PrestarForm(request):
 #    form = PrestamoLibroForm()
 #    if request.method == "POST":
