@@ -1,0 +1,75 @@
+{% extends 'header.html' %}{% block content %}
+
+<div class="container py-3">
+  <div class="d-flex w-100 justify-content-center">
+    <h1>Actualizar Prestamo</h1>
+  </div>
+  <form method="post" id="form">
+  <input type="hidden" name="_csrf_token" value="{0}">
+
+    <label for="socio" class="form-label">Socio Actual: {{prestamo.socio.nombre}} {{prestamo.socio.apellido}}</label>
+    <input list="socios" name="socio" >
+        <datalist id="socios">
+            {% for socio in socios %}
+                {% if socio.activo == True %}
+                <option value="{{socio.id}}">{{socio.nombre}} {{socio.apellido}}</option>
+                {% endif %}
+            {% endfor %}
+        </datalist>
+
+    <label for="empleado" class="form-label">Empleado Actual: {{prestamo.empleado.nombre}} {{prestamo.empleado.apellido}}</label>
+    <input list="empleados" name="empleado" >
+        <datalist id="empleados">
+            {% for empleado in empleados %}
+                {% if empleado.activo == True %}
+                <option value="{{empleado.id}}">{{empleado.nombre}} {{empleado.apellido}}</option>
+                {% endif %}
+            {% endfor %}
+        </datalist>
+
+    <label for="libro" class="form-label">Libro Actual: {{prestamo.libro.titulo}}-{{prestamo.libro.autor.nombre}} {{prestamo.libro.autor.apellido}}</label>
+    <input list="libros" name="libro" >
+    <datalist id="libros">
+        {% for libro in libros %}
+            {% if libro.activo == True %}
+            <option value="{{libro.id}}">{{libro.titulo}}-{{libro.autor.nombre}} {{libro.autor.apellido}}</option>
+            {% endif %}
+        {% endfor %}
+    </datalist>
+    
+    <label for="fecha_prestamo" class="form-label"></label>
+    <input type="date" class="form-control" id="fecha_prestamo" name="fecha_prestamo"/>
+    <span id="fecha_prestamo-error" class="text-danger my-2"></span>
+    <br />
+
+    <label for="fecha_devolucion" class="form-label"></label>
+    <input type="date" class="form-control" id="fecha_devolucion" name="fecha_devolucion"/>
+    <span id="fecha_devolucion-error" class="text-danger my-2"></span>
+    <br />
+
+    <input id="button" class="btn btn-success" type="submit" value="Actualizar" />
+    <div class="mt-2 ">
+      <a class="btn btn-primary text-light" class="" href="/api/prestamos">
+        Volver
+      </a>
+    </div>
+  </form>
+  <script>
+    var form = document.getElementById("form")
+    var button = document.getElementById("button")
+    let empty;
+    form.addEventListener('input', function() {
+      empty = Array.from(form.elements).some(function(element) {
+        span = document.getElementById(`${element.id}-error`)
+        if(element.value === ""){
+          span.innerText = "Campo vacío"
+        }
+        return element.value === '';
+      })
+      button.disabled = empty;
+    }) 
+
+  </script>
+    
+</div>
+{% endblock %}
