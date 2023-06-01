@@ -11,7 +11,7 @@
               <th>ID</th>
               <th>Nombre</th>
               <th>Descripcion</th>
-              <th>ISB</th>
+              <th>ISBN</th>
               <th>Autor</th>
               <th>Activo</th>
               <th>Acciones</th>
@@ -27,7 +27,7 @@
             <td>{{ libro.autor }}</td>
             <td>{{ libro.activo }}</td>
             <td class="d-flex">
-              <form action="api/libros/{{id}}/eliminar" method="post">
+              <form action="api/libros/{{libro.id}}/eliminar" method="post">
                 <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
                 <button class="btn btn-danger" type="submit" title="Eliminar" />
                 <svg viewBox="0 0 50 50" width="20px" height="20px" fill="#ffff">

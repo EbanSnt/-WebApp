@@ -5,19 +5,16 @@
   <form action="" method="post">
     <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}" />
     {{form}}
+    <span class="my-3 text-danger">
+      * La fecha de devolucion se establece con 2 dias despues de la fecha de
+      prestamo</span
+    >
     <div class="my-2">
-      <h4 class="text-danger my-2">{{mensaje}}</h4>
-      <button
-        class="btn btn-success"
-        type="submit"
-        onclick="window.location.href='
-      >
-        Crear
-      </button>
+      <button class="btn btn-success" type="submit">Crear</button>
     </div>
   </form>
   <div class="mt-2">
-    <a class="btn btn-primary text-light" class="" href="">
+    <a class="btn btn-primary text-light" class="" href="/api/prestamos">
       Volver
     </a>
   </div>

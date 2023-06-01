@@ -3,6 +3,7 @@ from .forms import *
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib import messages
 from django.http import JsonResponse
+from datetime import timedelta
 
 
 # Create your views here.
@@ -281,8 +282,8 @@ def activar_cambiar_socio(request,id):
 #MOSTRAR LA LISTA DE LIBROS
 def libro_lista(request):
     try:
-        empleados = Empleado.objects.all()
-        context = {"empleados": empleados }
+        libros = Libro.objects.all()
+        context = {"libros": libros }
         return render(request, "libro_lista.html", context) #REEMPLAZAR POR EL NAME DEL TEMPLATE
     except Exception:
         return render(request,"libro_lista.html") 
@@ -323,59 +324,31 @@ def activar_cambiar_libro(request,id):
     BEGINS HERE
 """
 def prestamos_lista(request):
+    prestamos = Prestamo_libro.objects.all() 
+    ctx = {"prestamos":prestamos}
     try:
-        prestamo = Prestamo_libro.objects.all()
-        ctx = {"prestamo":prestamo}
         return render(request,"prestamos_lista.html",ctx)
     except:
         return render(request,"prestamos_lista.html")
 
-#def PrestarForm(request):
-#    form = PrestamoLibroForm()
-#    if request.method == "POST":
-#        form = PrestamoLibroForm(request.POST)
-#        if form.is_valid():
-#            prestamo = form.save(commit=False)  # PARA QUE NO GUARDE AL DAR AL BOTON DE ENVIAR
-#
-#            # CALCULOS PARA LA FECHA DE DEVOLUCION DEL LIBRO
-#            fecha_prestamo = prestamo.fecha_prestamo
-#            prestamo.fecha_devolucion = fecha_prestamo + timedelta(days=2)
-#
-#            prestamo.save()  # GUARDAMOS RECIEN AQUI EL REGISTRO
-#            return redirect('index')
-#    else:
-#        form = PrestamoLibroForm()
-#
-#    context = {'form': form}
-#    return render(request, 'libros_prestar.html', context)
+def PrestarForm(request):
+    form = PrestamoLibroForm()
+    if request.method == "POST":
+        form = PrestamoLibroForm(request.POST)
+        if form.is_valid():
+            prestamo = form.save(commit=False)  # PARA QUE NO GUARDE AL DAR AL BOTON DE ENVIAR
 
-"""
-    VIEWS ENDPOINT
-    BEGINS HERE
-"""
+            # CALCULOS PARA LA FECHA DE DEVOLUCION DEL LIBRO
+            fecha_prestamo = prestamo.fecha_prestamo
+            prestamo.fecha_devolucion = fecha_prestamo + timedelta(days=2)
 
-def end_libros_todos(request):
-    #TRAEMOS TODOS LOS LIBROS
-    libros = Libro.objects.all().values()
-    print(libros)
+            prestamo.save()  # GUARDAMOS RECIEN AQUI EL REGISTRO
+            return redirect('prestamos_lista')
+    else:
+        form = PrestamoLibroForm()
 
-    #CREAMOS UNA LISTA VACIA
-    libros_data =[]
-    
-
-    for libro in libros:
-        #HAY QUE TENER ENCUENTA SI TRABAJAMOS CON FOREIGN KEY, DEBEMOS BUSCAR EL FK EN SU MODELO CORRESPONDIENTE
-
-        autor = Autor.objects.get(id=libro["autor_id"])
-        
-        #CREAMOS UN ELEMENTO PARA AGREGARLO A LIBROS_DATA
-        libro_data ={"id":libro["id"], "titulo":libro["titulo"], "autor":autor.nombre}
-    
-        libros_data.append(libro_data)
-    
-    #RETORNAMO LA LISTA EN UN JSON
-    return JsonResponse(libros_data,safe=False)
-
+    context = {'form': form}
+    return render(request, 'prestamo_libro.html', context)
 
 def borrar_prestamo_libro(request, id):
     try:
