@@ -3,7 +3,7 @@ from django.shortcuts import get_object_or_404, redirect, render
 from .forms import *
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib import messages
-from django.http import JsonResponse
+from django.http import HttpResponseRedirect, JsonResponse
 from datetime import timedelta
 
 
@@ -22,6 +22,16 @@ def index(request):
     return render(request,"index.html")
 
 
+# RENDER PARA UN TEMPLATE DE ERROR
+#FALTA IMPLEMENTAR EN vistas!
+def error(request):
+    """ 
+    Render de una pagina de error, la cual es mostrada cuando se produce un error 
+    """
+    return render(request, "error.html") # se agrego la URL
+
+
+# EMPLEADOS
 def empleado_lista(request):
     """
      Genera una lista de los empleados registrados en el sitema, los cuales pueden ser editados o eliminados
@@ -42,19 +52,11 @@ def empleado_lista(request):
          return render(request, "empleado_lista.html")
 
 
-
 #Crea un nuevo empleado y lo guarda en la base de datos
 @csrf_exempt
 def registrar_empleado(request):
     """
     Permite registrar un nuevo empleado en el sistema, el cual es almacenado en la base de datos
-
-    Args:
-        request (GET): recibe datos de la solicitud HTTP para cargarlas en los formularios dentro del contexto
-
-    Returns:
-        _type_: retorna los datos cargados a la base de datos, la mismos datos son mostrados en la pagina especifica,
-        en caso de que los datos no sean validos, se redirecciona a la pagina de registro de empleados y ser mostrados @empleado_lista
     """
     form = EmpleadoForm()
     context = {'form': form, "mensaje":""}
@@ -77,13 +79,6 @@ def registrar_empleado(request):
 def actualizar_empleado(request,id):
     """
     Permite actualizar los datos de un empleado en especifico, los datos son obtenidos de la base de datos y cargados en los formularios
-
-    Args:
-        request (_type_): recibe los datos de la solicitud HTTP para cargarlos en los formularios dentro del contexto
-        id (STR): id del empleado a actualizar
-
-    Returns:
-        _type_: retorna los nuevos datos la base de datos para luego ser cargados nuevamente por su respectiva funcion @empleado_lista y poder visualizarlos
     """
     empleado = Empleado.objects.get(id=id)
     if request.method =="POST": 
@@ -99,23 +94,22 @@ def actualizar_empleado(request,id):
         return redirect("empleado_lista")
     else:
         return render(request,"empleado_actualizar.html",{"empleado":empleado})
-    
+
 
 def desactivar_empleado(request, id):
 
-    """_summary_
-
-    Returns:
-        _type_: _description_
+    """
+        Desactiva un empleado en especifico, el cual es seleccionado por el usuario, el empleado es desactivado y no puede ser utilizado en el sistema
     """
     empleado = Empleado.objects.get(id=id)
     if request.method == "POST":
         empleado.activo = False
         empleado.save()
-        messages.success(request, "El empleado ha sido desactivado exitosamente.")
+        messages.success(request, "El empleado ha sido desactivado exitosamente.") # Donde se usa la variable messages?
         return redirect("empleado_lista")
     else:
         return render(request, "empleado_actualizar.html", {"empleado": empleado})
+
 
 # ACTIVAR_DESACTIVAR UN REGISTRO DE EMPLEADO / FUSION DE CODIGO 
 def activo_cambiar_empleado(request, id):
@@ -129,7 +123,12 @@ def activo_cambiar_empleado(request, id):
         return redirect("empleado_lista") #REEMPLAZAR POR EL NAME DEL PATH QUE SE COLOCARÁ
     return render(request,"status_empleado") #REEMPLAZAR POR EL NAME DEL PATH QUE SE COLOCARÁ 
 
+
+# AUTORES
 def autor_lista(request):
+    """
+    Genera una lista de los autores registrados en el sitema, los cuales pueden ser editados o eliminados
+    """
     try:
         autores = Autor.objects.all()
         context = {"autores": autores }
@@ -139,14 +138,8 @@ def autor_lista(request):
     
 
 def desactvar_autor(request, id):
-    """_summary_
-
-    Args:
-        request (_type_): _description_
-        id (_type_): _description_
-
-    Returns:
-        _type_: _description_
+    """
+    Desactiva un autor en especifico, el cual es seleccionado por el usuario, el autor es desactivado y no puede ser utilizado en el sistema
     """
     autor = Autor.objects.get(id = id)
     if request.method =="POST":
@@ -157,8 +150,12 @@ def desactvar_autor(request, id):
     else:
         return render(request, "autor_actulizar.html", {"autor": autor})
     
+
 @csrf_exempt
 def registrar_autor(request):
+    """
+     Registro de autores en el sistema, los cuales son almacenados en la base de datos, los parametros son obtenidos de los formularios 
+    """
     form = AutoresForm() #REEMPLAZAR POR EL FORM PARA ESTE CAMPO
     if request.method == "POST":
         form = AutoresForm(request.POST)
@@ -172,22 +169,11 @@ def registrar_autor(request):
 
 
 @csrf_exempt
-def registrar_socio(request):
-    form = SociosForm() #REEMPLAZAR POR EL FORM PARA ESTE CAMPO
-    if request.method == "POST":
-        form = SociosForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect("socio_lista")
-        else:
-            return redirect("socio_lista.html") #REEMPLAZAR POR EL TEMPLATE PARA ESTE CAMPO
-    context = {"form":form}
-    return render(request, "socio_nuevo.html", context) #REEMPLAZAR POR EL TEMPLATE QUE SE CREARÁ
-
-
-@csrf_exempt
 # ACTUALIZAR REGISTRO DE UN AUTOR
 def actualizar_autor(request,id):
+    """
+        Actualiza los datos de un autor en especifico, los datos son obtenidos de la base de datos y cargados en los formularios para que el usuario pueda modificarlosa gusto siempre y cuando cumplan con las validaciones
+    """
     autor = Autor.objects.get(id=id)
     if request.method =="POST": 
         autor.nombre = request.POST["nombre"]
@@ -201,9 +187,13 @@ def actualizar_autor(request,id):
         return redirect("autor_lista")
     else:
         return render(request,"autores_actualizar.html",{"autor":autor})
+    
 
 # ACTIVAR UN REGISTRO DE AUTOR
 def activo_cambiar_autor(request, id):
+    """
+        Activa un autor en especifico, el cual es seleccionado por el usuario, el autor es activado y puede ser utilizado en el sistema
+    """
     autor = Autor.objects.get(id=id)
     if request.method == "POST":
         if autor.activo == False:
@@ -215,9 +205,43 @@ def activo_cambiar_autor(request, id):
     return render(request,"status_autor") #REEMPLAZAR POR EL NAME DEL PATH QUE SE COLOCARÁ 
         
 
+# SOCIOS
+# Rgristrar un socio
+@csrf_exempt
+def registrar_socio(request)->HttpResponseRedirect:
+    """
+        Registro de socios en el sistema, los cuales son almacenados en la base de datos, los parametros son obtenidos de los formularios
+    """ 
+    form = SociosForm() #REEMPLAZAR POR EL FORM PARA ESTE CAMPO
+    if request.method == "POST":
+        form = SociosForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect("socio_lista")
+        else:
+            return redirect("socio_lista.html") #REEMPLAZAR POR EL TEMPLATE PARA ESTE CAMPO
+    context = {"form":form}
+    return render(request, "socio_nuevo.html", context) #REEMPLAZAR POR EL TEMPLATE QUE SE CREARÁ
+
+#LIST DE SOCIOS
+def socio_lista(request):
+    """
+        Lista de socios registrados en el sistema, los cuales pueden ser editados o eliminados, esta es obtenida desde la base de datos
+    """
+    try:
+        socios = Socio.objects.all()
+        context = {"socios": socios }
+        return render(request, "socio_lista.html", context)
+    except Exception:
+         return render(request, "socio_lista.html")  
+
+
 @csrf_exempt
 # ACTUALIZAR REGISTRO DE UN SOCIO
 def actualizar_socio(request,id):
+    """
+        Actualiza los datos de un socio en especifico, los datos son obtenidos de la base de datos y cargados en los formularios para que el usuario pueda modificarlosa gusto siempre y cuando cumplan con las validaciones
+    """
     socio = Socio.objects.get(id=id)
     if request.method =="POST": 
         socio.nombre = request.POST["nombre"]
@@ -232,18 +256,12 @@ def actualizar_socio(request,id):
     else:
         return render(request,"socio_actualizar.html",{"socio":socio})
     
-def socio_lista(request):
-    try:
-        socios = Socio.objects.all()
-        context = {"socios": socios }
-        return render(request, "socio_lista.html", context)
-    except Exception:
-         return render(request, "socio_lista.html")  
 
-
-
-    
+# Desactivar un socio
 def desactivar_socio(request, id):
+    """
+        Desactiva un socio en especifico, el cual es seleccionado por el usuario, el socio es desactivado y no puede ser utilizado en el sistema
+    """
     socio = Socio.objects.get(id=id)
     if request.method == "POST":
         socio.activo = False
@@ -253,7 +271,7 @@ def desactivar_socio(request, id):
     else:
         return render(request, "socio_lista.html", {"socio": socio})
     
-
+# Activar un socio
 def activar_socio(request, id):
     socio = Socio.objects.get(id=id)
     if request.method == "POST":
@@ -282,6 +300,9 @@ def activar_cambiar_socio(request,id):
 """
 #MOSTRAR LA LISTA DE LIBROS
 def libro_lista(request):
+    """ 
+        Lista de libros registrados en el sistema, los cuales pueden ser editados o eliminados, esta es obtenida desde la base de datos
+    """
     try:
         libros = Libro.objects.all()
         context = {"libros": libros }
@@ -292,6 +313,10 @@ def libro_lista(request):
 @csrf_exempt
 # ACTUALIZAR REGISTRO DE UN LIBRO
 def actualizar_libro(request,id):
+    """
+        Actualiza los datos de un libro en especifico, los datos son obtenidos de la base de datos y cargados en los formularios para que el usuario pueda modificarlosa gusto siempre y cuando cumplan con las validaciones
+    """
+
     libro = Libro.objects.get(id=id)
     autor_libro_actual = Autor.objects.get(nombre = libro.autor)
     autor = Autor.objects.filter(~Q(nombre=libro.autor))       
@@ -311,9 +336,12 @@ def actualizar_libro(request,id):
     else:
         return render(request,"libro_actualizar.html",{"libro":libro,"autores":autor,"autor_actual":autor_libro_actual}) #REEMPLAZAR CON EL NOMBRE DEL TEMPLATE QUE SE USARÁ
     
-
 #FUSION DE CODIGO
 def activar_cambiar_libro(request,id):
+    """
+        Desactiva un libro en especifico, el cual es seleccionado por el usuario, el libro es desactivado y no puede ser utilizado en el sistema
+    """
+
     libro = Libro.objects.get(id=id)
     if request.method == "POST":
         if libro.activo == False:
@@ -323,19 +351,30 @@ def activar_cambiar_libro(request,id):
         libro.save()
         return redirect("libros_lista") 
     return render(request,"status_libros") 
+
+
 """
     VIEWS PRESTAMOS
     BEGINS HERE
 """
 def prestamos_lista(request):
+    """
+        Lista de prestamos registrados en el sistema, los cuales pueden ser editados o eliminados, esta es obtenida desde la base de datos
+    """
     prestamos = Prestamo_libro.objects.all() 
-    ctx = {"prestamos":prestamos}
+    context = {"prestamos":prestamos}
     try:
-        return render(request,"prestamos_lista.html",ctx)
+        return render(request,"prestamos_lista.html",context)
     except:
         return render(request,"prestamos_lista.html")
 
+
 def PrestarForm(request):
+    """
+        Formulario para prestar un libro, el cual es obtenido desde la base de datos y cargado en el formulario para que el usuario pueda seleccionar el libro que desea prestar
+        esta view regula las validaciones
+    """
+    
     form = PrestamoLibroForm()
     if request.method == "POST":
         form = PrestamoLibroForm(request.POST)
@@ -354,7 +393,12 @@ def PrestarForm(request):
     context = {'form': form}
     return render(request, 'prestamo_libro.html', context)
 
+
+
 def borrar_prestamo_libro(request, id):
+    """
+        Elimina un prestamo en especifico, el cual es seleccionado por el usuario, el prestamo es eliminado y no puede ser utilizado en el sistema
+    """
     try:
         prestamo = get_object_or_404(Prestamo_libro, id=id) # en caso de no encontrar el ID retorna un 404 
 
@@ -369,11 +413,7 @@ def borrar_prestamo_libro(request, id):
         messages.error(request, f"No se puede eliminar el préstamo: {e}")
         return redirect("error") # se agrego la URL
     
-
-# MOVER LA VIEW A DONDE SE QUIERA ESTA SOLO RENDERIZA UN TEMPLATE PAR ERROR
-def error(request):
-    return render(request, "error.html") # se agrego la URL
-
+    
 def end_libros_id(request,id):
     try:
         #TRAEMOS EL LIBRO
