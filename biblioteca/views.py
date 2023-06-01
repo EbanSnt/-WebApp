@@ -293,12 +293,14 @@ def libro_lista(request):
 # ACTUALIZAR REGISTRO DE UN LIBRO
 def actualizar_libro(request,id):
     libro = Libro.objects.get(id=id)
-    autor = Autor.objects.filter(~Q(nombre=libro.autor))
+    autor_libro_actual = Autor.objects.get(nombre = libro.autor)
+    autor = Autor.objects.filter(~Q(nombre=libro.autor))       
     if request.method =="POST": 
         libro.titulo = request.POST["titulo"]
         libro.descripcion = request.POST["descripcion"]
         libro.isbn = request.POST["isbn"]
-        libro.autor = request.POST.get("autor")
+        autor_id = Autor.objects.get(id = int(request.POST["autor"]))
+        libro.autor = autor_id
         libro.activo= request.POST["activo"]
         if request.POST.get("activo") == None:
             libro.activo = False
@@ -307,7 +309,7 @@ def actualizar_libro(request,id):
         libro.save()
         return redirect("libros_lista") #REEMPLAZAR AQUI CON EL NAME DE LA RUTA EN URLS.PY
     else:
-        return render(request,"libro_actualizar.html",{"libro":libro,"autores":autor}) #REEMPLAZAR CON EL NOMBRE DEL TEMPLATE QUE SE USARÁ
+        return render(request,"libro_actualizar.html",{"libro":libro,"autores":autor,"autor_actual":autor_libro_actual}) #REEMPLAZAR CON EL NOMBRE DEL TEMPLATE QUE SE USARÁ
     
 
 #FUSION DE CODIGO

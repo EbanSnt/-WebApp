@@ -28,10 +28,10 @@
 
     <label for="autor" class="form-label">Autor:</label>
     <select id="autor" name="autor" class="form-select" >
-    <option value={{libro.autor}}> {{libro.autor}}</option>
+    <option value={{autor_actual.id}}> {{autor_actual.nombre}}</option>
     {% for autor in autores %}
-        {% if autor.activo %}checked
-            <option value={{ autor }}>{{ autor }}</option>
+        {% if autor.activo %}
+            <option value="{{ autor.id }}">{{ autor }}</option>
         {% else %}
             <option value={{ autor }} disabled>{{ autor }}</option>
         {% endif %}
