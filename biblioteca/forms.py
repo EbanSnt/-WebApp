@@ -31,12 +31,15 @@ class SociosForm(forms.ModelForm):
         widgets = {
             "nombre": forms.TextInput(attrs={"class":"form-control my-3"}),
             "apellido": forms.TextInput(attrs={"class":"form-control my-3"}),
-            "fecha_nacimiento": forms.DateInput(attrs={"class":"form-control my-3"}),
+            "fecha_nacimiento": forms.DateInput(attrs={"class":"form-control my-3","type":"date"}),
             "activo": forms.CheckboxInput(attrs={"class":"form-check-input my-2"})
         }
 
 class PrestamoLibroForm(forms.ModelForm):
-
+    fecha_devolucion = forms.DateField(
+        widget=forms.HiddenInput(),
+        required=False
+    )
     class Meta():
         model = Prestamo_libro
         fields = '__all__'
@@ -44,6 +47,6 @@ class PrestamoLibroForm(forms.ModelForm):
             "socio": forms.Select(attrs={"class":"form-control my-3"}),
             "libro": forms.Select(attrs={"class":"form-control my-3"}),
             "empleado": forms.Select(attrs={"class":"form-control my-3"}),
-            "fecha_prestamo": forms.DateInput(attrs={"class":"form-control my-3"}),
-            "fecha_devolucion": forms.DateInput(attrs={"class":"form-control my-3"}),
+            "fecha_prestamo": forms.DateInput(attrs={"class":"form-control my-3", "type":"date"}),
+            "fecha_devolucion": forms.DateInput(attrs={"class":"form-control my-3", "type":"date"}),
         }
