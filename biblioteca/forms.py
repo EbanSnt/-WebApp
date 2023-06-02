@@ -50,3 +50,14 @@ class PrestamoLibroForm(forms.ModelForm):
             "fecha_prestamo": forms.DateInput(attrs={"class":"form-control my-3", "type":"date"}),
             "fecha_devolucion": forms.DateInput(attrs={"class":"form-control my-3", "type":"date"}),
         }
+
+class LibroForm(forms.ModelForm):
+    class Meta():
+        model = Libro
+        fields = '__all__'
+        widgets={"titulo":forms.TextInput(attrs={"class":"form-control my-3"}),
+                 "descripcion":forms.TextInput(attrs={"class":"form-control my-3"}),
+                 "isbn":forms.NumberInput(attrs={"class":"form-control my-3","type":"number"}),
+                 "autor": forms.Select(attrs={"class":"form-control my-3"}),
+                 "activo":forms.CheckboxInput(attrs={"class":"form-check-input my-2"})
+                 }
