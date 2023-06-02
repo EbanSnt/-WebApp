@@ -23,7 +23,7 @@ urlpatterns = [
     path("autores/",autor_lista, name="autor_lista"),
     path("autores/<int:id>/changeStatus",activo_cambiar_autor,name="status_autor"),
     #LIBROS
-    #path("libros/nuevo/", registrar_libro,name="registrar_libro"),
+    path("libros/nuevo/", registrar_libro,name="registrar_libro"),
     path("libros/", libro_lista, name="libros_lista"),
     path("libros/<int:id>/modificar/", actualizar_libro, name="actualizar_socio"),
     path("libros/<int:id>/changeStatus", activar_cambiar_libro, name="status_libros"),
@@ -32,5 +32,6 @@ urlpatterns = [
     path("prestamos/<int:id>/eliminar/", borrar_prestamo_libro ,name="borrar_prestamo"), #<- cambio arreglado de url, parte de mi tarea anterior
     path("prestamos/",prestamos_lista,name="prestamos_lista"),
 
-    path("prestamos/nuevo/",PrestarForm,name="prestamo_nuevo")
+    path("prestamos/nuevo/",PrestarForm,name="prestamo_nuevo"),
+    path("prestamos/<int:id>/modificar/", actualizar_prestamo, name="actualizar_prestamo")
 ]

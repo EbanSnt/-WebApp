@@ -1,96 +1,21 @@
-{% extends 'header.html' %}{% block content %}
+{% extends 'header.html' %} {% block content %}
+<div class="container my-5">
+  <h1 class="text-center">Registrar un Nuevo Libro</h1>
 
-<div class="container py-3">
-  <div class="d-flex w-100 justify-content-center">
-    <h1>Crear Nuevo Libro</h1>
-  </div>
-  <form method="post" id="form">
-    <input type="hidden" name="_csrf_token" value="{0}" />
-
-    <label for="titulo" class="form-label">Titulo:</label>
-    <input
-      type="text"
-      class="form-control"
-      id="titulo"
-      name="titulo"
-    />
-    <span id="titulo-error" class="text-danger my-2"></span>
-    <br />
-
-    <label for="descripcion" class="form-label">Descripcion:</label>
-    <input
-      type="text"
-      id="descripcion"
-      class="form-control"
-      name="descripcion"
-    />
-    <span id="descripcion-error" class="text-danger my-2"></span>
-    <br />
-
-    <label for="isbn" class="form-label">ISBN:</label>
-    <input
-      type="number"
-      id="isbn"
-      name="isbn"
-      class="form-control"
-    />
-    <span id="isbn-error" class="text-danger my-2"></span>
-    <br />
-
-    <label for="autor" class="form-label">Autor:</label>
-    <input list="autores" name="autor" >
-    <datalist id="autores">
-        {% for autor in autores %}
-            {% if autor.activo == True %}
-            <option value="{{autor.id}}">{{autor.nombre}} {{autor.apellido}}</option>
-            {% endif %}
-        {% endfor %}
-    </datalist>
-    <br />
-
-    <div class="mb-3 form-check">
-      <input
-        type="checkbox"
-        class="form-check-input"
-        id="activo"
-        name="activo"
-        value="True"
-        {%
-        if
-        socio.activo
-        %}checked{%
-        endif
-        %}
-      />
-      <label class="form-check-label" for="activo">Activo</label>
-      <br />
-    </div>
-    <input
-      id="button"
-      class="btn btn-success"
-      type="submit"
-      value="Crear"
-    />
-    <div class="mt-2">
-      <a class="btn btn-primary text-light" class="" href="/api/libros">
-        Volver
-      </a>
+  <form action="" method="post">
+    <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}" />
+    {{form}}
+    <br>
+    <span class="my-3 text-danger">
+      * El ISBN debe ser una cifra de 13 dígitos, entre 1000000000000 y 9999999999999</span    >
+    <div class="my-2">
+      <button class="btn btn-success" type="submit">Crear</button>
     </div>
   </form>
-  <script>
-    var form = document.getElementById("form");
-    var button = document.getElementById("button");
-    let empty;
-    form.addEventListener("input", function () {
-      empty = Array.from(form.elements).some(function (element) {
-        span = document.getElementById(`${element.id}-error`);
-        if (element.value === "") {
-          span.innerText = "Campo vacío";
-        }
-        return element.value === "";
-      });
-      button.disabled = empty;
-    });
-  </script>
+  <div class="mt-2">
+    <a class="btn btn-primary text-light" class="" href="/api/libros">
+      Volver
+    </a>
+  </div>
 </div>
 {% endblock %}

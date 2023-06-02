@@ -218,8 +218,6 @@ def registrar_socio(request)->HttpResponseRedirect:
         if form.is_valid():
             form.save()
             return redirect("socio_lista")
-        else:
-            return redirect("socio_lista.html") #REEMPLAZAR POR EL TEMPLATE PARA ESTE CAMPO
     context = {"form":form}
     return render(request, "socio_nuevo.html", context) #REEMPLAZAR POR EL TEMPLATE QUE SE CREARÁ
 
@@ -310,6 +308,23 @@ def libro_lista(request):
     except Exception:
         return render(request,"libro_lista.html") 
 
+
+# Registrar un libro
+@csrf_exempt
+def registrar_libro(request)->HttpResponseRedirect:
+    """
+        Registro de libros en el sistema, los cuales son almacenados en la base de datos, los parametros son obtenidos de los formularios
+    """ 
+    form = LibroForm() #REEMPLAZAR POR EL FORM PARA ESTE CAMPO
+    if request.method == "POST":
+        form = LibroForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect("libros_lista")
+    context = {"form":form}
+    return render(request, "libro_nuevo.html", context) #REEMPLAZAR POR EL TEMPLATE QUE SE CREARÁ
+
+
 @csrf_exempt
 # ACTUALIZAR REGISTRO DE UN LIBRO
 def actualizar_libro(request,id):
@@ -394,6 +409,33 @@ def PrestarForm(request):
     return render(request, 'prestamo_libro.html', context)
 
 
+@csrf_exempt
+# ACTUALIZAR UN PRESTAMO
+def actualizar_prestamo(request,id):
+    """
+        Actualiza los datos de un prestamo en especifico, los datos son obtenidos de la base de datos y cargados en los formularios para que el usuario pueda modificarlos a gusto siempre y cuando cumplan con las validaciones
+    """
+    prestamo = Prestamo_libro.objects.get(id=id)
+    socio_actual = Socio.objects.get(nombre = prestamo.socio)
+    empleado_actual = Empleado.objects.get(nombre = prestamo.empleado)
+    libro_actual = Libro.objects.get(titulo = prestamo.libro)
+    socio = Socio.objects.filter(~Q(nombre=prestamo.socio))    
+    empleado = Empleado.objects.filter(~Q(nombre=prestamo.empleado)) 
+    libro = Libro.objects.filter(~Q(titulo=prestamo.libro))    
+    if request.method =="POST": 
+        socio_id = Socio.objects.get(id = int(request.POST["socio"]))
+        prestamo.socio = socio_id
+        empleado_id = Empleado.objects.get(id = int(request.POST["empleado"]))
+        prestamo.empleado = empleado_id
+        libro_id = Libro.objects.get(id = int(request.POST["libro"]))
+        prestamo.libro = libro_id
+        prestamo.fecha_prestamo = request.POST["fecha_prestamo"]
+        prestamo.fecha_devolucion = request.POST["fecha_devolucion"]
+        prestamo.save()
+        return redirect("prestamos_lista") #REEMPLAZAR AQUI CON EL NAME DE LA RUTA EN URLS.PY
+    else:
+        return render(request,"prestamo_actualizar.html",{"prestamo":prestamo,"socios":socio,"socio_actual":socio_actual,"empleados":empleado,"empleado_actual":empleado_actual,"libros":libro,"libro_actual":libro_actual}) #REEMPLAZAR CON EL NOMBRE DEL TEMPLATE QUE SE USARÁ
+    
 
 def borrar_prestamo_libro(request, id):
     """
