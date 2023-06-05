@@ -27,6 +27,9 @@ Este es un proyecto de Biblioteca desarrollado con Django 4.0 y Jinja2.
 
 [![Build Status](https://img.shields.io/badge/Branch-develop-blue)](https://github.com/EbanSnt/-WebApp/tree/develop)
 
+## Listados de Endpoints
+
+[Autores](#endpoints-de-autores) |   [Libros](#endpoints-de-libros) |  [Empleados](#endpoints-de-empleados)   |   [Socios](#endpoints-de-socios) |  [Prestamos](#endpoins-de-prestamos)
 ## Funcionalidades (Features)
 
 - Autores
@@ -111,9 +114,7 @@ Este es un proyecto de Biblioteca desarrollado con Django 4.0 y Jinja2.
 
 ## Documentacion
 
-## Listados de Endpoints
 
-[Autores](#) |   [Libros](#) |  [Empleados](# )   |   [Socios](#) |  [Prestamos](#)
 
 ## Endpoints
 
