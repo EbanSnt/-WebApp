@@ -30,6 +30,7 @@ Este es un proyecto de Biblioteca desarrollado con Django 4.0 y Jinja2.
 ## Listados de Endpoints
 
 [Autores](#endpoints-de-autores) |   [Libros](#endpoints-de-libros) |  [Empleados](#endpoints-de-empleados)   |   [Socios](#endpoints-de-socios) |  [Prestamos](#endpoins-de-prestamos)
+
 ## Funcionalidades (Features)
 
 - Autores
@@ -114,93 +115,72 @@ Este es un proyecto de Biblioteca desarrollado con Django 4.0 y Jinja2.
 
 ## Documentacion
 
-
-
 ## Endpoints
 
-<details>
-<summary>Autores</summary>
+# *Autores*
 
 ## Endpoints de Autores
 
 | Método | Endpoint | Descripción |
 | ------ | -------- | ----------- |
-| GET    | /api/autores/ | Listado de autores |
-| POST   | /api/autores/nuevo | Crear un autor |
-| GET    | /api/autores/{id}/ | Obtener un autor |
-| PUT    | /api/autores/{id}/modificarr | Actualizar un autor |
-| DELETE | /api/autores/{id}/eliminar | Eliminar un autor |
+| GET    | [/api/autores/](#autor-vistas)| Listado de autores |
+| POST   | [/api/autores/nuevo](#autor-registro) | Crear un autor |
+| GET    | [/api/autores/{id}]/ | Obtener un autor |
+| PUT    | [/api/autores/{id}/modificar](#autor-modificar) | Actualizar un autor |
+| DELETE | [/api/autores/{id}/eliminar](#autor-eliminar) | Eliminar un autor |
+# *Empleados*
+##### Endpoints de Empleados
 
-</details>
+| Método | Endpoint | Descripción |
+| ------ | -------- | ----------- |
+| GET    | [/api/empleados/](#empleado-vistas) | Listado de empleados |
+| POST   | [/api/empleados/nuevo](#empleado-registro) | Crear un empleado |
+| GET    | /api/empleados/{id}/ | Obtener un empleado |
+| PUT    | [/api/empleados/{id}/modificar](#empleado-modificar) | Actualizar un empleado |
+| DELETE | [/api/empleados/{id}/eliminar](#empleado-eliminar) | Eliminar un empleado |
 
-<details>
-<summary>Libros</summary>
+# *Socios*
+
+#### Endpoints de Socios
+
+| Método | Endpoint | Descripción |
+| ------ | -------- | ----------- |
+| GET    | [/api/socios/](#socio-lista) | Listado de socios |
+| POST   | [/api/socios/nuevo](#socio-registro) | Crear un socio |
+| GET    | /api/socios/{id}/ | Obtener un socio |
+| PUT    | [/api/socios/{id}/modificar](#socio-modificar) | Actualizar un socio |
+| DELETE | /api/socios/{id}/eliminar | Eliminar un socio |
+# *Libros*
 
 ## Endpoints de Libros
 
 | Método | Endpoint | Descripción |
 | ------ | -------- | ----------- |
-| GET    | /api/libros/ | Listado de libros |
-| POST   | /api/libros/nuevo | Crear un libro |
+| GET    | [/api/libros/](#libro-vistas) | Listado de libros |
+| POST   | [/api/libros/nuevo](#libro-registro) | Crear un libro |
 | GET    | /api/libros/{id}/ | Obtener un libro |
-| PUT    | /api/libros/{id}/modificar | Actualizar un libro |
-| DELETE | /api/libros/{id}/eliminar | Eliminar un libro |
+| PUT    | [/api/libros/{id}/modificar](#libro-modificar) | Actualizar un libro |
+| DELETE | [/api/libros/{id}/eliminar](#libro-eliminar) | Eliminar un libro |
 
-</details>
+# Prestamos
 
-<details>
-<summary>Empleados</summary>
-
-## Endpoints de Empleados
+#### Endpoints de Prestamos
 
 | Método | Endpoint | Descripción |
 | ------ | -------- | ----------- |
-| GET    | /api/empleados/ | Listado de empleados |
-| POST   | /api/empleados/nuevo | Crear un empleado |
-| GET    | /api/empleados/{id}/ | Obtener un empleado |
-| PUT    | /api/empleados/{id}/modificar | Actualizar un empleado |
-| DELETE | /api/empleados/{id}/eliminar | Eliminar un empleado |
+| GET    | [/api/prestamos/](#prestamo-vistas) | Listado de prestamos |
+| POST   | [/api/prestamos/nuevo](#prestamo-registro) | Crear un prestamo |
+| GET    | [/api/prestamos/{id}/] | Obtener un prestamo |
+| PUT    | [/api/prestamos/{id}/modificar](#prestamo-modificar) | Actualizar un prestamo |
+| DELETE | [/api/prestamos/{id}/eliminar](#prestamo-eliiminar) | Eliminar un prestamo |
 
-</details>
+# *Vistas Generales*
 
-<details>
-<summary>Socios</summary>
+# __Autor Vistas__
 
-## Endpoints de Socios
+- Autor Lista
 
-| Método | Endpoint | Descripción |
-| ------ | -------- | ----------- |
-| GET    | /api/socios/ | Listado de socios |
-| POST   | /api/socios/nuevo | Crear un socio |
-| GET    | /api/socios/{id}/ | Obtener un socio |
-| PUT    | /api/socios/{id}/modificar | Actualizar un socio |
-| DELETE | /api/socios/{id}/eliminar | Eliminar un socio |
-
-</details>
-
-<details>
-<summary>Prestamos</summary>
-
-## Endpoints de Prestamos
-
-| Método | Endpoint | Descripción |
-| ------ | -------- | ----------- |
-| GET    | /api/prestamos/ | Listado de prestamos |
-| POST   | /api/prestamos/nuevo | Crear un prestamo |
-| GET    | /api/prestamos/{id}/ | Obtener un prestamo |
-| PUT    | /api/prestamos/{id}/modificar | Actualizar un prestamo |
-| DELETE | /api/prestamos/{id}/eliminar | Eliminar un prestamo |
-
-</details>
-
-# Vistas Generales
-
-<details>
-<summary>Autor Vistas</summary>
-
-## Autor Lista
-
-### GET /api/autores/
+- GET /api/autores/
 
 <p> Retorna una lista de los autores registrados en la base de datos. </p>
 
@@ -213,13 +193,11 @@ Este es un proyecto de Biblioteca desarrollado con Django 4.0 y Jinja2.
          return render(request, "autor_lista.html")
 ```
 
-<details>
+# Autor Registro
 
-<summary> Registro</summary>
+- Autor Nuevo
 
-## Autor Nuevo
-
-### POST /api/autores/nuevo
+- POST /api/autores/nuevo
 
 <p> Mediante un formulario ingresa/registra un nuevo autor en la base de datos </p>
 
@@ -234,14 +212,11 @@ Este es un proyecto de Biblioteca desarrollado con Django 4.0 y Jinja2.
     return render(request, "autor_nuevo.html", {"form": form})
 ```
 
-</details>
-<details>
-
 ## Autor Modificar
 
-<summary> Actualización</summary>
+- Actualización
 
-### PUT /api/autores/{id}/modificar
+- PUT /api/autores/{id}/modificar
 
 <p>Obteniendo los datos ya cargados desde la base de datos nos proporciona un nuevo formulario en el cual podemos modificar los datos neccesarios para actualizar nuestro Autor</p>
 
@@ -261,20 +236,13 @@ Este es un proyecto de Biblioteca desarrollado con Django 4.0 y Jinja2.
         return render(request,"autores_actualizar.html",{"autor":autor})
 ```
 
-</details>
-</details>
+# __Empleado Vistas__
 
-<details>
+- Lista
 
-<summary> Empleado Vistas</summary>
+- Empleado Lista
 
-<details>
-
-<summary> Lista</summary>
-
-## Empleado Lista
-
-### GET /api/empleados/
+- GET /api/empleados/
 
 <p>Retorna una lista de los empleados registrados en la base de datos. </p>
 
@@ -287,12 +255,9 @@ Este es un proyecto de Biblioteca desarrollado con Django 4.0 y Jinja2.
          return render(request, "empleado_lista.html")
 ```
 
-</details>
+# Empleado Registro
 
-<details>
-<summary> Registro</summary>
-
-### POST /api/empleados/nuevo
+- POST /api/empleados/nuevo
 
 <p> Registro de un nuevo empleado en la base de datos</p>
 
@@ -307,12 +272,9 @@ Este es un proyecto de Biblioteca desarrollado con Django 4.0 y Jinja2.
     return render(request, "empleado_nuevo.html", {"form": form})
 ```
 
-</details>
+# Empleado Modificar
 
-<details>
-<summary> Actualización</summary>
-
-### PUT /api/empleados/{id}/modificar
+- PUT /api/empleados/{id}/modificar
 
 <p>Obteniendo los datos ya cargados desde la base de datos nos proporciona un nuevo formulario en el cual podemos modificar los datos neccesarios para actualizar nuestro Empleado</p>
 
@@ -331,24 +293,17 @@ Este es un proyecto de Biblioteca desarrollado con Django 4.0 y Jinja2.
         return render(request,"empleado_actualizar.html",{"empleado":empleado})
 ```
 
-<details>
-<summary> Eliminación</summary>
+# Empleado Eliminar
 
-### DELETE /api/empleados/{id}/eliminar
+- DELETE /api/empleados/{id}/eliminar
 
-</details>
-</details>
-</details>
+# __Socio Vistas__
 
-<details>
-<summary> Socio Vistas</summary>
+- Lista
 
-<details>
-<summary> Lista</summary>
+- Socio Lista
 
-## Socio Lista
-
-### GET /api/socios/
+- GET /api/socios/
 
 <p>Lista de los socios obenida desde la base de datos</p>
 
@@ -361,14 +316,11 @@ Este es un proyecto de Biblioteca desarrollado con Django 4.0 y Jinja2.
          return render(request, "socio_lista.html")
 ```
 
-</details>
+# Socio Registro
 
-<details>
-<summary> Registro</summary>
+- Socio Nuevo
 
-## Socio Nuevo
-
-### POST /api/socios/nuevo
+- POST /api/socios/nuevo
 
 <p>Mediante un formulario ingresa/registra un nuevo autor en la base de datos</p>
 
@@ -383,14 +335,11 @@ Este es un proyecto de Biblioteca desarrollado con Django 4.0 y Jinja2.
     return render(request, "socio_nuevo.html", {"form": form})
 ```
 
-</details>
+# Socio Modificar
 
-<details>
-<summary> Actualización</summary>
+- Socio Modificar
 
-## Socio Modificar
-
-### PUT /api/socios/{id}/modificar
+- PUT /api/socios/{id}/modificar
 
 <p>Obteniendo los datos ya cargados desde la base de datos nos proporciona un nuevo formulario en el cual podemos modificar los datos neccesarios para actualizar nuestro Empleado</p>
 
@@ -409,34 +358,19 @@ Este es un proyecto de Biblioteca desarrollado con Django 4.0 y Jinja2.
         return render(request,"socio_actualizar.html",{"socio":socio})
 ```
 
-</details>
+# Socio Eliminar
 
-<details>
-<summary> Eliminación</summary>
-
-### DELETE /api/socios/{id}/eliminar
+- DELETE /api/socios/{id}/eliminar
 
 <p></p>
 
-</details>
+# __Libro Vistas__
 
-<details>
-<summary> JSON</summary>
+- Lista
 
-</details>
-</details>
+- Libro Lista
 
-<details>
-
-<summary> Libro Vistas</summary>
-
-<details>
-
-<summary> Lista</summary>
-
-## Libro Lista
-
-### GET /api/libros/
+- GET /api/libros/
 
 <p>Lista de los libros obenida desde la base de datos</p>
 
@@ -449,14 +383,11 @@ Este es un proyecto de Biblioteca desarrollado con Django 4.0 y Jinja2.
          return render(request, "libro_lista.html")
 ```
 
-</details>
+# Libro Registro
 
-<details>
-<summary> Registro</summary>
+- Libro Nuevo
 
-## Libro Nuevo
-
-### POST /api/libros/nuevo
+- POST /api/libros/nuevo
 
 <p>Registra un nuevo socio en la base de datos mediante un formulario desde la App</p>
 
@@ -471,15 +402,11 @@ Este es un proyecto de Biblioteca desarrollado con Django 4.0 y Jinja2.
     return render(request, "libro_nuevo.html", {"form": form})
 ```
 
-</details>
+# Libro Modificar
 
-<details>
+- Libro Modificar
 
-<summary> Actualización</summary>
-
-## Libro Modificar
-
-### PUT /api/libros/{id}/modificar
+- PUT /api/libros/{id}/modificar
 
 <p></p>
 
@@ -496,26 +423,19 @@ Este es un proyecto de Biblioteca desarrollado con Django 4.0 y Jinja2.
         return render(request,"libro_actualizar.html",{"libro":libro})
 ```
 
-</details>
+# Libro Eliminar
 
-<details>
-<summary> Eliminación</summary>
+- DELETE /api/libro/{id}/eliminar
 
-</details>
-</details>
+<p></p>
 
+# __Prestamo Vistas__
 
-<details>
+- Lista
 
-<summary> Prestamo Vistas</summary>
+- Prestamo Lista
 
-<details>
-
-<summary> Lista</summary>
-
-## Prestamo Lista
-
-### GET /api/prestamos/
+- GET /api/prestamos/
 
 <p>Proporciona una lista de un prestamo de libros, el mismo nos trae datos desde las tabla de Socio, Emplead y libro asi como una fecha de prestamo y entrega del mismo</p>
 
@@ -528,16 +448,11 @@ Este es un proyecto de Biblioteca desarrollado con Django 4.0 y Jinja2.
          return render(request, "prestamo_lista.html")
 ```
 
-</details>
+# Prestamo Registro
 
+- Prestamo Nuevo
 
-<details>
-
-<summary> Registro</summary>
-
-## Prestamo Nuevo
-
-### POST /api/prestamos/nuevo
+- POST /api/prestamos/nuevo
 
 <p>Mediante un formulario ingresa/registra un nuevo autor en la base de datos.
 Los datos tomados son obtenidos de las tablas de Libro y Socio con una fecha de prestamo y de entrega siendo la misma 2 dias despues del prestamo</p>
@@ -553,15 +468,11 @@ Los datos tomados son obtenidos de las tablas de Libro y Socio con una fecha de 
     return render(request, "prestamo_nuevo.html", {"form": form})
 ```
 
-</details>
+# Prestamo Modificar
 
-<details>
+- Prestamo Modificar
 
-<summary> Actualización</summary>
-
-## Prestamo Modificar
-
-### PUT /api/prestamos/{id}/modificar
+- PUT /api/prestamos/{id}/modificar
 
 <p>Obteniendo los datos ya cargados desde la base de datos nos proporciona un nuevo formulario en el cual podemos modificar los datos neccesarios para actualizar nuestro Empleado</p>
 
@@ -579,14 +490,9 @@ Los datos tomados son obtenidos de las tablas de Libro y Socio con una fecha de 
         return render(request,"prestamo_actualizar.html",{"prestamo":prestamo})
 ```
 
-</details>
+# Prestamo Eliiminar
 
-<details>
-
-<summary> Eliminación</summary>
-
-
-### DELETE /api/prestamos/{id}/eliminar
+- DELETE /api/prestamos/{id}/eliminar
 
 <p>Eliminacion de un prestamo, la misma tira error si el proceso no es completado correctamente</p>
 
@@ -601,5 +507,3 @@ try:
 except Exception as e:
     return redirect("error")
 ```
-
-</details>
