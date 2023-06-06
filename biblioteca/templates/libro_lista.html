@@ -25,7 +25,13 @@
             <td>{{ libro.descripcion }}</td>
             <td>{{ libro.isbn }}</td>
             <td>{{ libro.autor }}</td>
-            <td>{{ libro.activo }}</td>
+            <td>
+              {% if libro.activo == True %}
+              Si
+              {% else %}
+              No
+              {% endif %}
+            </td>
             <td class="d-flex">
               <form action="home/libros/{{libro.id}}/eliminar" method="post">
                 <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
