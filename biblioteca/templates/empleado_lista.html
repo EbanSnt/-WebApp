@@ -23,7 +23,13 @@
             <td>{{ empleado.nombre }}</td>
             <td>{{ empleado.apellido }}</td>
             <td>{{ empleado.numero_legajo }}</td>
-            <td>{{ empleado.activo }}</td>
+            <td>
+              {% if empleado.activo == True %}
+              Si
+              {% else %}
+              No
+              {% endif %}
+            </td>
             <td class="d-flex">
               <form action="home/empleados/{{id}}/eliminar" method="post">
                 <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">

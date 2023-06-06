@@ -23,7 +23,13 @@
             <td>{{ socio.nombre }}</td>
             <td>{{ socio.apellido }}</td>
             <td>{{ socio.fecha_nacimiento }}</td>
-            <td>{{ socio.activo }}</td>
+            <td>
+              {% if socio.activo == True %}
+              Si
+              {% else %}
+              No
+              {% endif %}
+            </td>
             <td class="d-flex">
               <form action="home/socios/{{id}}/eliminar" method="post">
                 <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">

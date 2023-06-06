@@ -23,7 +23,12 @@
             <td>{{ autor.nombre }}</td>
             <td>{{ autor.apellido }}</td>
             <td>{{ autor.nacionalidad }}</td>
-            <td>{{ autor.activo }}</td>
+            <td>
+              {% if autor.activo == True %}
+              Si
+              {% else %}
+              No
+              {% endif %}</td>
             <td class="d-flex">
               <form action="home/autores/{{id}}/eliminar"method="post">
                 <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
