@@ -298,7 +298,15 @@ Este es un proyecto de Biblioteca desarrollado con Django 4.0 y Jinja2.
 - DELETE /home/empleados/{id}/eliminar
 
 # __Socio Vistas__
+## URLS
 
+```python
+    #LIBROS
+    path("libros/nuevo/", registrar_libro,name="registrar_libro"),
+    path("libros/", libro_lista, name="libros_lista"),
+    path("libros/<int:id>/modificar/", actualizar_libro, name="actualizar_socio"),
+    path("libros/<int:id>/changeStatus", activar_cambiar_libro, name="status_libros"),
+```
 - Lista
 
 - Socio Lista
