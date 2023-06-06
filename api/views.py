@@ -73,3 +73,19 @@ def end_empleados(request):
         return JsonResponse(empleados_data,safe=False)  
     except Exception as e:
         return JsonResponse({"message":str(e)}) # retornamos el mensaje de la excepcion en un json
+    
+
+def end_socios(request):
+    try:
+        socios = Socio.objects.all()
+        print(socios)
+        socios_data =[]
+        for socio in socios:
+            socio ={"id":socio.id, "nombre":socio.nombre,"apellido":socio.apellido,"fecha_nacimiento":socio.fecha_nacimiento,"activo":socio.activo}
+
+            socios_data.append(socio)
+        #RETORNAMO LA LISTA EN UN JSON
+        return JsonResponse(socios_data,safe=False)
+    except:
+        socio_data =[]
+        return JsonResponse(socio_data,safe=False)
