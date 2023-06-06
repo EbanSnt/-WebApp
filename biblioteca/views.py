@@ -452,25 +452,6 @@ def borrar_prestamo_libro(request, id):
         return render(request, "borrar_prestamo_libro.html", {"prestamo": prestamo}) # Agregue una web para borrado exitoso 
     
     except Exception as e:
-        messages.error(request, f"No se puede eliminar el préstamo: {e}")
+        messages.error(request, f"No se puede eliminar el préstamo: {e}") 
         return redirect("error") # se agrego la URL
     
-    
-def end_libros_id(request,id):
-    try:
-        #TRAEMOS EL LIBRO
-        libro = Libro.objects.get(id=id)
-        print(libro)
-        #CREAMOS UNA LISTA VACIA
-        libro_data =[]
-        #HAY QUE TENER ENCUENTA SI TRABAJAMOS CON FOREIGN KEY, DEBEMOS BUSCAR EL FK EN SU MODELO CORRESPONDIENTE
-        autor = Autor.objects.get(id=libro.id)
-        #CREAMOS UN ELEMENTO PARA AGREGARLO A LIBRO_DATA
-        libro ={"id":libro.id, "titulo":libro.titulo,"descripcion":libro.descripcion,"autor":autor.nombre}
-
-        libro_data.append(libro)
-        #RETORNAMO LA LISTA EN UN JSON
-        return JsonResponse(libro_data,safe=False)
-    except:
-        libro_data =[]
-        return JsonResponse(libro_data,safe=False)
