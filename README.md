@@ -300,6 +300,13 @@ Este es un proyecto de Biblioteca desarrollado con Django 4.0 y Jinja2.
 # __Socio Vistas__
 ## URLS
 
+![179](https://github.com/EbanSnt/-WebApp/assets/113145320/f662a9ca-05f1-4199-ad68-64d63be3137f)
+
+![180](https://github.com/EbanSnt/-WebApp/assets/113145320/ce4fc9e1-6954-4e4c-b47e-e77713930e3d)
+
+![181](https://github.com/EbanSnt/-WebApp/assets/113145320/4005a341-20f1-4e28-815e-7305f80a90f3)
+
+
 ```python
     #LIBROS
     path("libros/nuevo/", registrar_libro,name="registrar_libro"),
