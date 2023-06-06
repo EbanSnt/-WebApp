@@ -507,3 +507,45 @@ try:
 except Exception as e:
     return redirect("error")
 ```
+# Admin
+
+El Admin permite realizar las siguientes acciones relacionadas con la gestión de usuarios:
+
+## Gestión de Empleados
+
+- Crear nuevos Empleados: Permite agregar nuevos Empleados al sistema especificando su nombre, apellido, numero de legajo y el campo activo aunque si no se especifica, se pondra True por defecto.
+- Editar información de Empleado: Permite actualizar la información de un usuario existente como su nombre, apellido, numero de legajo y el campo.
+- Eliminar Empleado: Permite eliminar empleados del sistema de forma permanente.
+- Filtrar Empleados: Permite filtrar los registros de Empleado teniendo en cuenta su campo Activo
+
+## Gestión de Autor
+
+- Crear nuevos Autor: Permite agregar nuevos autores al sistema especificando su nombre, apellido, nacionaliodad y un boleano activo.
+- Editar información de Autor: Permite actualizar la información de un usuario existente como su nombre, apellido, nacionaliodad y un boleano activo. autor.
+- Eliminar Autor: Permite eliminar autores del sistema de forma permanente.
+- Busqueda: Permite realizar una búsqueda en los registros mediante el titulo.
+- Filtrado: Permite filtrar los registros de libros teniendo en cuenta su campo Activo
+
+## Gestión de Libros
+
+- Crear nuevos Libros: Permite agregar nuevos Libros al sistema especificando su titulo, descripcion, ISBN, un boleano activo y el autor que se desplegará una lista de autores perteneciente a la base de datos de la tabla Autor.
+- Editar información de Libros: Permite actualizar la información de un usuario existente como su titulo, descripcion, ISBN, un boleano activo y el autor.
+- Eliminar Lbros: Permite eliminar libros del sistema de forma permanente.
+- Busqueda: Permite realizar una búsqueda en los registros mediante el titulo.
+- Filtrado: Permite filtrar los registros de libros teniendo en cuenta su campo Activo
+
+## Gestión de Socios
+
+- Crear nuevos Socios: Permite agregar nuevos Libros al sistema especificando su nombre, apellido, Fecha de nacimiento y el campo activo.
+- Editar información de Socios: Permite actualizar la información de un usuario existente como su nombre, apellido, Fecha de nacimiento y el campo activo..
+- Eliminar Socios: Permite eliminar socios del sistema de forma permanente.
+- Busqueda: Permite realizar una búsqueda en los registros mediante el nombre o el apellido.
+- Filtrado: Permite filtrar los registros de libros teniendo en cuenta su campo Activo
+
+## Gestión de Prestamos
+
+- Crear nuevos Socios: Permite agregar nuevos Prestamos al sistema para ello se deberá seleccionar el libro, socio y el empleado (quien hace la prestacion) que esten en el sistema y que tengan el campo activo. Luego se establece la fecha de entrega y la fecha de devolucion.
+- Editar información de Prestamos: Permite actualizar la información de un prestamo existente como libro, socio, empleado, fecha de entrega y fecha de devolucion
+- Eliminar prestamos: Permite eliminar prestamos del sistema de forma permanente.
+- Busqueda: Permite realizar una búsqueda en los registros mediante el socio, el libro o el empleado.
+
