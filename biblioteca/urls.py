@@ -27,7 +27,6 @@ urlpatterns = [
     path("libros/", libro_lista, name="libros_lista"),
     path("libros/<int:id>/modificar/", actualizar_libro, name="actualizar_socio"),
     path("libros/<int:id>/changeStatus", activar_cambiar_libro, name="status_libros"),
-    path("endpoint/libros/<int:id>", end_libros_id,name="getLibrosID"),
     #PRESTAMOS
     path("prestamos/<int:id>/eliminar/", borrar_prestamo_libro ,name="borrar_prestamo"), #<- cambio arreglado de url, parte de mi tarea anterior
     path("prestamos/",prestamos_lista,name="prestamos_lista"),

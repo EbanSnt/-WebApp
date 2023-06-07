@@ -123,21 +123,21 @@ Este es un proyecto de Biblioteca desarrollado con Django 4.0 y Jinja2.
 
 | Método | Endpoint | Descripción |
 | ------ | -------- | ----------- |
-| GET    | [/api/autores/](#autor-vistas)| Listado de autores |
-| POST   | [/api/autores/nuevo](#autor-registro) | Crear un autor |
-| GET    | [/api/autores/{id}]/ | Obtener un autor |
-| PUT    | [/api/autores/{id}/modificar](#autor-modificar) | Actualizar un autor |
-| DELETE | [/api/autores/{id}/eliminar](#autor-eliminar) | Eliminar un autor |
+| GET    | [/home/autores/](#autor-vistas)| Listado de autores |
+| POST   | [/home/autores/nuevo](#autor-registro) | Crear un autor |
+| GET    | [/api/autores/{id}/](#) | Obtener un autor |
+| PUT    | [/home/autores/{id}/modificar](#autor-modificar) | Actualizar un autor |
+| DELETE | [/home/autores/{id}/eliminar](#autor-eliminar) | Eliminar un autor |
 # *Empleados*
 ##### Endpoints de Empleados
 
 | Método | Endpoint | Descripción |
 | ------ | -------- | ----------- |
-| GET    | [/api/empleados/](#empleado-vistas) | Listado de empleados |
-| POST   | [/api/empleados/nuevo](#empleado-registro) | Crear un empleado |
+| GET    | [/home/empleados/](#empleado-vistas) | Listado de empleados |
+| POST   | [/home/empleados/nuevo](#empleado-registro) | Crear un empleado |
 | GET    | /api/empleados/{id}/ | Obtener un empleado |
-| PUT    | [/api/empleados/{id}/modificar](#empleado-modificar) | Actualizar un empleado |
-| DELETE | [/api/empleados/{id}/eliminar](#empleado-eliminar) | Eliminar un empleado |
+| PUT    | [/home/empleados/{id}/modificar](#empleado-modificar) | Actualizar un empleado |
+| DELETE | [/home/empleados/{id}/eliminar](#empleado-eliminar) | Eliminar un empleado |
 
 # *Socios*
 
@@ -145,22 +145,22 @@ Este es un proyecto de Biblioteca desarrollado con Django 4.0 y Jinja2.
 
 | Método | Endpoint | Descripción |
 | ------ | -------- | ----------- |
-| GET    | [/api/socios/](#socio-lista) | Listado de socios |
-| POST   | [/api/socios/nuevo](#socio-registro) | Crear un socio |
+| GET    | [/home/socios/](#socio-lista) | Listado de socios |
+| POST   | [/home/socios/nuevo](#socio-registro) | Crear un socio |
 | GET    | /api/socios/{id}/ | Obtener un socio |
-| PUT    | [/api/socios/{id}/modificar](#socio-modificar) | Actualizar un socio |
-| DELETE | /api/socios/{id}/eliminar | Eliminar un socio |
+| PUT    | [/home/socios/{id}/modificar](#socio-modificar) | Actualizar un socio |
+| DELETE | /home/socios/{id}/eliminar | Eliminar un socio |
 # *Libros*
 
 ## Endpoints de Libros
 
 | Método | Endpoint | Descripción |
 | ------ | -------- | ----------- |
-| GET    | [/api/libros/](#libro-vistas) | Listado de libros |
-| POST   | [/api/libros/nuevo](#libro-registro) | Crear un libro |
+| GET    | [/home/libros/](#libro-vistas) | Listado de libros |
+| POST   | [/home/libros/nuevo](#libro-registro) | Crear un libro |
 | GET    | /api/libros/{id}/ | Obtener un libro |
-| PUT    | [/api/libros/{id}/modificar](#libro-modificar) | Actualizar un libro |
-| DELETE | [/api/libros/{id}/eliminar](#libro-eliminar) | Eliminar un libro |
+| PUT    | [/home/libros/{id}/modificar](#libro-modificar) | Actualizar un libro |
+| DELETE | [/home/libros/{id}/eliminar](#libro-eliminar) | Eliminar un libro |
 
 # Prestamos
 
@@ -168,11 +168,11 @@ Este es un proyecto de Biblioteca desarrollado con Django 4.0 y Jinja2.
 
 | Método | Endpoint | Descripción |
 | ------ | -------- | ----------- |
-| GET    | [/api/prestamos/](#prestamo-vistas) | Listado de prestamos |
-| POST   | [/api/prestamos/nuevo](#prestamo-registro) | Crear un prestamo |
+| GET    | [/home/prestamos/](#prestamo-vistas) | Listado de prestamos |
+| POST   | [/home/prestamos/nuevo](#prestamo-registro) | Crear un prestamo |
 | GET    | [/api/prestamos/{id}/] | Obtener un prestamo |
-| PUT    | [/api/prestamos/{id}/modificar](#prestamo-modificar) | Actualizar un prestamo |
-| DELETE | [/api/prestamos/{id}/eliminar](#prestamo-eliiminar) | Eliminar un prestamo |
+| PUT    | [/home/prestamos/{id}/modificar](#prestamo-modificar) | Actualizar un prestamo |
+| DELETE | [/home/prestamos/{id}/eliminar](#prestamo-eliiminar) | Eliminar un prestamo |
 
 # *Vistas Generales*
 
@@ -180,7 +180,7 @@ Este es un proyecto de Biblioteca desarrollado con Django 4.0 y Jinja2.
 
 - Autor Lista
 
-- GET /api/autores/
+- GET /home/autores/
 
 <p> Retorna una lista de los autores registrados en la base de datos. </p>
 
@@ -197,7 +197,7 @@ Este es un proyecto de Biblioteca desarrollado con Django 4.0 y Jinja2.
 
 - Autor Nuevo
 
-- POST /api/autores/nuevo
+- POST /home/autores/nuevo
 
 <p> Mediante un formulario ingresa/registra un nuevo autor en la base de datos </p>
 
@@ -216,7 +216,7 @@ Este es un proyecto de Biblioteca desarrollado con Django 4.0 y Jinja2.
 
 - Actualización
 
-- PUT /api/autores/{id}/modificar
+- PUT /home/autores/{id}/modificar
 
 <p>Obteniendo los datos ya cargados desde la base de datos nos proporciona un nuevo formulario en el cual podemos modificar los datos neccesarios para actualizar nuestro Autor</p>
 
@@ -242,7 +242,7 @@ Este es un proyecto de Biblioteca desarrollado con Django 4.0 y Jinja2.
 
 - Empleado Lista
 
-- GET /api/empleados/
+- GET /home/empleados/
 
 <p>Retorna una lista de los empleados registrados en la base de datos. </p>
 
@@ -257,7 +257,7 @@ Este es un proyecto de Biblioteca desarrollado con Django 4.0 y Jinja2.
 
 # Empleado Registro
 
-- POST /api/empleados/nuevo
+- POST /home/empleados/nuevo
 
 <p> Registro de un nuevo empleado en la base de datos</p>
 
@@ -274,7 +274,7 @@ Este es un proyecto de Biblioteca desarrollado con Django 4.0 y Jinja2.
 
 # Empleado Modificar
 
-- PUT /api/empleados/{id}/modificar
+- PUT /home/empleados/{id}/modificar
 
 <p>Obteniendo los datos ya cargados desde la base de datos nos proporciona un nuevo formulario en el cual podemos modificar los datos neccesarios para actualizar nuestro Empleado</p>
 
@@ -295,15 +295,30 @@ Este es un proyecto de Biblioteca desarrollado con Django 4.0 y Jinja2.
 
 # Empleado Eliminar
 
-- DELETE /api/empleados/{id}/eliminar
+- DELETE /home/empleados/{id}/eliminar
 
 # __Socio Vistas__
+## URLS
 
+![179](https://github.com/EbanSnt/-WebApp/assets/113145320/f662a9ca-05f1-4199-ad68-64d63be3137f)
+
+![180](https://github.com/EbanSnt/-WebApp/assets/113145320/ce4fc9e1-6954-4e4c-b47e-e77713930e3d)
+
+![181](https://github.com/EbanSnt/-WebApp/assets/113145320/4005a341-20f1-4e28-815e-7305f80a90f3)
+
+
+```python
+    #LIBROS
+    path("libros/nuevo/", registrar_libro,name="registrar_libro"),
+    path("libros/", libro_lista, name="libros_lista"),
+    path("libros/<int:id>/modificar/", actualizar_libro, name="actualizar_socio"),
+    path("libros/<int:id>/changeStatus", activar_cambiar_libro, name="status_libros"),
+```
 - Lista
 
 - Socio Lista
 
-- GET /api/socios/
+- GET /home/socios/
 
 <p>Lista de los socios obenida desde la base de datos</p>
 
@@ -320,7 +335,7 @@ Este es un proyecto de Biblioteca desarrollado con Django 4.0 y Jinja2.
 
 - Socio Nuevo
 
-- POST /api/socios/nuevo
+- POST /home/socios/nuevo
 
 <p>Mediante un formulario ingresa/registra un nuevo autor en la base de datos</p>
 
@@ -339,7 +354,7 @@ Este es un proyecto de Biblioteca desarrollado con Django 4.0 y Jinja2.
 
 - Socio Modificar
 
-- PUT /api/socios/{id}/modificar
+- PUT /home/socios/{id}/modificar
 
 <p>Obteniendo los datos ya cargados desde la base de datos nos proporciona un nuevo formulario en el cual podemos modificar los datos neccesarios para actualizar nuestro Empleado</p>
 
@@ -360,7 +375,7 @@ Este es un proyecto de Biblioteca desarrollado con Django 4.0 y Jinja2.
 
 # Socio Eliminar
 
-- DELETE /api/socios/{id}/eliminar
+- DELETE /home/socios/{id}/eliminar
 
 <p></p>
 
@@ -370,7 +385,7 @@ Este es un proyecto de Biblioteca desarrollado con Django 4.0 y Jinja2.
 
 - Libro Lista
 
-- GET /api/libros/
+- GET /home/libros/
 
 <p>Lista de los libros obenida desde la base de datos</p>
 
@@ -387,7 +402,7 @@ Este es un proyecto de Biblioteca desarrollado con Django 4.0 y Jinja2.
 
 - Libro Nuevo
 
-- POST /api/libros/nuevo
+- POST /home/libros/nuevo
 
 <p>Registra un nuevo socio en la base de datos mediante un formulario desde la App</p>
 
@@ -406,7 +421,7 @@ Este es un proyecto de Biblioteca desarrollado con Django 4.0 y Jinja2.
 
 - Libro Modificar
 
-- PUT /api/libros/{id}/modificar
+- PUT /home/libros/{id}/modificar
 
 <p></p>
 
@@ -425,7 +440,7 @@ Este es un proyecto de Biblioteca desarrollado con Django 4.0 y Jinja2.
 
 # Libro Eliminar
 
-- DELETE /api/libro/{id}/eliminar
+- DELETE /home/libro/{id}/eliminar
 
 <p></p>
 
@@ -435,7 +450,7 @@ Este es un proyecto de Biblioteca desarrollado con Django 4.0 y Jinja2.
 
 - Prestamo Lista
 
-- GET /api/prestamos/
+- GET /home/prestamos/
 
 <p>Proporciona una lista de un prestamo de libros, el mismo nos trae datos desde las tabla de Socio, Emplead y libro asi como una fecha de prestamo y entrega del mismo</p>
 
@@ -452,7 +467,7 @@ Este es un proyecto de Biblioteca desarrollado con Django 4.0 y Jinja2.
 
 - Prestamo Nuevo
 
-- POST /api/prestamos/nuevo
+- POST /home/prestamos/nuevo
 
 <p>Mediante un formulario ingresa/registra un nuevo autor en la base de datos.
 Los datos tomados son obtenidos de las tablas de Libro y Socio con una fecha de prestamo y de entrega siendo la misma 2 dias despues del prestamo</p>
@@ -472,7 +487,7 @@ Los datos tomados son obtenidos de las tablas de Libro y Socio con una fecha de 
 
 - Prestamo Modificar
 
-- PUT /api/prestamos/{id}/modificar
+- PUT /home/prestamos/{id}/modificar
 
 <p>Obteniendo los datos ya cargados desde la base de datos nos proporciona un nuevo formulario en el cual podemos modificar los datos neccesarios para actualizar nuestro Empleado</p>
 
@@ -492,7 +507,7 @@ Los datos tomados son obtenidos de las tablas de Libro y Socio con una fecha de 
 
 # Prestamo Eliiminar
 
-- DELETE /api/prestamos/{id}/eliminar
+- DELETE /home/prestamos/{id}/eliminar
 
 <p>Eliminacion de un prestamo, la misma tira error si el proceso no es completado correctamente</p>
 
@@ -507,3 +522,45 @@ try:
 except Exception as e:
     return redirect("error")
 ```
+# Admin
+
+El Admin permite realizar las siguientes acciones relacionadas con la gestión de usuarios:
+
+## Gestión de Empleados
+
+- Crear nuevos Empleados: Permite agregar nuevos Empleados al sistema especificando su nombre, apellido, numero de legajo y el campo activo aunque si no se especifica, se pondra True por defecto.
+- Editar información de Empleado: Permite actualizar la información de un usuario existente como su nombre, apellido, numero de legajo y el campo.
+- Eliminar Empleado: Permite eliminar empleados del sistema de forma permanente.
+- Filtrar Empleados: Permite filtrar los registros de Empleado teniendo en cuenta su campo Activo
+
+## Gestión de Autor
+
+- Crear nuevos Autor: Permite agregar nuevos autores al sistema especificando su nombre, apellido, nacionaliodad y un boleano activo.
+- Editar información de Autor: Permite actualizar la información de un usuario existente como su nombre, apellido, nacionaliodad y un boleano activo. autor.
+- Eliminar Autor: Permite eliminar autores del sistema de forma permanente.
+- Busqueda: Permite realizar una búsqueda en los registros mediante el titulo.
+- Filtrado: Permite filtrar los registros de libros teniendo en cuenta su campo Activo
+
+## Gestión de Libros
+
+- Crear nuevos Libros: Permite agregar nuevos Libros al sistema especificando su titulo, descripcion, ISBN, un boleano activo y el autor que se desplegará una lista de autores perteneciente a la base de datos de la tabla Autor.
+- Editar información de Libros: Permite actualizar la información de un usuario existente como su titulo, descripcion, ISBN, un boleano activo y el autor.
+- Eliminar Lbros: Permite eliminar libros del sistema de forma permanente.
+- Busqueda: Permite realizar una búsqueda en los registros mediante el titulo.
+- Filtrado: Permite filtrar los registros de libros teniendo en cuenta su campo Activo
+
+## Gestión de Socios
+
+- Crear nuevos Socios: Permite agregar nuevos Libros al sistema especificando su nombre, apellido, Fecha de nacimiento y el campo activo.
+- Editar información de Socios: Permite actualizar la información de un usuario existente como su nombre, apellido, Fecha de nacimiento y el campo activo..
+- Eliminar Socios: Permite eliminar socios del sistema de forma permanente.
+- Busqueda: Permite realizar una búsqueda en los registros mediante el nombre o el apellido.
+- Filtrado: Permite filtrar los registros de libros teniendo en cuenta su campo Activo
+
+## Gestión de Prestamos
+
+- Crear nuevos Socios: Permite agregar nuevos Prestamos al sistema para ello se deberá seleccionar el libro, socio y el empleado (quien hace la prestacion) que esten en el sistema y que tengan el campo activo. Luego se establece la fecha de entrega y la fecha de devolucion.
+- Editar información de Prestamos: Permite actualizar la información de un prestamo existente como libro, socio, empleado, fecha de entrega y fecha de devolucion
+- Eliminar prestamos: Permite eliminar prestamos del sistema de forma permanente.
+- Busqueda: Permite realizar una búsqueda en los registros mediante el socio, el libro o el empleado.
+

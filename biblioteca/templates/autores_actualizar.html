@@ -36,19 +36,10 @@
     />
     <br />
     <div class="mb-3 form-check">
-      <input
-        type="checkbox"
-        class="form-check-input"
-        id="activo"
-        name="activo"
-        value="True"
-        {%
-        if
-        autor.activo
-        %}checked{%
-        endif
-        %}
-      />
+      <input  type="checkbox"  class="form-check-input"  id="activo"  name="activo" value="True"  
+      {% if autor.activo %}
+        checked
+      {% endif %} />
       <label class="form-check-label" for="activo">Activo</label>
       <br />
     </div>
@@ -59,7 +50,7 @@
       value="Actualizar"
     />
     <div class="mt-2">
-      <a class="btn btn-primary text-light" class="" href="/api/autores">
+      <a class="btn btn-primary text-light" class="" href="/home/autores">
         Volver
       </a>
     </div>
