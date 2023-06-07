@@ -89,3 +89,18 @@ def end_socios(request):
     except:
         socio_data =[]
         return JsonResponse(socio_data,safe=False)
+    
+
+def end_autores(request):
+    try:
+        autores = Autor.objects.all()
+        autores_data =[]
+        for autor in autores:
+            autor ={"id":autor.id, "nombre":autor.nombre,"apellido":autor.apellido,"nacionalidad":autor.nacionalidad,"activo":autor.activo}
+
+            autores_data.append(autor)
+        #RETORNAMO LA LISTA EN UN JSON
+        return JsonResponse(autores_data,safe=False)
+    except:
+        socio_data =[]
+        return JsonResponse(autores_data,safe=False)
