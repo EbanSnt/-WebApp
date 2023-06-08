@@ -565,6 +565,7 @@ El Admin permite realizar las siguientes acciones relacionadas con la gestión d
 - Busqueda: Permite realizar una búsqueda en los registros mediante el socio, el libro o el empleado.
 
 
+# API Documetancion
 # Api del Sistema
 
 ## Endpoints de la API del Sistema
