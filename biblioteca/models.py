@@ -10,7 +10,7 @@ class Autor(models.Model):
     activo = models.BooleanField(default=True)
 
     def __str__(self):
-        return self.nombre
+        return f"{self.nombre} {self.apellido}" 
     
 class Libro(models.Model):
     titulo = models.CharField(max_length=100)

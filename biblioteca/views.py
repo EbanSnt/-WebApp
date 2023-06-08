@@ -433,7 +433,6 @@ def PrestarForm(request):
         Formulario para prestar un libro, el cual es obtenido desde la base de datos y cargado en el formulario para que el usuario pueda seleccionar el libro que desea prestar
         esta view regula las validaciones
     """
-    
     form = PrestamoLibroForm()
     if request.method == "POST":
         form = PrestamoLibroForm(request.POST)
