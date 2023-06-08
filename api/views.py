@@ -30,7 +30,7 @@ def end_libros_todos(request):
             raise Exception("No hay libros Registrados")
 
         #RETORNAMO LA LISTA EN UN JSON
-        return JsonResponse(libros_data,safe=False)
+        return JsonResponse(libros_data,json_dumps_params={'ident':2},safe=False)
     except Exception as e:
         return JsonResponse({"message":str(e)})
     
@@ -70,7 +70,7 @@ def end_empleados(request):
             empleados_data.append(empleado_data) # agregamos el empleado_data a la lista empleados_data
         if not empleados_data:
             raise Exception("No hay empleados registrados") # si no hay empleados registrados, levantamos una excepcion
-        return JsonResponse(empleados_data,safe=False)  
+        return JsonResponse(empleados_data,json_dumps_params={'indent':2}, safe=False)  
     except Exception as e:
         return JsonResponse({"message":str(e)}) # retornamos el mensaje de la excepcion en un json
     
@@ -85,7 +85,7 @@ def end_socios(request):
 
             socios_data.append(socio)
         #RETORNAMO LA LISTA EN UN JSON
-        return JsonResponse(socios_data,safe=False)
+        return JsonResponse(socios_data,json_dumps_params={'indent':2},safe=False)
     except:
         socio_data =[]
         return JsonResponse(socio_data,safe=False)
@@ -100,7 +100,7 @@ def end_autores(request):
 
             autores_data.append(autor)
         #RETORNAMO LA LISTA EN UN JSON
-        return JsonResponse(autores_data,safe=False)
+        return JsonResponse(autores_data,json_dumps_params={'indent':2},safe=False)
     except:
         socio_data =[]
         return JsonResponse(autores_data,safe=False)
