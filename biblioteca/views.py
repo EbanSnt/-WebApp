@@ -366,7 +366,7 @@ def actualizar_libro(request,id):
     """
 
     libro = Libro.objects.get(id=id)
-    autor_libro_actual = Autor.objects.get(nombre = libro.autor)
+    autor_libro_actual = Autor.objects.get(id=libro.autor.id)
     autor = Autor.objects.filter(~Q(nombre=libro.autor))       
     if request.method =="POST": 
         libro.titulo = request.POST["titulo"]
@@ -374,7 +374,7 @@ def actualizar_libro(request,id):
         libro.isbn = request.POST["isbn"]
         autor_id = Autor.objects.get(id = int(request.POST["autor"]))
         libro.autor = autor_id
-        libro.activo= request.POST["activo"]
+        libro.activo= request.POST.get('activo', None)
         if request.POST.get("activo") == None:
             libro.activo = False
         else:
