@@ -124,6 +124,17 @@ def activo_cambiar_empleado(request, id):
     return render(request,"status_empleado") #REEMPLAZAR POR EL NAME DEL PATH QUE SE COLOCARÁ 
 
 
+@csrf_exempt
+def borrar_empleado(request, id):
+    empleado = get_object_or_404(Empleado, id=id)
+    
+    if request.method == "POST":
+        empleado.delete()
+        return redirect("empleado_lista")
+    
+    return render(request, "empleado_borrar.html", {"empleado": empleado})
+
+
 # AUTORES
 def autor_lista(request):
     """
@@ -203,6 +214,17 @@ def activo_cambiar_autor(request, id):
         autor.save()
         return redirect("autor_lista") #REEMPLAZAR POR EL NAME DEL PATH QUE SE COLOCARÁ
     return render(request,"status_autor") #REEMPLAZAR POR EL NAME DEL PATH QUE SE COLOCARÁ 
+
+
+@csrf_exempt
+def borrar_autor(request, id):
+    autor = get_object_or_404(Autor, id=id)
+    
+    if request.method == "POST":
+        autor.delete()
+        return redirect("autor_lista")
+    
+    return render(request, "autor_borrar.html", {"autor": autor})
         
 
 # SOCIOS
@@ -292,6 +314,17 @@ def activar_cambiar_socio(request,id):
         return redirect("socio_lista") #REEMPLAZAR POR EL NAME DEL PATH QUE SE COLOCARÁ
     return render(request,"status_socio") #REEMPLAZAR POR EL NAME DEL PATH QUE SE COLOCARÁ  
 
+
+@csrf_exempt
+def borrar_socio(request, id):
+    socio = get_object_or_404(Socio, id=id)
+    
+    if request.method == "POST":
+        socio.delete()
+        return redirect("socio_lista")
+    
+    return render(request, "socio_borrar.html", {"socio": socio})
+
 """
     VIEWS LIBROS
     BEGINS HERE
@@ -368,6 +401,17 @@ def activar_cambiar_libro(request,id):
     return render(request,"status_libros") 
 
 
+@csrf_exempt
+def borrar_libro(request, id):
+    libro = get_object_or_404(Libro, id=id)
+    autor_libro_actual = Autor.objects.get(nombre = libro.autor)
+    
+    if request.method == "POST":
+        libro.delete()
+        return redirect("libros_lista")
+    
+    return render(request, "libro_borrar.html", {"libro": libro,"autor_actual":autor_libro_actual})
+
 """
     VIEWS PRESTAMOS
     BEGINS HERE
@@ -437,7 +481,7 @@ def actualizar_prestamo(request,id):
         return render(request,"prestamo_actualizar.html",{"prestamo":prestamo,"socios":socio,"socio_actual":socio_actual,"empleados":empleado,"empleado_actual":empleado_actual,"libros":libro,"libro_actual":libro_actual}) #REEMPLAZAR CON EL NOMBRE DEL TEMPLATE QUE SE USARÁ
     
 
-def borrar_prestamo_libro(request, id):
+'''def borrar_prestamo_libro(request, id):
     """
         Elimina un prestamo en especifico, el cual es seleccionado por el usuario, el prestamo es eliminado y no puede ser utilizado en el sistema
     """
@@ -453,5 +497,17 @@ def borrar_prestamo_libro(request, id):
     
     except Exception as e:
         messages.error(request, f"No se puede eliminar el préstamo: {e}") 
-        return redirect("error") # se agrego la URL
+        return redirect("error") # se agrego la URL'''
+
+@csrf_exempt    
+def borrar_prestamo_libro(request, id):
+    prestamo = get_object_or_404(Prestamo_libro, id=id)
+    socio_actual = Socio.objects.get(nombre = prestamo.socio)
+    empleado_actual = Empleado.objects.get(nombre = prestamo.empleado)
+    libro_actual = Libro.objects.get(titulo = prestamo.libro)
     
+    if request.method == "POST":
+        prestamo.delete()
+        return redirect("prestamos_lista")
+    
+    return render(request, "prestamo_borrar.html", {"prestamo": prestamo,"libro_actual":libro_actual, "socio_actual":socio_actual, "empleado_actual":empleado_actual})
