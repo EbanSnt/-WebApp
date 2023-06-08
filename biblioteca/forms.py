@@ -5,7 +5,7 @@ from .models import *
 class EmpleadoForm(forms.ModelForm):
     class Meta():
         model = Empleado
-        fields = '__all__'
+        fields = ['nombre','apellido','numero_legajo']
         widgets={"nombre":forms.TextInput(attrs={"class":"form-control my-3"}),
                  "apellido":forms.TextInput(attrs={"class":"form-control my-3"}),
                  "numero_legajo":forms.NumberInput(attrs={"class":"form-control my-3","type":"number"}),
@@ -16,7 +16,7 @@ class EmpleadoForm(forms.ModelForm):
 class AutoresForm(forms.ModelForm):
     class Meta():
         model = Autor
-        fields = '__all__'
+        fields = ['nombre','apellido','nacionalidad']
         widgets = {
             "nombre": forms.TextInput(attrs={"class":"form-control my-3"}),
             "apellido": forms.TextInput(attrs={"class":"form-control my-3"}),
@@ -27,7 +27,7 @@ class AutoresForm(forms.ModelForm):
 class SociosForm(forms.ModelForm):
     class Meta():
         model = Socio
-        fields = '__all__'
+        fields = ['nombre','apellido','fecha_nacimiento']
         widgets = {
             "nombre": forms.TextInput(attrs={"class":"form-control my-3"}),
             "apellido": forms.TextInput(attrs={"class":"form-control my-3"}),
@@ -54,7 +54,7 @@ class PrestamoLibroForm(forms.ModelForm):
 class LibroForm(forms.ModelForm):
     class Meta():
         model = Libro
-        fields = '__all__'
+        fields = ['titulo','descripcion','isbn','autor']
         widgets={"titulo":forms.TextInput(attrs={"class":"form-control my-3"}),
                  "descripcion":forms.TextInput(attrs={"class":"form-control my-3"}),
                  "isbn":forms.NumberInput(attrs={"class":"form-control my-3","type":"number"}),

@@ -24,7 +24,7 @@
             <td>{{ libro.titulo }}</td>
             <td>{{ libro.descripcion }}</td>
             <td>{{ libro.isbn }}</td>
-            <td>{{ libro.autor }}</td>
+            <td>{{ libro.autor.nombre }} {{ libro.autor.apellido }}</td>
             <td>
               {% if libro.activo == True %}
               Si
