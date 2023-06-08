@@ -613,7 +613,7 @@ def end_libros_todos(request):
         return JsonResponse({"message":str(e)})
 ```
 
-## Obtener-un-Libro
+## Obtener un Libro
 
 ### URL
 
