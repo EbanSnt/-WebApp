@@ -30,7 +30,7 @@ def end_libros_todos(request):
             raise Exception("No hay libros Registrados")
 
         #RETORNAMO LA LISTA EN UN JSON
-        return JsonResponse(libros_data,json_dumps_params={'ident':2},safe=False)
+        return JsonResponse(libros_data,json_dumps_params={'indent':2},safe=False)
     except Exception as e:
         return JsonResponse({"message":str(e)})
     
@@ -49,7 +49,7 @@ def end_libros_id(request,id):
 
         libro_data.append(libro)
         #RETORNAMO LA LISTA EN UN JSON
-        return JsonResponse(libro_data,safe=False)
+        return JsonResponse(libro_data,json_dumps_params={'indent':2},safe=False)
     except:
         libro_data =[]
         return JsonResponse(libro_data,safe=False)
