@@ -43,7 +43,7 @@ def end_libros_id(request,id):
         #CREAMOS UNA LISTA VACIA
         libro_data =[]
         #HAY QUE TENER ENCUENTA SI TRABAJAMOS CON FOREIGN KEY, DEBEMOS BUSCAR EL FK EN SU MODELO CORRESPONDIENTE
-        autor = Autor.objects.get(id=libro.id)
+        autor = Autor.objects.get(id=libro.autor.id)
         #CREAMOS UN ELEMENTO PARA AGREGARLO A LIBRO_DATA
         libro ={"id":libro.id, "titulo":libro.titulo,"descripcion":libro.descripcion,"autor":autor.nombre}
 
