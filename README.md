@@ -17,7 +17,7 @@ Trabajo Grupal. Bootcamp Django - Alkemy. Caso de negocio N°2 - Biblioteca App�
 ## Autores
 
 - [Adrian Martinez](https://github.com/adrian411997)
-- [Eban Sánchez](https://github.com/EbanSnt)
+- [Esteban Santillan](https://github.com/EbanSnt)
 - [Gaston](https://github.com/gaston010)
 - [Robinson Sinner](https://github.com/RS4400)
 
