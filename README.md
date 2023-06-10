@@ -17,7 +17,7 @@ Trabajo Grupal. Bootcamp Django - Alkemy. Caso de negocio N°2 - Biblioteca App�
 ## Autores
 
 - [Adrian Martinez](https://github.com/adrian411997)
-- [Eban Sánchez](https://github.com/EbanSnt)
+- [Esteban Santillan](https://github.com/EbanSnt)
 - [Gaston](https://github.com/gaston010)
 - [Robinson Sinner](https://github.com/RS4400)
 
@@ -564,3 +564,152 @@ El Admin permite realizar las siguientes acciones relacionadas con la gestión d
 - Eliminar prestamos: Permite eliminar prestamos del sistema de forma permanente.
 - Busqueda: Permite realizar una búsqueda en los registros mediante el socio, el libro o el empleado.
 
+
+# API Documetancion
+# Api del Sistema
+
+## Endpoints de la API del Sistema
+
+| Endpoint | Descripción |
+| -------- | ----------- |
+| [/api/libros/](#lista-de-libros)| Listado de Libros |
+| [/api/libros/{id}/](#obtener-un-libro) | Obtener un Libro |
+| [/api/empleados/](#lista-de-empleados)| Listado de Empleados |
+| [/api/socios/](#lista-de-socios)| Listado de Socios |
+| [/api/autores/](#autor-lista)| Listado de Autores |
+
+## Lista de Libros
+
+### URL
+
+![Screenshot_32](https://github.com/EbanSnt/-WebApp/assets/133908306/5db7fbfe-f2bd-48e5-a8b3-752c589be709)
+
+
+```python
+def end_libros_todos(request):
+    #TRAEMOS TODOS LOS LIBROS
+    try:
+        libros = Libro.objects.all().values()
+        print(libros)
+
+        #CREAMOS UNA LISTA VACIA
+        libros_data =[]
+        
+        for libro in libros:
+            #HAY QUE TENER ENCUENTA SI TRABAJAMOS CON FOREIGN KEY, DEBEMOS BUSCAR EL FK EN SU MODELO CORRESPONDIENTE
+
+            autor = Autor.objects.get(id=libro["autor_id"])
+            
+            #CREAMOS UN ELEMENTO PARA AGREGARLO A LIBROS_DATA
+            libro_data ={"id":libro["id"], "titulo":libro["titulo"], "autor":autor.nombre}
+        
+            libros_data.append(libro_data)
+        
+        if not libros_data:
+            raise Exception("No hay libros Registrados")
+
+        #RETORNAMO LA LISTA EN UN JSON
+        return JsonResponse(libros_data,safe=False)
+    except Exception as e:
+        return JsonResponse({"message":str(e)})
+```
+
+## Obtener un Libro
+
+### URL
+
+![Screenshot_33](https://github.com/EbanSnt/-WebApp/assets/133908306/60880c99-4acb-43f0-bc4a-d2465dfbcec5)
+
+```python
+def end_libros_id(request,id):
+    try:
+        #TRAEMOS EL LIBRO
+        libro = Libro.objects.get(id=id)
+        print(libro)
+        #CREAMOS UNA LISTA VACIA
+        libro_data =[]
+        #HAY QUE TENER ENCUENTA SI TRABAJAMOS CON FOREIGN KEY, DEBEMOS BUSCAR EL FK EN SU MODELO CORRESPONDIENTE
+        autor = Autor.objects.get(id=libro.id)
+        #CREAMOS UN ELEMENTO PARA AGREGARLO A LIBRO_DATA
+        libro ={"id":libro.id, "titulo":libro.titulo,"descripcion":libro.descripcion,"autor":autor.nombre}
+
+        libro_data.append(libro)
+        #RETORNAMO LA LISTA EN UN JSON
+        return JsonResponse(libro_data,safe=False)
+    except:
+        libro_data =[]
+        return JsonResponse(libro_data,safe=False)
+```
+
+
+## Lista de Empleados
+
+### URL
+
+![Screenshot_34](https://github.com/EbanSnt/-WebApp/assets/133908306/fc4ff301-664e-4e70-8434-e3445708e908)
+
+```python
+def end_empleados(request):
+    try:
+        empleados = Empleado.objects.all()
+        empleados_data = [] # creamos una lista vacia
+        for empleado in empleados:
+            empleado_data = { 
+                "id":empleado.id, # agregamos el id del empleado
+                "nombre":empleado.nombre, # agregamos el nombre del empleado
+                "apellido":empleado.apellido, # agregamos el apellido del empleado
+                "nlegajo":empleado.numero_legajo, # agregamos el numero de legajo del empleado
+                "activo":empleado.activo, # agregamos el estado del empleado
+                }
+            empleados_data.append(empleado_data) # agregamos el empleado_data a la lista empleados_data
+        if not empleados_data:
+            raise Exception("No hay empleados registrados") # si no hay empleados registrados, levantamos una excepcion
+        return JsonResponse(empleados_data,safe=False)  
+    except Exception as e:
+        return JsonResponse({"message":str(e)}) # retornamos el mensaje de la excepcion en un json
+```
+
+## Lista de Socios
+
+### URL
+
+![Screenshot_35](https://github.com/EbanSnt/-WebApp/assets/133908306/d7d7e1ac-1a38-49d4-aeae-c826ef72637f)
+
+```python
+def end_socios(request):
+    try:
+        socios = Socio.objects.all()
+        print(socios)
+        socios_data =[]
+        for socio in socios:
+            socio ={"id":socio.id, "nombre":socio.nombre,"apellido":socio.apellido,"fecha_nacimiento":socio.fecha_nacimiento,"activo":socio.activo}
+
+            socios_data.append(socio)
+        #RETORNAMO LA LISTA EN UN JSON
+        return JsonResponse(socios_data,safe=False)
+    except:
+        socio_data =[]
+        return JsonResponse(socio_data,safe=False)
+```
+
+## Lista de Autores
+
+### URL
+
+![Screenshot_36](https://github.com/EbanSnt/-WebApp/assets/133908306/b0d7c6b7-9af9-48b0-871a-e2384b319f8c)
+
+```python
+def end_autores(request):
+    try:
+        autores = Autor.objects.all()
+        autores_data =[]
+        for autor in autores:
+            autor ={"id":autor.id, "nombre":autor.nombre,"apellido":autor.apellido,"nacionalidad":autor.nacionalidad,"activo":autor.activo}
+
+            autores_data.append(autor)
+        #RETORNAMO LA LISTA EN UN JSON
+        return JsonResponse(autores_data,safe=False)
+    except:
+        socio_data =[]
+        return JsonResponse(autores_data,safe=False)
+```

@@ -1,7 +1,9 @@
+from django.shortcuts import render
 from biblioteca.models import *
 from django.http import JsonResponse
 from rest_framework import viewsets
 from .serializer import *
+from biblioteca.models import *
 
 
 
@@ -24,3 +26,4 @@ class SocioViewSet(viewsets.ModelViewSet):
 class Prestamo_libroViewSet(viewsets.ModelViewSet):
     queryset = Prestamo_libro.objects.all().order_by('id')
     serializer_class = Prestamo_libroSerializer
+

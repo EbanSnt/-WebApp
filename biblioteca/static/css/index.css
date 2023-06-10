@@ -1,0 +1,47 @@
+
+.main{
+	width: 100%;
+	padding-top: auto;
+	
+}
+.one{
+	background-color: #232428;
+	border-radius: 25px;
+;
+}
+.dotdot{
+	font-size: 13px !important;
+	font-weight: lighter !important;
+	color: #76787b;
+}
+.name{
+	font-size: 30px;
+	color: #fff;
+	font-weight: 600;
+}
+.mail{
+	font-size: 12px;
+	font-weight: 500;
+	color: #dfdede;
+}
+.total{
+	font-size: 6px;
+	font-weight: 500;
+	color: #8a8b8f;
+}
+.money{
+	font-size: 18px;
+	font-weight: 600;
+	color: #dedbdb;
+}
+.details{
+	font-size: 14px;
+	font-weight: 500;
+	color: #fff;
+}
+
+.details a{
+	text-decoration: none;
+	text-decoration-line:none
+}
+

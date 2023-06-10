@@ -26,7 +26,7 @@
         {% if empleado.activo %}
             <option value="{{ empleado.id }}">{{ empleado }}</option>
         {% else %}
-            <option value={{ empleado }} disabled>{{ empleado }}</option>
+            <option value={{ empleado }} disabled>{{ empleado }} - INACTIVO</option>
         {% endif %}
     {% endfor %}
     </select>
