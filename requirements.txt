@@ -1,2 +1,5 @@
 Django==4.0
 Jinja2==3.0
+djangorestframework==3.12.4
+coreapi==2.3.3
+coreapi-cli==1.0.9
