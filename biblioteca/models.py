@@ -3,6 +3,7 @@ from django.core.validators import MinValueValidator, MaxValueValidator
 
 # Create your models here.
 
+
 class Autor(models.Model):
     nombre = models.CharField(max_length=30)
     apellido = models.CharField(max_length=30)
@@ -11,16 +12,19 @@ class Autor(models.Model):
 
     def __str__(self):
         return self.nombre
-    
+
+
 class Libro(models.Model):
     titulo = models.CharField(max_length=100)
-    descripcion  = models.TextField()
-    isbn = models.BigIntegerField(validators=[MinValueValidator(10**12), MaxValueValidator(10**13)])
+    descripcion = models.TextField()
+    isbn = models.BigIntegerField(
+        validators=[MinValueValidator(10**12), MaxValueValidator(10**13)])
     autor = models.ForeignKey(Autor, on_delete=models.CASCADE)
     activo = models.BooleanField(default=True)
 
     def __str__(self):
         return self.titulo
+
 
 class Empleado(models.Model):
     nombre = models.CharField(max_length=30)
@@ -30,8 +34,8 @@ class Empleado(models.Model):
 
     def __str__(self):
         return self.nombre
-    
-    
+
+
 class Socio(models.Model):
     nombre = models.CharField(max_length=50)
     apellido = models.CharField(max_length=50)
@@ -40,7 +44,7 @@ class Socio(models.Model):
 
     def __str__(self):
         return self.nombre
-    
+
 
 class Prestamo_libro(models.Model):
     socio = models.ForeignKey(Socio, on_delete=models.CASCADE)

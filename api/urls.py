@@ -1,11 +1,15 @@
 
-from django.urls import path
+from django.urls import include, path
 from .views import *
+from rest_framework import routers
+router = routers.DefaultRouter()
+router.register(r'libros', LibroViewSet)
+router.register(r'empleados', EmpleadoViewSet)
+router.register(r'socios', SocioViewSet)
+router.register(r'autores', AutorViewSet)
+router.register(r'prestamos', Prestamo_libroViewSet)
 
 urlpatterns =[
-    path("libros/", end_libros_todos, name="GetAllLibros"),
-    path("libros/<int:id>", end_libros_id,name="getLibrosID"),
-    path("empleados/", end_empleados, name="GetAllEmpleados"),
-    path("socios/", end_socios, name="GetAllSocios"),
-
+    
+    path('', include(router.urls))
 ]
