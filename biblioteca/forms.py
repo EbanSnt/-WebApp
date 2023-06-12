@@ -16,7 +16,7 @@ class EmpleadoForm(forms.ModelForm):
 class AutoresForm(forms.ModelForm):
     class Meta():
         model = Autor
-        fields = ['nombre','apellido','nacionalidad']
+        fields = ['nombre', 'apellido', 'nacionalidad']
         widgets = {
             "nombre": forms.TextInput(attrs={"class": "form-control my-3"}),
             "apellido": forms.TextInput(attrs={"class": "form-control my-3"}),
@@ -28,7 +28,7 @@ class AutoresForm(forms.ModelForm):
 class SociosForm(forms.ModelForm):
     class Meta():
         model = Socio
-        fields = ['nombre','apellido','fecha_nacimiento']
+        fields = ['nombre', 'apellido', 'fecha_nacimiento']
         widgets = {
             "nombre": forms.TextInput(attrs={"class": "form-control my-3"}),
             "apellido": forms.TextInput(attrs={"class": "form-control my-3"}),

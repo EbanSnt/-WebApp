@@ -51,8 +51,13 @@ INSTALLED_APPS = [
     'biblioteca',
     'api',
     'rest_framework',
-    'coreapi'
+    'coreapi',
+    'crispy_forms',
+    'crispy_bootstrap4',
 ]
+
+
+CRISPY_TEMPLATE_PACK = "bootstrap4"
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -98,10 +103,20 @@ WSGI_APPLICATION = 'WebApp.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
-DATABASES = {
+#for ONLINE DEVELOPMENT
+
+"""DATABASES = {
     'default': dj_database_url.config(      # Feel free to alter this value to suit your needs.
         default='sqlite3:///db.sqlite3',
         conn_max_age=600)
+}
+"""
+# for local development
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
 }
 
 

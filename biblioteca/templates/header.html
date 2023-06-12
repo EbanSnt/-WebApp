@@ -1,47 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title>{% block title %}Biblioteca App{% endblock %}</title>
-    <link rel="stylesheet" href="{{ static('css/bootstrap.css') }}">
-    {% block link %} {% endblock %}
 
-  </head>
-  <body>
-    <header class="bg-dark">
-      <div class="d-flex w-100 py-3 container">
-        <div class="w-25">
-          <a class="text-decoration-none" href="/home"
-            ><h1 class="text-light">
-              {% block heading %}Biblioteca App{% endblock %}
-            </h1></a
-          >
-        </div>
-        <div class="w-75">
-          <nav class="h-100 w-100">
-            <div
-              class="d-flex justify-content-end align-items-center w-100 h-100"
-            >
-              <a class="mx-2 btn btn-primary text-light" href="/home/autores"
-                >Autores</a
-              >
-              <a class="mx-2 btn btn-primary text-light" href="/home/libros"
-                >Libros</a
-              >
-              <a class="mx-2 btn btn-primary text-light" href="/home/socios"
-                >Socios</a
-              >
-              <a class="mx-2 btn btn-primary text-light" href="/home/empleados"
-                >Empleados</a
-              >
-              <a class="mx-2 btn btn-primary text-light" href="/home/prestamos"
-                >Prestamos</a
-              >
-            </div>
-          </nav>
-        </div>
+<head>
+  <meta charset="UTF-8" />
+  <title>{% block title %}Biblioteca App{% endblock %}</title>
+  <link rel="stylesheet" href="{{ static('css/bootstrap.css') }}">
+  {% block link %} {% endblock %}
+
+</head>
+
+<body>
+  <header class="bg-dark">
+    <div class="d-flex w-100 py-3 container">
+      <div class="w-25">
+        <a class="text-decoration-none" href="/home">
+          <h1 class="text-light">
+            {% block heading %}Biblioteca App{% endblock %}
+          </h1>
+        </a>
       </div>
-    </header>
-    <main>{% block content %}{% endblock %}</main>
-  </body>
+      <div class="w-75">
+        <nav class="h-100 w-100">
+          <div class="d-flex justify-content-end align-items-center w-100 h-100">
+            <a class="mx-2 btn btn-primary text-light" href="/home/autores">Autores</a>
+            <a class="mx-2 btn btn-primary text-light" href="/home/libros">Libros</a>
+            <a class="mx-2 btn btn-primary text-light" href="/home/socios">Socios</a>
+            <a class="mx-2 btn btn-primary text-light" href="/home/empleados">Empleados</a>
+            <a class="mx-2 btn btn-primary text-light" href="/home/prestamos">Prestamos</a>
+          </div>
+        </nav>
+      </div>
+    </div>
+  </header>
+  <main>
+    {% block content %}
+
+    {% endblock %}
+  </main>
+</body>
+
 </html>
