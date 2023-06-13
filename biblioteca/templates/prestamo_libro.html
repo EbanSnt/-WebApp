@@ -1,14 +1,13 @@
-{% extends 'header.html' %} {% block content %}
+{% extends 'header.html' %} 
+{% block content %}
 <div class="container my-5">
   <h1 class="text-center">Crear Nuevo Prestamo de Libro</h1>
-
   <form action="" method="post">
     <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}" />
     {{form}}
     <span class="my-3 text-danger">
       * La fecha de devolucion se establece con 2 dias despues de la fecha de
-      prestamo</span
-    >
+      prestamo</span>
     <div class="my-2">
       <button class="btn btn-success" type="submit">Crear</button>
     </div>

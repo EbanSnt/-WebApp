@@ -6,7 +6,7 @@ from biblioteca.models import Autor, Empleado, Libro, Prestamo_libro, Socio
 class AutoreTestCase(TestCase):
 
     def setUp(self):
-        Autor.objects.create(nombre='Marcos', apellido='Eduardo',nacionalidad="Peru", activo=True)
+        Autor.objects.create(nombre='Marcos', apellido='Eduardo',nacionalidad="Chile", activo=True)
 
     def test_autor_estado_true(self):
         autor = Autor.objects.get(nombre='Marcos')
@@ -26,7 +26,7 @@ class AutoreTestCase(TestCase):
     
     def test_autor_nacionalidad(self):
         autor = Autor.objects.get(nombre='Marcos')
-        self.assertEqual(autor.nacionalidad, "Peru")
+        self.assertEqual(autor.nacionalidad, "Chile")
     
 
 
