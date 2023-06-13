@@ -5,38 +5,33 @@
     <h1>Borrar Libro</h1>
   </div>
   <form method="post" id="form">
-  <input type="hidden" name="_csrf_token" value="{0}">
+    <input type="hidden" name="_csrf_token" value="{0}">
     <label for="titulo" class="form-label">Titulo:</label>
-    <input type="text" class="form-control" id="titulo" name="titulo" value="{{ libro.titulo }}" readonly/>
+    <input type="text" class="form-control" id="titulo" name="titulo" value="{{ libro.titulo }}" readonly />
     <span id="titulo-error" class="text-danger my-2"></span>
     <br />
     <label for="isbn" class="form-label">ISBN:</label>
-    <input
-      type="number"
-      id="isbn"
-      class="form-control"
-      name="isbn"
-      value="{{ libro.isbn }}"
-      readonly
-    />
+    <input type="number" id="isbn" class="form-control" name="isbn" value="{{ libro.isbn }}" readonly />
     <span id="isbn-error" class="text-danger  my-2"></span>
 
     <br />
     <label for="descripcion" class="form-label">Descripcion:</label>
-    <input type="text" class="form-control" id="descripcion" name="descripcion" value="{{ libro.descripcion }}" readonly/>
+    <input type="text" class="form-control" id="descripcion" name="descripcion" value="{{ libro.descripcion }}"
+      readonly />
     <span id="descripcion-error" class="text-danger my-2"></span>
     <br />
 
     <label for="autor" class="form-label">Autor:</label>
-    <input type="text" class="form-control" id="autor" name="autor" value="{{autor_actual.nombre}}" readonly/>
+    <input type="text" class="form-control" id="autor" name="autor" value="{{autor_actual.nombre}}" readonly />
     <span id="descripcion-error" class="text-danger my-2"></span>
     <br />
 
     <div class="mb-3 form-check">
-      <input type="checkbox" class="form-check-input" id="activo" name="activo" value="True" {% if libro.activo %}checked{% endif %} disabled/>
-      <label class="form-check-label" for="activo" >Activo</label>
-    <br />
-    <span class="my-3 text-danger">
+      <input type="checkbox" class="form-check-input" id="activo" name="activo" value="True" {% if libro.activo
+        %}checked{% endif %} disabled />
+      <label class="form-check-label" for="activo">Activo</label>
+      <br />
+      <span class="my-3 text-danger">
         * Los campos no son editables</span><br />
     </div>
     <input id="button" class="btn btn-success" type="submit" value="Borrar" />
@@ -50,18 +45,18 @@
     var form = document.getElementById("form")
     var button = document.getElementById("button")
     let empty;
-    form.addEventListener('input', function() {
-      empty = Array.from(form.elements).some(function(element) {
+    form.addEventListener('input', function () {
+      empty = Array.from(form.elements).some(function (element) {
         span = document.getElementById(`${element.id}-error`)
-        if(element.value === ""){
+        if (element.value === "") {
           span.innerText = "Campo vacío"
         }
         return element.value === '';
       })
       button.disabled = empty;
-    }) 
+    })
 
   </script>
-    
+
 </div>
 {% endblock %}

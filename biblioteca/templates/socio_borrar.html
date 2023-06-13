@@ -7,63 +7,26 @@
   <form method="post" id="form">
     <input type="hidden" name="_csrf_token" value="{0}" />
     <label for="nombre" class="form-label">Nombre:</label>
-    <input
-      type="text"
-      class="form-control"
-      id="nombre"
-      name="nombre"
-      value="{{ socio.nombre }}"
-      readonly
-    />
+    <input type="text" class="form-control" id="nombre" name="nombre" value="{{ socio.nombre }}" readonly />
     <span id="nombre-error" class="text-danger my-2"></span>
     <br />
     <label for="apellido" class="form-label">Apellido:</label>
-    <input
-      type="text"
-      id="apellido"
-      class="form-control"
-      name="apellido"
-      value="{{ socio.apellido }}"
-      readonly
-    />
+    <input type="text" id="apellido" class="form-control" name="apellido" value="{{ socio.apellido }}" readonly />
     <span id="apellido-error" class="text-danger my-2"></span>
     <br />
     <label for="fnacimiento" class="form-label">Fecha de Nacimiento:</label>
-    <input
-      type="date"
-      id="fnacimiento"
-      name="fnacimiento"
-      class="form-control"
-      value="{{ socio.fecha_nacimiento }}"
-      readonly
-    />
+    <input type="date" id="fnacimiento" name="fnacimiento" class="form-control" value="{{ socio.fecha_nacimiento }}"
+      readonly />
     <br />
     <div class="mb-3 form-check">
-      <input
-        type="checkbox"
-        class="form-check-input"
-        id="activo"
-        name="activo"
-        value="True"
-        {%
-        if
-        socio.activo
-        %}checked{%
-        endif
-        %}
-        disabled
-      />
+      <input type="checkbox" class="form-check-input" id="activo" name="activo" value="True" {% if socio.activo
+        %}checked{% endif %} disabled />
       <label class="form-check-label" for="activo">Activo</label>
       <br />
     </div>
     <span class="my-3 text-danger">
       * Los campos no son editables</span><br />
-    <input
-      id="button"
-      class="btn btn-success"
-      type="submit"
-      value="Borrar"
-    />
+    <input id="button" class="btn btn-success" type="submit" value="Borrar" />
     <div class="mt-2">
       <a class="btn btn-primary text-light" class="" href="/home/socios">
         Volver

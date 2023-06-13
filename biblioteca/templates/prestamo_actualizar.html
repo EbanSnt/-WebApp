@@ -5,51 +5,53 @@
     <h1>Actualizar Prestamo</h1>
   </div>
   <form method="post" id="form">
-  <input type="hidden" name="_csrf_token" value="{0}">
+    <input type="hidden" name="_csrf_token" value="{0}">
 
     <label for="socio" class="form-label">Socio:</label>
-    <select id="socio" name="socio" class="form-select" >
-    <option value={{socio_actual.id}}> {{socio_actual.nombre}}</option>
-    {% for socio in socios %}
-        {% if socio.activo %}
-            <option value="{{ socio.id }}">{{ socio }}</option>
-        {% else %}
-            <option value={{ socio }} disabled>{{ socio }}</option>
-        {% endif %}
-    {% endfor %}
+    <select id="socio" name="socio" class="form-select">
+      <option value={{socio_actual.id}}> {{socio_actual.nombre}}</option>
+      {% for socio in socios %}
+      {% if socio.activo %}
+      <option value="{{ socio.id }}">{{ socio }}</option>
+      {% else %}
+      <option value={{ socio }} disabled>{{ socio }}</option>
+      {% endif %}
+      {% endfor %}
     </select>
 
     <label for="empleado" class="form-label">Empleado:</label>
-    <select id="empleado" name="empleado" class="form-select" >
-    <option value={{empleado_actual.id}}> {{empleado_actual.nombre}}</option>
-    {% for empleado in empleados %}
-        {% if empleado.activo %}
-            <option value="{{ empleado.id }}">{{ empleado }}</option>
-        {% else %}
-            <option value={{ empleado }} disabled>{{ empleado }} - INACTIVO</option>
-        {% endif %}
-    {% endfor %}
+    <select id="empleado" name="empleado" class="form-select">
+      <option value={{empleado_actual.id}}> {{empleado_actual.nombre}}</option>
+      {% for empleado in empleados %}
+      {% if empleado.activo %}
+      <option value="{{ empleado.id }}">{{ empleado }}</option>
+      {% else %}
+      <option value={{ empleado }} disabled>{{ empleado }} - INACTIVO</option>
+      {% endif %}
+      {% endfor %}
     </select>
 
     <label for="libro" class="form-label">Libro:</label>
-    <select id="libro" name="libro" class="form-select" >
-    <option value={{libro_actual.id}}> {{libro_actual.titulo}}</option>
-    {% for libro in libros %}
-        {% if libro.activo %}
-            <option value="{{ libro.id }}">{{ libro }}</option>
-        {% else %}
-            <option value={{ libro }} disabled>{{ libro }}</option>
-        {% endif %}
-    {% endfor %}
+    <select id="libro" name="libro" class="form-select">
+      <option value={{libro_actual.id}}> {{libro_actual.titulo}}</option>
+      {% for libro in libros %}
+      {% if libro.activo %}
+      <option value="{{ libro.id }}">{{ libro }}</option>
+      {% else %}
+      <option value={{ libro }} disabled>{{ libro }}</option>
+      {% endif %}
+      {% endfor %}
     </select>
-       
+
     <label for="fecha_prestamo" class="form-label">Fecha de Préstamo:</label>
-    <input type="date" class="form-control" id="fecha_prestamo" name="fecha_prestamo" value="{{prestamo.fecha_prestamo}}"/>
+    <input type="date" class="form-control" id="fecha_prestamo" name="fecha_prestamo"
+      value="{{prestamo.fecha_prestamo}}" />
     <span id="fecha_prestamo-error" class="text-danger my-2"></span>
     <br />
 
     <label for="fecha_devolucion" class="form-label">Fecha de Devolución:</label>
-    <input type="date" class="form-control" id="fecha_devolucion" name="fecha_devolucion" value="{{prestamo.fecha_devolucion}}"/>
+    <input type="date" class="form-control" id="fecha_devolucion" name="fecha_devolucion"
+      value="{{prestamo.fecha_devolucion}}" />
     <span id="fecha_devolucion-error" class="text-danger my-2"></span>
     <br />
 
@@ -64,18 +66,18 @@
     var form = document.getElementById("form")
     var button = document.getElementById("button")
     let empty;
-    form.addEventListener('input', function() {
-      empty = Array.from(form.elements).some(function(element) {
+    form.addEventListener('input', function () {
+      empty = Array.from(form.elements).some(function (element) {
         span = document.getElementById(`${element.id}-error`)
-        if(element.value === ""){
+        if (element.value === "") {
           span.innerText = "Campo vacío"
         }
         return element.value === '';
       })
       button.disabled = empty;
-    }) 
+    })
 
   </script>
-    
+
 </div>
 {% endblock %}

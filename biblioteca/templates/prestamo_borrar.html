@@ -5,31 +5,33 @@
     <h1>Borrar Prestamo</h1>
   </div>
   <form method="post" id="form">
-  <input type="hidden" name="_csrf_token" value="{0}">
+    <input type="hidden" name="_csrf_token" value="{0}">
 
     <label for="socio" class="form-label">Socio:</label>
-    <input type="text" class="form-control" id="socio" name="socio" value="{{socio_actual.nombre}}" readonly/>
+    <input type="text" class="form-control" id="socio" name="socio" value="{{socio_actual.nombre}}" readonly />
     <span id="descripcion-error" class="text-danger my-2"></span>
 
     <label for="empleado" class="form-label">Empleado:</label>
-    <input type="text" class="form-control" id="empleado" name="empleado" value="{{empleado_actual.nombre}}" readonly/>
+    <input type="text" class="form-control" id="empleado" name="empleado" value="{{empleado_actual.nombre}}" readonly />
     <span id="descripcion-error" class="text-danger my-2"></span>
 
     <label for="libro" class="form-label">Libro:</label>
-    <input type="text" class="form-control" id="libro" name="libro" value="{{libro_actual.titulo}}" readonly/>
+    <input type="text" class="form-control" id="libro" name="libro" value="{{libro_actual.titulo}}" readonly />
     <span id="descripcion-error" class="text-danger my-2"></span>
-       
+
     <label for="fecha_prestamo" class="form-label">Fecha de Préstamo:</label>
-    <input type="date" class="form-control" id="fecha_prestamo" name="fecha_prestamo" value="{{prestamo.fecha_prestamo}}" readonly/>
+    <input type="date" class="form-control" id="fecha_prestamo" name="fecha_prestamo"
+      value="{{prestamo.fecha_prestamo}}" readonly />
     <span id="fecha_prestamo-error" class="text-danger my-2"></span>
     <br />
 
     <label for="fecha_devolucion" class="form-label">Fecha de Devolución:</label>
-    <input type="date" class="form-control" id="fecha_devolucion" name="fecha_devolucion" value="{{prestamo.fecha_devolucion}}" readonly/>
+    <input type="date" class="form-control" id="fecha_devolucion" name="fecha_devolucion"
+      value="{{prestamo.fecha_devolucion}}" readonly />
     <span id="fecha_devolucion-error" class="text-danger my-2"></span>
     <br />
     <span class="my-3 text-danger">
-        * Los campos no son editables</span><br />
+      * Los campos no son editables</span><br />
     <input id="button" class="btn btn-success" type="submit" value="Borrar" />
     <div class="mt-2 ">
       <a class="btn btn-primary text-light" class="" href="/home/prestamos">
@@ -41,18 +43,18 @@
     var form = document.getElementById("form")
     var button = document.getElementById("button")
     let empty;
-    form.addEventListener('input', function() {
-      empty = Array.from(form.elements).some(function(element) {
+    form.addEventListener('input', function () {
+      empty = Array.from(form.elements).some(function (element) {
         span = document.getElementById(`${element.id}-error`)
-        if(element.value === ""){
+        if (element.value === "") {
           span.innerText = "Campo vacío"
         }
         return element.value === '';
       })
       button.disabled = empty;
-    }) 
+    })
 
   </script>
-    
+
 </div>
 {% endblock %}
