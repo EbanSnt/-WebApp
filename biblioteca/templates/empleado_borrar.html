@@ -5,37 +5,25 @@
     <h1>Borrar Empleado</h1>
   </div>
   <form method="post" id="form">
-  <input type="hidden" name="_csrf_token" value="{0}">
+    <input type="hidden" name="_csrf_token" value="{0}">
     <label for="nombre" class="form-label">Nombre:</label>
     <input type="text" class="form-control" id="nombre" name="nombre" value="{{ empleado.nombre }}" readonly />
     <span id="nombre-error" class="text-danger my-2"></span>
     <br />
     <label for="apellido" class="form-label">Apellido:</label>
-    <input
-      type="text"
-      id="apellido"
-      class="form-control"
-      name="apellido"
-      value="{{ empleado.apellido }}"
-      readonly
-    />
+    <input type="text" id="apellido" class="form-control" name="apellido" value="{{ empleado.apellido }}" readonly />
     <span id="apellido-error" class="text-danger  my-2"></span>
     <br />
-    <label for="nlegajo"  class="form-label">Nº de Legajo:</label>
-    <input
-      type="number"
-      id="nlegajo"
-      name="nlegajo"
-      class="form-control"
-      value="{{ empleado.numero_legajo }}"
-      readonly
-    />
+    <label for="nlegajo" class="form-label">Nº de Legajo:</label>
+    <input type="number" id="nlegajo" name="nlegajo" class="form-control" value="{{ empleado.numero_legajo }}"
+      readonly />
     <br />
     <div class="mb-3 form-check">
-      <input type="checkbox" class="form-check-input" id="activo" name="activo" value="True" {% if empleado.activo %}checked{% endif %} disabled/>
-      <label class="form-check-label" for="activo" >Activo</label>
-    <br />
-    <span class="my-3 text-danger">
+      <input type="checkbox" class="form-check-input" id="activo" name="activo" value="True" {% if empleado.activo
+        %}checked{% endif %} disabled />
+      <label class="form-check-label" for="activo">Activo</label>
+      <br />
+      <span class="my-3 text-danger">
         * Los campos no son editables</span><br />
     </div>
     <input id="button" class="btn btn-success" type="submit" value="Borrar" />
@@ -49,18 +37,18 @@
     var form = document.getElementById("form")
     var button = document.getElementById("button")
     let empty;
-    form.addEventListener('input', function() {
-      empty = Array.from(form.elements).some(function(element) {
+    form.addEventListener('input', function () {
+      empty = Array.from(form.elements).some(function (element) {
         span = document.getElementById(`${element.id}-error`)
-        if(element.value === ""){
+        if (element.value === "") {
           span.innerText = "Campo vacío"
         }
         return element.value === '';
       })
       button.disabled = empty;
-    }) 
+    })
 
   </script>
-    
+
 </div>
 {% endblock %}
