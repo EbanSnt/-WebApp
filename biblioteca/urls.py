@@ -36,5 +36,7 @@ urlpatterns = [
     path("prestamos/",prestamos_lista,name="prestamos_lista"),
 
     path("prestamos/nuevo/",PrestarForm,name="prestamo_nuevo"),
-    path("prestamos/<int:id>/modificar/", actualizar_prestamo, name="actualizar_prestamo")
+    path("prestamos/<int:id>/modificar/", actualizar_prestamo, name="actualizar_prestamo"),
+    # HISTORIAL
+    path("historial/", historial, name="historial")
 ]

@@ -5,7 +5,8 @@ from django.views.decorators.csrf import csrf_exempt
 from django.contrib import messages
 from django.http import HttpResponseRedirect, JsonResponse
 from datetime import timedelta
-
+import time
+from datetime import datetime
 
 # Create your views here.
 # HEADER PRESENTE EN TODAS LAS PAGINAS
@@ -58,9 +59,15 @@ def registrar_empleado(request):
     """
     Permite registrar un nuevo empleado en el sistema, el cual es almacenado en la base de datos
     """
+    now = datetime.now()
+    fecha = now.strftime('%d/%m/%Y %H:%M')
     form = EmpleadoForm()
     context = {'form': form, "mensaje": ""}
     if request.method == "POST":
+        nombre = request.POST["nombre"]
+        apellido = request.POST["apellido"]
+        legajo = request.POST["numero_legajo"]
+        descripcion = f"Se añade un Empleado:\n{nombre} {apellido}\n N° de Legajo: {legajo}"
         form = EmpleadoForm(request.POST)
         if form.is_valid():
             nlegajo = form.cleaned_data["numero_legajo"]
@@ -69,10 +76,14 @@ def registrar_empleado(request):
                 return render(request, "empleado_nuevo.html", context)
             form.save()
             # añadido redireccion al listado para cargar el nuevo
-            return redirect("empleado_lista")
+            HistorialForm.objects.create(fecha=fecha,descripcion=descripcion,tipo="Creacion")
+            print(datetime.now())
+            return redirect("empleado_lista")     
         else:
             return redirect("empleado_lista")
-
+        
+   
+           
     return render(request, "empleado_nuevo.html", context)
 
 
@@ -81,17 +92,30 @@ def actualizar_empleado(request, id):
     """
     Permite actualizar los datos de un empleado en especifico, los datos son obtenidos de la base de datos y cargados en los formularios
     """
+    now = datetime.now()
+    fecha = now.strftime('%d/%m/%Y %H:%M')
     empleado = Empleado.objects.get(id=id)
+    empleado_viejo = Empleado.objects.get(id=id)
     if request.method == "POST":
-        print(request.POST["nlegajo"])
         empleado.nombre = request.POST["nombre"]
         empleado.apellido = request.POST["apellido"]
         empleado.numero_legajo = request.POST["nlegajo"]
         if request.POST.get("activo") == None:
             empleado.activo = False
+            activo_nuevo = "Inactivo"
         else:
             empleado.activo = True
+            activo_nuevo = "Activo"
+        
+        if empleado_viejo.activo:
+            activo = "Activo"
+        else:
+            activo = "Inactivo"
         empleado.save()
+        
+       
+        descripcion = f"Se Actualiza un Empleado: {empleado_viejo.nombre} {empleado_viejo.apellido}. \n N° de Legajo: {empleado_viejo.numero_legajo}. Estado: {activo} --> \n{empleado.nombre} {empleado.apellido}.\n N° de Legajo: {empleado.numero_legajo}. Estado: {activo_nuevo}"
+        HistorialForm.objects.create(fecha=fecha,descripcion=descripcion,tipo="Actualizacion")
         return redirect("empleado_lista")
     else:
         return render(request, "empleado_actualizar.html", {"empleado": empleado})
@@ -115,13 +139,21 @@ def desactivar_empleado(request, id):
 
 # ACTIVAR_DESACTIVAR UN REGISTRO DE EMPLEADO / FUSION DE CODIGO
 def activo_cambiar_empleado(request, id):
+    now = datetime.now()
+    fecha = now.strftime('%d/%m/%Y %H:%M')
     empleado = Empleado.objects.get(id=id)
     if request.method == "POST":
         if empleado.activo == False:
             empleado.activo = True
+            activo = "Activa"
+            tipo = "Activacion"
         else:
             empleado.activo = False
+            activo = "Desactiva"
+            tipo = "Desactivacion"
         empleado.save()
+        descripcion = f"Se {activo} un Empleado:\n{empleado.nombre} {empleado.apellido}\n N° de Legajo: {empleado.numero_legajo}"
+        HistorialForm.objects.create(fecha=fecha,descripcion=descripcion,tipo=tipo)
         # REEMPLAZAR POR EL NAME DEL PATH QUE SE COLOCARÁ
         return redirect("empleado_lista")
     # REEMPLAZAR POR EL NAME DEL PATH QUE SE COLOCARÁ
@@ -131,9 +163,12 @@ def activo_cambiar_empleado(request, id):
 @csrf_exempt
 def borrar_empleado(request, id):
     empleado = get_object_or_404(Empleado, id=id)
-
+    now = datetime.now()
+    fecha = now.strftime('%d/%m/%Y %H:%M')
     if request.method == "POST":
+        descripcion = f"Se Elimina un Empleado:\n{empleado.nombre} {empleado.apellido}\n N° de Legajo: {empleado.numero_legajo}"
         empleado.delete()
+        HistorialForm.objects.create(fecha=fecha,descripcion=descripcion,tipo="Eliminacion")
         return redirect("empleado_lista")
 
     return render(request, "empleado_borrar.html", {"empleado": empleado})
@@ -171,11 +206,18 @@ def registrar_autor(request):
     """
      Registro de autores en el sistema, los cuales son almacenados en la base de datos, los parametros son obtenidos de los formularios 
     """
+    now = datetime.now()
+    fecha = now.strftime('%d/%m/%Y %H:%M')
     form = AutoresForm()  # REEMPLAZAR POR EL FORM PARA ESTE CAMPO
     if request.method == "POST":
         form = AutoresForm(request.POST)
         if form.is_valid():
             form.save()
+            nombre = request.POST["nombre"]
+            apellido = request.POST["apellido"]
+            nacionalidad = request.POST["nacionalidad"]
+            descripcion = f"Se añade un Autor:\n{nombre} {apellido}\n ({nacionalidad})"
+            HistorialForm.objects.create(fecha=fecha,descripcion=descripcion,tipo="Creacion")
             return redirect("autor_lista")
         else:
             # REEMPLAZAR POR EL TEMPLATE PARA ESTE CAMPO
@@ -191,16 +233,30 @@ def actualizar_autor(request, id):
     """
         Actualiza los datos de un autor en especifico, los datos son obtenidos de la base de datos y cargados en los formularios para que el usuario pueda modificarlosa gusto siempre y cuando cumplan con las validaciones
     """
+    now = datetime.now()
+    fecha = now.strftime('%d/%m/%Y %H:%M')
     autor = Autor.objects.get(id=id)
+    autor_viejo = Autor.objects.get(id=id)
     if request.method == "POST":
         autor.nombre = request.POST["nombre"]
         autor.apellido = request.POST["apellido"]
         autor.nacionalidad = request.POST["nacionalidad"]
         if request.POST.get("activo") == None:
             autor.activo = False
+            activo = "Inactivo"
         else:
             autor.activo = True
+            activo = "Activo"
+
+        if autor_viejo.activo:
+            activo_viejo = "Activo"
+        else:
+            activo_viejo = "Inactivo" 
+        descripcion = f"Se Actualiza un Autor:\n{autor_viejo.nombre} {autor_viejo.apellido}\n ({autor_viejo.nacionalidad}). Estado: {activo_viejo} --> \n {autor.nombre} {autor.apellido}\n ({autor.nacionalidad}). Estado: {activo}"
         autor.save()
+        
+        HistorialForm.objects.create(fecha=fecha,descripcion=descripcion,tipo="Actualizacion")
+
         return redirect("autor_lista")
     else:
         return render(request, "autores_actualizar.html", {"autor": autor})
@@ -211,13 +267,22 @@ def activo_cambiar_autor(request, id):
     """
         Activa un autor en especifico, el cual es seleccionado por el usuario, el autor es activado y puede ser utilizado en el sistema
     """
+    now = datetime.now()
+    fecha = now.strftime('%d/%m/%Y %H:%M')
     autor = Autor.objects.get(id=id)
     if request.method == "POST":
         if autor.activo == False:
             autor.activo = True
+            activo = "Activa"
+            tipo = "Activacion"
         else:
             autor.activo = False
+            activo = "Desactiva"
+            tipo = "Desactivacion"
+        descripcion = f"Se {activo} un Autor:\n{autor.nombre} {autor.apellido}\n ({autor.nacionalidad})"
         autor.save()
+        
+        HistorialForm.objects.create(fecha=fecha,descripcion=descripcion,tipo=tipo)
         # REEMPLAZAR POR EL NAME DEL PATH QUE SE COLOCARÁ
         return redirect("autor_lista")
     # REEMPLAZAR POR EL NAME DEL PATH QUE SE COLOCARÁ
@@ -227,9 +292,12 @@ def activo_cambiar_autor(request, id):
 @csrf_exempt
 def borrar_autor(request, id):
     autor = get_object_or_404(Autor, id=id)
-
+    now = datetime.now()
+    fecha = now.strftime('%d/%m/%Y %H:%M')
     if request.method == "POST":
+        descripcion = f"Se Elimina un Autor:\n{autor.nombre} {autor.apellido}\n ({autor.nacionalidad})"
         autor.delete()
+        HistorialForm.objects.create(fecha=fecha,descripcion=descripcion,tipo="Eliminacion")
         return redirect("autor_lista")
 
     return render(request, "autor_borrar.html", {"autor": autor})
@@ -242,11 +310,17 @@ def registrar_socio(request) -> HttpResponseRedirect:
     """
         Registro de socios en el sistema, los cuales son almacenados en la base de datos, los parametros son obtenidos de los formularios
     """
+    now = datetime.now()
+    fecha = now.strftime('%d/%m/%Y %H:%M')
     form = SociosForm()  # REEMPLAZAR POR EL FORM PARA ESTE CAMPO
     if request.method == "POST":
         form = SociosForm(request.POST)
         if form.is_valid():
             form.save()
+            nombre = request.POST["nombre"]
+            apellido = request.POST["apellido"]
+            descripcion = f"Se Añade un Socio:\n{nombre} {apellido}\n"
+            HistorialForm.objects.create(fecha=fecha,descripcion=descripcion,tipo="Creacion")
             return redirect("socio_lista")
     context = {"form": form}
     # REEMPLAZAR POR EL TEMPLATE QUE SE CREARÁ
@@ -273,16 +347,29 @@ def actualizar_socio(request, id):
     """
         Actualiza los datos de un socio en especifico, los datos son obtenidos de la base de datos y cargados en los formularios para que el usuario pueda modificarlosa gusto siempre y cuando cumplan con las validaciones
     """
+    now = datetime.now()
+    fecha = now.strftime('%d/%m/%Y %H:%M')
     socio = Socio.objects.get(id=id)
+    socio_viejo = Socio.objects.get(id=id)
     if request.method == "POST":
         socio.nombre = request.POST["nombre"]
         socio.apellido = request.POST["apellido"]
         socio.fecha_nacimiento = request.POST["fnacimiento"]
         if request.POST.get("activo") == None:
             socio.activo = False
+            activo = "Inactivo"
         else:
             socio.activo = True
+            activo = "Activo"
+        
+        if socio_viejo.activo:
+            activo_viejo = "Activo"
+        else:
+            activo_viejo = "Inactivo" 
+
         socio.save()
+        descripcion = f"Se Actualiza un Socio:\n{socio_viejo.nombre} {socio_viejo.apellido}. Estado: {activo_viejo}\n -->\n {socio.nombre} {socio.apellido}. Estado: {activo}"
+        HistorialForm.objects.create(fecha=fecha,descripcion=descripcion,tipo="Actualizacion")
         return redirect("socio_lista")
     else:
         return render(request, "socio_actualizar.html", {"socio": socio})
@@ -319,13 +406,22 @@ def activar_socio(request, id):
 
 
 def activar_cambiar_socio(request, id):
+    now = datetime.now()
+    fecha = now.strftime('%d/%m/%Y %H:%M')
     socio = Socio.objects.get(id=id)
     if request.method == "POST":
         if socio.activo == False:
             socio.activo = True
+            activo = "Activa"
+            tipo = "Activacion"
         else:
             socio.activo = False
+            activo = "Desactiva"
+            tipo = "Desactivacion"
         socio.save()
+        descripcion = f"Se {activo} un Socio:\n{socio.nombre} {socio.apellido}"
+        HistorialForm.objects.create(fecha=fecha,descripcion=descripcion,tipo=tipo)
+        return redirect("socio_lista")
         # REEMPLAZAR POR EL NAME DEL PATH QUE SE COLOCARÁ
         return redirect("socio_lista")
     # REEMPLAZAR POR EL NAME DEL PATH QUE SE COLOCARÁ
@@ -335,9 +431,12 @@ def activar_cambiar_socio(request, id):
 @csrf_exempt
 def borrar_socio(request, id):
     socio = get_object_or_404(Socio, id=id)
-
+    now = datetime.now()
+    fecha = now.strftime('%d/%m/%Y %H:%M')
     if request.method == "POST":
+        descripcion = f"Se Elimina un Socio:\n{socio.nombre} {socio.apellido}"
         socio.delete()
+        HistorialForm.objects.create(fecha=fecha,descripcion=descripcion,tipo="Eliminacion")
         return redirect("socio_lista")
 
     return render(request, "socio_borrar.html", {"socio": socio})
@@ -369,11 +468,18 @@ def registrar_libro(request) -> HttpResponseRedirect:
     """
         Registro de libros en el sistema, los cuales son almacenados en la base de datos, los parametros son obtenidos de los formularios
     """
+    now = datetime.now()
+    fecha = now.strftime('%d/%m/%Y %H:%M')
     form = LibroForm()  # REEMPLAZAR POR EL FORM PARA ESTE CAMPO
     if request.method == "POST":
         form = LibroForm(request.POST)
         if form.is_valid():
+            titulo = request.POST["titulo"]
+            isbn = request.POST["isbn"]
+            autor = Autor.objects.get(id=request.POST["autor"])
             form.save()
+            descripcion = f"Se Añade un Libro:\n{titulo}\n({autor.nombre} {autor.apellido})\nISBN: {isbn}"
+            HistorialForm.objects.create(fecha=fecha,descripcion=descripcion,tipo="Creacion")
             return redirect("libros_lista")
     context = {"form": form}
     # REEMPLAZAR POR EL TEMPLATE QUE SE CREARÁ
@@ -386,8 +492,10 @@ def actualizar_libro(request, id):
     """
         Actualiza los datos de un libro en especifico, los datos son obtenidos de la base de datos y cargados en los formularios para que el usuario pueda modificarlosa gusto siempre y cuando cumplan con las validaciones
     """
-
+    now = datetime.now()
+    fecha = now.strftime('%d/%m/%Y %H:%M')
     libro = Libro.objects.get(id=id)
+    libro_viejo = Libro.objects.get(id=id)
     autor_libro_actual = Autor.objects.get(id=libro.autor.id)
     autor = Autor.objects.filter(~Q(nombre=libro.autor))
     if request.method == "POST":
@@ -399,9 +507,19 @@ def actualizar_libro(request, id):
         libro.activo = request.POST.get('activo', None)
         if request.POST.get("activo") == None:
             libro.activo = False
+            activo = "Inactivo"
         else:
             libro.activo = True
+            activo = "Activo"
+        
+        if libro_viejo.activo:
+            activo_viejo = "Activo"
+        else:
+            activo_viejo = "Inactivo" 
+
         libro.save()
+        descripcion = f"Se Actualiza un Libro:\n{libro_viejo.titulo}\n({libro_viejo.autor.nombre} {libro_viejo.autor.apellido})\nISBN: {libro_viejo.isbn}. Estado: {activo_viejo} -->\n{libro.titulo}\n({libro.autor.nombre} {libro.autor.apellido})\nISBN: {libro.isbn}. Estado: {activo}"
+        HistorialForm.objects.create(fecha=fecha,descripcion=descripcion,tipo="Actualizacion")
         # REEMPLAZAR AQUI CON EL NAME DE LA RUTA EN URLS.PY
         return redirect("libros_lista")
     else:
@@ -415,14 +533,21 @@ def activar_cambiar_libro(request, id):
     """
         Desactiva un libro en especifico, el cual es seleccionado por el usuario, el libro es desactivado y no puede ser utilizado en el sistema
     """
-
+    now = datetime.now()
+    fecha = now.strftime('%d/%m/%Y %H:%M')
     libro = Libro.objects.get(id=id)
     if request.method == "POST":
         if libro.activo == False:
             libro.activo = True
+            activo = "Activa"
+            tipo = "Activacion"
         else:
             libro.activo = False
+            activo = "Desactiva"
+            tipo = "Desactivacion"
         libro.save()
+        descripcion = f"Se {activo} un Libro:\n{libro.titulo}\n({libro.autor.nombre} {libro.autor.apellido})\nISBN: {libro.isbn}"
+        HistorialForm.objects.create(fecha=fecha,descripcion=descripcion,tipo=tipo)
         return redirect("libros_lista")
     return render(request, "status_libros")
 
@@ -431,9 +556,12 @@ def activar_cambiar_libro(request, id):
 def borrar_libro(request, id):
     libro = get_object_or_404(Libro, id=id)
     autor_libro_actual = Autor.objects.get(nombre=libro.autor)
-
+    now = datetime.now()
+    fecha = now.strftime('%d/%m/%Y %H:%M')
     if request.method == "POST":
         libro.delete()
+        descripcion = f"Se Elimina un Libro:\n{libro.titulo}\n({libro.autor.nombre} {libro.autor.apellido})\nISBN: {libro.isbn}"
+        HistorialForm.objects.create(fecha=fecha,descripcion=descripcion,tipo="Eliminacion")
         return redirect("libros_lista")
 
     return render(request, "libro_borrar.html", {"libro": libro, "autor_actual": autor_libro_actual})
@@ -462,6 +590,8 @@ def PrestarForm(request):
         Formulario para prestar un libro, el cual es obtenido desde la base de datos y cargado en el formulario para que el usuario pueda seleccionar el libro que desea prestar
         esta view regula las validaciones
     """
+    now = datetime.now()
+    fecha = now.strftime('%d/%m/%Y %H:%M')
     form = PrestamoLibroForm()
     if request.method == "POST":
         form = PrestamoLibroForm(request.POST)
@@ -473,7 +603,14 @@ def PrestarForm(request):
             fecha_prestamo = prestamo.fecha_prestamo
             prestamo.fecha_devolucion = fecha_prestamo + timedelta(days=2)
 
+            socio = Socio.objects.get(id=request.POST['socio'])
+            libro = Libro.objects.get(id=request.POST['libro'])
+            empleado = Empleado.objects.get(id=request.POST['empleado'])
+            fecha_prestamo = request.POST['fecha_prestamo']
+
             prestamo.save()  # GUARDAMOS RECIEN AQUI EL REGISTRO
+            descripcion = f"Se Añade un Prestamo:\n'{libro.titulo}'para {socio.nombre} {socio.apellido}.\nPrestamo hecho por: {empleado.nombre} {empleado.apellido} (Legajo:{empleado.numero_legajo})\nDia: {fecha_prestamo}"
+            HistorialForm.objects.create(fecha=fecha,descripcion=descripcion,tipo="Creacion")
             return redirect('prestamos_lista')
     else:
         form = PrestamoLibroForm()
@@ -488,13 +625,16 @@ def actualizar_prestamo(request, id):
     """
         Actualiza los datos de un prestamo en especifico, los datos son obtenidos de la base de datos y cargados en los formularios para que el usuario pueda modificarlos a gusto siempre y cuando cumplan con las validaciones
     """
+    now = datetime.now()
+    fecha = now.strftime('%d/%m/%Y %H:%M')
     prestamo = Prestamo_libro.objects.get(id=id)
-    socio_actual = Socio.objects.get(nombre=prestamo.socio)
-    empleado_actual = Empleado.objects.get(nombre=prestamo.empleado)
-    libro_actual = Libro.objects.get(titulo=prestamo.libro)
-    socio = Socio.objects.filter(~Q(nombre=prestamo.socio))
-    empleado = Empleado.objects.filter(~Q(nombre=prestamo.empleado))
-    libro = Libro.objects.filter(~Q(titulo=prestamo.libro))
+    prestamo_viejo = Prestamo_libro.objects.get(id=id)
+    socio_actual = Socio.objects.get(id=prestamo.socio.id)
+    empleado_actual = Empleado.objects.get(id=prestamo.empleado.id)
+    libro_actual = Libro.objects.get(id=prestamo.libro.id)
+    socio = Socio.objects.filter(~Q(id=prestamo.socio.id))
+    empleado = Empleado.objects.filter(~Q(id=prestamo.empleado.id))
+    libro = Libro.objects.filter(~Q(id=prestamo.libro.id))
     if request.method == "POST":
         socio_id = Socio.objects.get(id=int(request.POST["socio"]))
         prestamo.socio = socio_id
@@ -505,8 +645,9 @@ def actualizar_prestamo(request, id):
         prestamo.fecha_prestamo = request.POST["fecha_prestamo"]
         prestamo.fecha_devolucion = request.POST["fecha_devolucion"]
         prestamo.save()
-        # REEMPLAZAR AQUI CON EL NAME DE LA RUTA EN URLS.PY
-        return redirect("prestamos_lista")
+        descripcion = f"Se Actualiza un Prestamo:\n'{prestamo_viejo.libro.titulo}' para {prestamo_viejo.socio.nombre} {prestamo_viejo.socio.apellido}.\nPrestamo hecho por: {prestamo_viejo.empleado.nombre} {prestamo_viejo.empleado.apellido} (Legajo:{prestamo_viejo.empleado.numero_legajo})\nDia: {prestamo_viejo.fecha_prestamo} --> \n {prestamo.libro.titulo}' para {prestamo.socio.nombre} {prestamo.socio.apellido}.\nPrestamo hecho por: {prestamo.empleado.nombre} {prestamo.empleado.apellido} (Legajo:{prestamo.empleado.numero_legajo})\nDia: {prestamo.fecha_prestamo}"
+        HistorialForm.objects.create(fecha=fecha,descripcion=descripcion,tipo="Actualizacion")
+        return redirect('prestamos_lista')
     else:
         # REEMPLAZAR CON EL NOMBRE DEL TEMPLATE QUE SE USARÁ
         return render(request, "prestamo_actualizar.html", {"prestamo": prestamo, "socios": socio, "socio_actual": socio_actual, "empleados": empleado, "empleado_actual": empleado_actual, "libros": libro, "libro_actual": libro_actual})
@@ -533,13 +674,24 @@ def actualizar_prestamo(request, id):
 
 @csrf_exempt
 def borrar_prestamo_libro(request, id):
+    now = datetime.now()
+    fecha = now.strftime('%d/%m/%Y %H:%M')
     prestamo = get_object_or_404(Prestamo_libro, id=id)
     socio_actual = Socio.objects.get(nombre=prestamo.socio)
     empleado_actual = Empleado.objects.get(nombre=prestamo.empleado)
     libro_actual = Libro.objects.get(titulo=prestamo.libro)
 
     if request.method == "POST":
+        descripcion = f"Se Elimina un Prestamo:\n'{prestamo.libro.titulo}' para {prestamo.socio.nombre} {prestamo.socio.apellido}.\nPrestamo hecho por: {prestamo.empleado.nombre} {prestamo.empleado.apellido} (Legajo:{prestamo.empleado.numero_legajo})\nDia: {prestamo.fecha_prestamo}"
+        
         prestamo.delete()
+        HistorialForm.objects.create(fecha=fecha,descripcion=descripcion,tipo="Eliminacion")
         return redirect("prestamos_lista")
 
     return render(request, "prestamo_borrar.html", {"prestamo": prestamo, "libro_actual": libro_actual, "socio_actual": socio_actual, "empleado_actual": empleado_actual})
+
+
+def historial(request):
+    historial = HistorialForm.objects.all().order_by("-fecha")
+    ctx = {"historial":historial}
+    return render(request,'historial.html',ctx)

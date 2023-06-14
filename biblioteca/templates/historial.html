@@ -1,0 +1,26 @@
+{% extends 'header.html' %} {% block content %}
+<div class="container py-3">
+  <div class="d-flex w-100 justify-content-center">
+    <h1>Historial de Acciones Realizadas</h1>
+  </div>
+  <div>
+      {% if historial|length > 0 %}
+        <table class="table my-3">
+          <thead>
+            <tr>
+              <th>Fecha</th>
+              <th>Descripcion</th>
+              <th>Tipo</th>
+          </tr>
+          </thead>
+        <tbody>
+        {% for item in historial %}
+        <tr>
+            <td>{{item.fecha}}</td>
+            <td>{{ item.descripcion }}</td>
+            <td>{{ item.tipo }}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    {% endif %}
+{% endblock %}
