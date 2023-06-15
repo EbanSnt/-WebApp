@@ -38,5 +38,12 @@ urlpatterns = [
     path("prestamos/nuevo/",PrestarForm,name="prestamo_nuevo"),
     path("prestamos/<int:id>/modificar/", actualizar_prestamo, name="actualizar_prestamo"),
     # HISTORIAL
-    path("historial/", historial, name="historial")
+    path("historial/", historial, name="historial"),
+
+    # EXPORT 
+    path("exportar/autores", autores_a_csv, name="autores_a_csv"),
+    path("exportar/libros", libros_a_csv, name="libros_a_csv"),
+    path("exportar/empleados", empleado_a_csv, name="empleado_a_csv"),
+    path("exportar/socios", socio_a_csv, name="socio_a_csv"),
+    path("exportar/prestamos", prestamo_a_csv, name="prestamo_a_csv")
 ]

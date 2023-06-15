@@ -7,6 +7,8 @@ from django.http import HttpResponseRedirect, JsonResponse
 from datetime import timedelta
 import time
 from datetime import datetime
+import csv
+from django.http import HttpResponse
 
 # Create your views here.
 # HEADER PRESENTE EN TODAS LAS PAGINAS
@@ -695,3 +697,108 @@ def historial(request):
     historial = HistorialForm.objects.all().order_by("-fecha")
     ctx = {"historial":historial}
     return render(request,'historial.html',ctx)
+
+def autores_a_csv(request):
+    #RECOGEMOS LOS DATOS
+    registros = Autor.objects.all().values()  # Obtener los registros como diccionarios
+
+    #CREAMOS EL ARCHIVO
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="Autores.csv"'
+
+    #PROCESO PARA ESCRIBIR
+    writer = csv.writer(response)
+
+    # Escribir encabezados de columna en el archivo CSV
+    writer.writerow(registros.first().keys())
+
+    # Escribir los registros en el archivo CSV
+    for registro in registros:
+        writer.writerow(registro.values())
+
+    #RETORNO DEL CSV
+    return response
+
+def libros_a_csv(request):
+    #RECOGEMOS LOS DATOS
+    registros = Libro.objects.all().values()  # Obtener los registros como diccionarios
+
+    #CREAMOS EL ARCHIVO
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="Libro.csv"'
+
+    #PROCESO PARA ESCRIBIR
+    writer = csv.writer(response)
+
+    # Escribir encabezados de columna en el archivo CSV
+    writer.writerow(registros.first().keys())
+
+    # Escribir los registros en el archivo CSV
+    for registro in registros:
+        writer.writerow(registro.values())
+
+    #RETORNO DEL CSV
+    return response
+
+def empleado_a_csv(request):
+    #RECOGEMOS LOS DATOS
+    registros = Empleado.objects.all().values()  # Obtener los registros como diccionarios
+
+    #CREAMOS EL ARCHIVO
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="Empleados.csv"'
+
+    #PROCESO PARA ESCRIBIR
+    writer = csv.writer(response)
+
+    # Escribir encabezados de columna en el archivo CSV
+    writer.writerow(registros.first().keys())
+
+    # Escribir los registros en el archivo CSV
+    for registro in registros:
+        writer.writerow(registro.values())
+
+    #RETORNO DEL CSV
+    return response
+
+def socio_a_csv(request):
+    #RECOGEMOS LOS DATOS
+    registros = Socio.objects.all().values()  # Obtener los registros como diccionarios
+
+    #CREAMOS EL ARCHIVO
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="Socios.csv"'
+
+    #PROCESO PARA ESCRIBIR
+    writer = csv.writer(response)
+
+    # Escribir encabezados de columna en el archivo CSV
+    writer.writerow(registros.first().keys())
+
+    # Escribir los registros en el archivo CSV
+    for registro in registros:
+        writer.writerow(registro.values())
+
+    #RETORNO DEL CSV
+    return response
+
+def prestamo_a_csv(request):
+    #RECOGEMOS LOS DATOS
+    registros = Prestamo_libro.objects.all().values()  # Obtener los registros como diccionarios
+
+    #CREAMOS EL ARCHIVO
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="Prestamo_libros.csv"'
+
+    #PROCESO PARA ESCRIBIR
+    writer = csv.writer(response)
+
+    # Escribir encabezados de columna en el archivo CSV
+    writer.writerow(registros.first().keys())
+
+    # Escribir los registros en el archivo CSV
+    for registro in registros:
+        writer.writerow(registro.values())
+
+    #RETORNO DEL CSV
+    return response

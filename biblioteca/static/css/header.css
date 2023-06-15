@@ -1,14 +1,13 @@
-.boton{
-    border: 2px solid #FFF;
-    color: #FFF;
-    display: block;;
-    background: transparent;
-    transition: .2s ease-in-out 0s;
-    }
-    .boton:hover{
-       cursor: pointer;
-       transform: scale(1.25);
-       background: #0c1ae0;
-       color: #FFF;
-       }
-
+.boton {
+  border: 2px solid #fff;
+  color: #fff;
+  display: block;
+  background: transparent;
+  transition: 0.2s ease-in-out 0s;
+}
+.boton:hover {
+  cursor: pointer;
+  transform: scale(1.25);
+  background: #0c1ae0;
+  color: #fff;
+}
