@@ -1,5 +1,50 @@
 {% extends 'header.html' %} {% block content %}
+
 <div class="container py-3">
+  <h1 class="text-center">Registro</h1>
+  <hr>
+  <div class="d-flex align-items-center flex-wrap justify-content-center my-5">
+    <div class="bg-primary text-light card align-items-center my-4 w-25 justify-content-center mx-3 py-3">
+      <div>
+        <h3>Total de libros:</h3>
+      </div>
+      <div>
+        <h4>{{  libros|length}}</h4>
+      </div>
+    </div>
+    <div class="bg-primary text-light card align-items-center  w-25 justify-content-center mx-3 py-3">
+      <div>
+        <h3>Total de Autores:</h3>
+      </div>
+      <div>
+        <h4>{{  autores|length}}</h4>
+      </div>
+    </div>
+    <div class="bg-primary text-light card align-items-center  w-25 justify-content-center mx-3 py-3">
+      <div>
+        <h3>Total de empleados:</h3>
+      </div>
+      <div>
+        <h4>{{  empleados|length}}</h4>
+      </div>
+    </div>
+        <div class="bg-primary text-light card align-items-center  w-25 justify-content-center mx-3 py-3">
+      <div>
+        <h3>Total de socios:</h3>
+      </div>
+      <div>
+        <h4>{{  socios|length}}</h4>
+      </div>
+    </div>    <div class="bg-primary text-light card align-items-center  w-25 justify-content-center mx-3 py-3">
+      <div>
+        <h3>Total de prestamos:</h3>
+      </div>
+      <div>
+        <h4>{{  prestamos|length}}</h4>
+      </div>
+    </div>
+    
+  </div>  
   <div class="d-flex w-100 justify-content-center">
     <h1>Historial de Acciones Realizadas</h1>
   </div>
@@ -23,4 +68,5 @@
         {% endfor %}
         </tbody>
     {% endif %}
+</div>
 {% endblock %}

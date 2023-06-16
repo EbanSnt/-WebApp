@@ -5,9 +5,12 @@
   <form action="" method="post">
     <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}" />
     {{form}}
-    <br>
-    <span class="my-3 text-danger">
-      * Recordatorio: El ISBN debe ser una cifra de 13 dígitos, entre 1000000000000 y 9999999999999</span    >
+    <br />
+    <span class="my-3 text-warning">
+      * Recordatorio: El ISBN debe ser una cifra de 13 dígitos, entre
+      1000000000000 y 9999999999999
+    </span>
+    <p class="my-3 text-danger">{% if mensaje %} {{mensaje}} {% endif %}</p>
     <div class="my-2">
       <button class="btn btn-success" type="submit">Crear</button>
     </div>

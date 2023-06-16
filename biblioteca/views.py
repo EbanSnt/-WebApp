@@ -479,7 +479,9 @@ def registrar_libro(request) -> HttpResponseRedirect:
             titulo = request.POST["titulo"]
             isbn = request.POST["isbn"]
             autor = Autor.objects.get(id=request.POST["autor"])
-            form.save()
+            if (Libro.objects.filter(isbn=isbn).exists()):
+                return render(request, "libro_nuevo.html",{"form":form,"mensaje":"Un libro con este isbn ya existe"})
+            form.save() 
             descripcion = f"Se Añade un Libro:\n{titulo}\n({autor.nombre} {autor.apellido})\nISBN: {isbn}"
             HistorialForm.objects.create(fecha=fecha,descripcion=descripcion,tipo="Creacion")
             return redirect("libros_lista")
@@ -695,7 +697,12 @@ def borrar_prestamo_libro(request, id):
 
 def historial(request):
     historial = HistorialForm.objects.all().order_by("-fecha")
-    ctx = {"historial":historial}
+    libros = Libro.objects.all()
+    autores = Autor.objects.all()
+    socios = Socio.objects.all()
+    empleados = Empleado.objects.all()
+    prestamos = Prestamo_libro.objects.all()
+    ctx = {"historial":historial, "libros":libros,"autores": autores,"socios":socios,"empleados":empleados,"prestamos":prestamos}
     return render(request,'historial.html',ctx)
 
 def autores_a_csv(request):
