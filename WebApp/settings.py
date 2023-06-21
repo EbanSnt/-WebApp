@@ -54,6 +54,7 @@ INSTALLED_APPS = [
     'coreapi',
     'crispy_forms',
     'crispy_bootstrap4',
+    'exportcsv',
 ]
 
 
@@ -105,7 +106,7 @@ WSGI_APPLICATION = 'WebApp.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
-#for ONLINE DEVELOPMENT
+# for ONLINE DEVELOPMENT
 
 """DATABASES = {
     'default': dj_database_url.config(      # Feel free to alter this value to suit your needs.
@@ -157,7 +158,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
 STATIC_URL = '/static/'
-if not DEBUG: 
+if not DEBUG:
     STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
     STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
@@ -176,9 +177,9 @@ REST_FRAMEWORK = {
 }
 
 MESSAGE_TAGS = {
-        messages.DEBUG: 'alert-secondary',
-        messages.INFO: 'alert-info',
-        messages.SUCCESS: 'alert-success',
-        messages.WARNING: 'alert-warning',
-        messages.ERROR: 'alert-danger',
- }
+    messages.DEBUG: 'alert-secondary',
+    messages.INFO: 'alert-info',
+    messages.SUCCESS: 'alert-success',
+    messages.WARNING: 'alert-warning',
+    messages.ERROR: 'alert-danger',
+}

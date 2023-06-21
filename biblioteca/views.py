@@ -1,5 +1,7 @@
 from django.db.models import Q
 from django.shortcuts import get_object_or_404, redirect, render
+
+from exportcsv.models import HistorialForm
 from .forms import *
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib import messages
@@ -12,6 +14,8 @@ from django.http import HttpResponse
 
 # Create your views here.
 # HEADER PRESENTE EN TODAS LAS PAGINAS
+
+
 def index(request):
     """
     Genera la pagina principal de la aplicacion
@@ -78,14 +82,13 @@ def registrar_empleado(request):
                 return render(request, "empleado_nuevo.html", context)
             form.save()
             # añadido redireccion al listado para cargar el nuevo
-            HistorialForm.objects.create(fecha=fecha,descripcion=descripcion,tipo="Creacion")
+            HistorialForm.objects.create(
+                fecha=fecha, descripcion=descripcion, tipo="Creacion")
             print(datetime.now())
-            return redirect("empleado_lista")     
+            return redirect("empleado_lista")
         else:
             return redirect("empleado_lista")
-        
-   
-           
+
     return render(request, "empleado_nuevo.html", context)
 
 
@@ -108,16 +111,16 @@ def actualizar_empleado(request, id):
         else:
             empleado.activo = True
             activo_nuevo = "Activo"
-        
+
         if empleado_viejo.activo:
             activo = "Activo"
         else:
             activo = "Inactivo"
         empleado.save()
-        
-       
+
         descripcion = f"Se Actualiza un Empleado: {empleado_viejo.nombre} {empleado_viejo.apellido}. \n N° de Legajo: {empleado_viejo.numero_legajo}. Estado: {activo} --> \n{empleado.nombre} {empleado.apellido}.\n N° de Legajo: {empleado.numero_legajo}. Estado: {activo_nuevo}"
-        HistorialForm.objects.create(fecha=fecha,descripcion=descripcion,tipo="Actualizacion")
+        HistorialForm.objects.create(
+            fecha=fecha, descripcion=descripcion, tipo="Actualizacion")
         return redirect("empleado_lista")
     else:
         return render(request, "empleado_actualizar.html", {"empleado": empleado})
@@ -155,7 +158,8 @@ def activo_cambiar_empleado(request, id):
             tipo = "Desactivacion"
         empleado.save()
         descripcion = f"Se {activo} un Empleado:\n{empleado.nombre} {empleado.apellido}\n N° de Legajo: {empleado.numero_legajo}"
-        HistorialForm.objects.create(fecha=fecha,descripcion=descripcion,tipo=tipo)
+        HistorialForm.objects.create(
+            fecha=fecha, descripcion=descripcion, tipo=tipo)
         # REEMPLAZAR POR EL NAME DEL PATH QUE SE COLOCARÁ
         return redirect("empleado_lista")
     # REEMPLAZAR POR EL NAME DEL PATH QUE SE COLOCARÁ
@@ -170,7 +174,8 @@ def borrar_empleado(request, id):
     if request.method == "POST":
         descripcion = f"Se Elimina un Empleado:\n{empleado.nombre} {empleado.apellido}\n N° de Legajo: {empleado.numero_legajo}"
         empleado.delete()
-        HistorialForm.objects.create(fecha=fecha,descripcion=descripcion,tipo="Eliminacion")
+        HistorialForm.objects.create(
+            fecha=fecha, descripcion=descripcion, tipo="Eliminacion")
         return redirect("empleado_lista")
 
     return render(request, "empleado_borrar.html", {"empleado": empleado})
@@ -219,7 +224,8 @@ def registrar_autor(request):
             apellido = request.POST["apellido"]
             nacionalidad = request.POST["nacionalidad"]
             descripcion = f"Se añade un Autor:\n{nombre} {apellido}\n ({nacionalidad})"
-            HistorialForm.objects.create(fecha=fecha,descripcion=descripcion,tipo="Creacion")
+            HistorialForm.objects.create(
+                fecha=fecha, descripcion=descripcion, tipo="Creacion")
             return redirect("autor_lista")
         else:
             # REEMPLAZAR POR EL TEMPLATE PARA ESTE CAMPO
@@ -253,11 +259,12 @@ def actualizar_autor(request, id):
         if autor_viejo.activo:
             activo_viejo = "Activo"
         else:
-            activo_viejo = "Inactivo" 
+            activo_viejo = "Inactivo"
         descripcion = f"Se Actualiza un Autor:\n{autor_viejo.nombre} {autor_viejo.apellido}\n ({autor_viejo.nacionalidad}). Estado: {activo_viejo} --> \n {autor.nombre} {autor.apellido}\n ({autor.nacionalidad}). Estado: {activo}"
         autor.save()
-        
-        HistorialForm.objects.create(fecha=fecha,descripcion=descripcion,tipo="Actualizacion")
+
+        HistorialForm.objects.create(
+            fecha=fecha, descripcion=descripcion, tipo="Actualizacion")
 
         return redirect("autor_lista")
     else:
@@ -283,8 +290,9 @@ def activo_cambiar_autor(request, id):
             tipo = "Desactivacion"
         descripcion = f"Se {activo} un Autor:\n{autor.nombre} {autor.apellido}\n ({autor.nacionalidad})"
         autor.save()
-        
-        HistorialForm.objects.create(fecha=fecha,descripcion=descripcion,tipo=tipo)
+
+        HistorialForm.objects.create(
+            fecha=fecha, descripcion=descripcion, tipo=tipo)
         # REEMPLAZAR POR EL NAME DEL PATH QUE SE COLOCARÁ
         return redirect("autor_lista")
     # REEMPLAZAR POR EL NAME DEL PATH QUE SE COLOCARÁ
@@ -299,7 +307,8 @@ def borrar_autor(request, id):
     if request.method == "POST":
         descripcion = f"Se Elimina un Autor:\n{autor.nombre} {autor.apellido}\n ({autor.nacionalidad})"
         autor.delete()
-        HistorialForm.objects.create(fecha=fecha,descripcion=descripcion,tipo="Eliminacion")
+        HistorialForm.objects.create(
+            fecha=fecha, descripcion=descripcion, tipo="Eliminacion")
         return redirect("autor_lista")
 
     return render(request, "autor_borrar.html", {"autor": autor})
@@ -322,7 +331,8 @@ def registrar_socio(request) -> HttpResponseRedirect:
             nombre = request.POST["nombre"]
             apellido = request.POST["apellido"]
             descripcion = f"Se Añade un Socio:\n{nombre} {apellido}\n"
-            HistorialForm.objects.create(fecha=fecha,descripcion=descripcion,tipo="Creacion")
+            HistorialForm.objects.create(
+                fecha=fecha, descripcion=descripcion, tipo="Creacion")
             return redirect("socio_lista")
     context = {"form": form}
     # REEMPLAZAR POR EL TEMPLATE QUE SE CREARÁ
@@ -363,15 +373,16 @@ def actualizar_socio(request, id):
         else:
             socio.activo = True
             activo = "Activo"
-        
+
         if socio_viejo.activo:
             activo_viejo = "Activo"
         else:
-            activo_viejo = "Inactivo" 
+            activo_viejo = "Inactivo"
 
         socio.save()
         descripcion = f"Se Actualiza un Socio:\n{socio_viejo.nombre} {socio_viejo.apellido}. Estado: {activo_viejo}\n -->\n {socio.nombre} {socio.apellido}. Estado: {activo}"
-        HistorialForm.objects.create(fecha=fecha,descripcion=descripcion,tipo="Actualizacion")
+        HistorialForm.objects.create(
+            fecha=fecha, descripcion=descripcion, tipo="Actualizacion")
         return redirect("socio_lista")
     else:
         return render(request, "socio_actualizar.html", {"socio": socio})
@@ -422,7 +433,8 @@ def activar_cambiar_socio(request, id):
             tipo = "Desactivacion"
         socio.save()
         descripcion = f"Se {activo} un Socio:\n{socio.nombre} {socio.apellido}"
-        HistorialForm.objects.create(fecha=fecha,descripcion=descripcion,tipo=tipo)
+        HistorialForm.objects.create(
+            fecha=fecha, descripcion=descripcion, tipo=tipo)
         return redirect("socio_lista")
         # REEMPLAZAR POR EL NAME DEL PATH QUE SE COLOCARÁ
         return redirect("socio_lista")
@@ -438,7 +450,8 @@ def borrar_socio(request, id):
     if request.method == "POST":
         descripcion = f"Se Elimina un Socio:\n{socio.nombre} {socio.apellido}"
         socio.delete()
-        HistorialForm.objects.create(fecha=fecha,descripcion=descripcion,tipo="Eliminacion")
+        HistorialForm.objects.create(
+            fecha=fecha, descripcion=descripcion, tipo="Eliminacion")
         return redirect("socio_lista")
 
     return render(request, "socio_borrar.html", {"socio": socio})
@@ -480,10 +493,11 @@ def registrar_libro(request) -> HttpResponseRedirect:
             isbn = request.POST["isbn"]
             autor = Autor.objects.get(id=request.POST["autor"])
             if (Libro.objects.filter(isbn=isbn).exists()):
-                return render(request, "libro_nuevo.html",{"form":form,"mensaje":"Un libro con este isbn ya existe"})
-            form.save() 
+                return render(request, "libro_nuevo.html", {"form": form, "mensaje": "Un libro con este isbn ya existe"})
+            form.save()
             descripcion = f"Se Añade un Libro:\n{titulo}\n({autor.nombre} {autor.apellido})\nISBN: {isbn}"
-            HistorialForm.objects.create(fecha=fecha,descripcion=descripcion,tipo="Creacion")
+            HistorialForm.objects.create(
+                fecha=fecha, descripcion=descripcion, tipo="Creacion")
             return redirect("libros_lista")
     context = {"form": form}
     # REEMPLAZAR POR EL TEMPLATE QUE SE CREARÁ
@@ -515,15 +529,16 @@ def actualizar_libro(request, id):
         else:
             libro.activo = True
             activo = "Activo"
-        
+
         if libro_viejo.activo:
             activo_viejo = "Activo"
         else:
-            activo_viejo = "Inactivo" 
+            activo_viejo = "Inactivo"
 
         libro.save()
         descripcion = f"Se Actualiza un Libro:\n{libro_viejo.titulo}\n({libro_viejo.autor.nombre} {libro_viejo.autor.apellido})\nISBN: {libro_viejo.isbn}. Estado: {activo_viejo} -->\n{libro.titulo}\n({libro.autor.nombre} {libro.autor.apellido})\nISBN: {libro.isbn}. Estado: {activo}"
-        HistorialForm.objects.create(fecha=fecha,descripcion=descripcion,tipo="Actualizacion")
+        HistorialForm.objects.create(
+            fecha=fecha, descripcion=descripcion, tipo="Actualizacion")
         # REEMPLAZAR AQUI CON EL NAME DE LA RUTA EN URLS.PY
         return redirect("libros_lista")
     else:
@@ -551,7 +566,8 @@ def activar_cambiar_libro(request, id):
             tipo = "Desactivacion"
         libro.save()
         descripcion = f"Se {activo} un Libro:\n{libro.titulo}\n({libro.autor.nombre} {libro.autor.apellido})\nISBN: {libro.isbn}"
-        HistorialForm.objects.create(fecha=fecha,descripcion=descripcion,tipo=tipo)
+        HistorialForm.objects.create(
+            fecha=fecha, descripcion=descripcion, tipo=tipo)
         return redirect("libros_lista")
     return render(request, "status_libros")
 
@@ -565,7 +581,8 @@ def borrar_libro(request, id):
     if request.method == "POST":
         libro.delete()
         descripcion = f"Se Elimina un Libro:\n{libro.titulo}\n({libro.autor.nombre} {libro.autor.apellido})\nISBN: {libro.isbn}"
-        HistorialForm.objects.create(fecha=fecha,descripcion=descripcion,tipo="Eliminacion")
+        HistorialForm.objects.create(
+            fecha=fecha, descripcion=descripcion, tipo="Eliminacion")
         return redirect("libros_lista")
 
     return render(request, "libro_borrar.html", {"libro": libro, "autor_actual": autor_libro_actual})
@@ -614,7 +631,8 @@ def PrestarForm(request):
 
             prestamo.save()  # GUARDAMOS RECIEN AQUI EL REGISTRO
             descripcion = f"Se Añade un Prestamo:\n'{libro.titulo}'para {socio.nombre} {socio.apellido}.\nPrestamo hecho por: {empleado.nombre} {empleado.apellido} (Legajo:{empleado.numero_legajo})\nDia: {fecha_prestamo}"
-            HistorialForm.objects.create(fecha=fecha,descripcion=descripcion,tipo="Creacion")
+            HistorialForm.objects.create(
+                fecha=fecha, descripcion=descripcion, tipo="Creacion")
             return redirect('prestamos_lista')
     else:
         form = PrestamoLibroForm()
@@ -650,7 +668,8 @@ def actualizar_prestamo(request, id):
         prestamo.fecha_devolucion = request.POST["fecha_devolucion"]
         prestamo.save()
         descripcion = f"Se Actualiza un Prestamo:\n'{prestamo_viejo.libro.titulo}' para {prestamo_viejo.socio.nombre} {prestamo_viejo.socio.apellido}.\nPrestamo hecho por: {prestamo_viejo.empleado.nombre} {prestamo_viejo.empleado.apellido} (Legajo:{prestamo_viejo.empleado.numero_legajo})\nDia: {prestamo_viejo.fecha_prestamo} --> \n {prestamo.libro.titulo}' para {prestamo.socio.nombre} {prestamo.socio.apellido}.\nPrestamo hecho por: {prestamo.empleado.nombre} {prestamo.empleado.apellido} (Legajo:{prestamo.empleado.numero_legajo})\nDia: {prestamo.fecha_prestamo}"
-        HistorialForm.objects.create(fecha=fecha,descripcion=descripcion,tipo="Actualizacion")
+        HistorialForm.objects.create(
+            fecha=fecha, descripcion=descripcion, tipo="Actualizacion")
         return redirect('prestamos_lista')
     else:
         # REEMPLAZAR CON EL NOMBRE DEL TEMPLATE QUE SE USARÁ
@@ -687,125 +706,10 @@ def borrar_prestamo_libro(request, id):
 
     if request.method == "POST":
         descripcion = f"Se Elimina un Prestamo:\n'{prestamo.libro.titulo}' para {prestamo.socio.nombre} {prestamo.socio.apellido}.\nPrestamo hecho por: {prestamo.empleado.nombre} {prestamo.empleado.apellido} (Legajo:{prestamo.empleado.numero_legajo})\nDia: {prestamo.fecha_prestamo}"
-        
+
         prestamo.delete()
-        HistorialForm.objects.create(fecha=fecha,descripcion=descripcion,tipo="Eliminacion")
+        HistorialForm.objects.create(
+            fecha=fecha, descripcion=descripcion, tipo="Eliminacion")
         return redirect("prestamos_lista")
 
     return render(request, "prestamo_borrar.html", {"prestamo": prestamo, "libro_actual": libro_actual, "socio_actual": socio_actual, "empleado_actual": empleado_actual})
-
-
-def historial(request):
-    historial = HistorialForm.objects.all().order_by("-fecha")
-    libros = Libro.objects.all()
-    autores = Autor.objects.all()
-    socios = Socio.objects.all()
-    empleados = Empleado.objects.all()
-    prestamos = Prestamo_libro.objects.all()
-    ctx = {"historial":historial, "libros":libros,"autores": autores,"socios":socios,"empleados":empleados,"prestamos":prestamos}
-    return render(request,'historial.html',ctx)
-
-def autores_a_csv(request):
-    #RECOGEMOS LOS DATOS
-    registros = Autor.objects.all().values()  # Obtener los registros como diccionarios
-
-    #CREAMOS EL ARCHIVO
-    response = HttpResponse(content_type='text/csv')
-    response['Content-Disposition'] = 'attachment; filename="Autores.csv"'
-
-    #PROCESO PARA ESCRIBIR
-    writer = csv.writer(response)
-
-    # Escribir encabezados de columna en el archivo CSV
-    writer.writerow(registros.first().keys())
-
-    # Escribir los registros en el archivo CSV
-    for registro in registros:
-        writer.writerow(registro.values())
-
-    #RETORNO DEL CSV
-    return response
-
-def libros_a_csv(request):
-    #RECOGEMOS LOS DATOS
-    registros = Libro.objects.all().values()  # Obtener los registros como diccionarios
-
-    #CREAMOS EL ARCHIVO
-    response = HttpResponse(content_type='text/csv')
-    response['Content-Disposition'] = 'attachment; filename="Libro.csv"'
-
-    #PROCESO PARA ESCRIBIR
-    writer = csv.writer(response)
-
-    # Escribir encabezados de columna en el archivo CSV
-    writer.writerow(registros.first().keys())
-
-    # Escribir los registros en el archivo CSV
-    for registro in registros:
-        writer.writerow(registro.values())
-
-    #RETORNO DEL CSV
-    return response
-
-def empleado_a_csv(request):
-    #RECOGEMOS LOS DATOS
-    registros = Empleado.objects.all().values()  # Obtener los registros como diccionarios
-
-    #CREAMOS EL ARCHIVO
-    response = HttpResponse(content_type='text/csv')
-    response['Content-Disposition'] = 'attachment; filename="Empleados.csv"'
-
-    #PROCESO PARA ESCRIBIR
-    writer = csv.writer(response)
-
-    # Escribir encabezados de columna en el archivo CSV
-    writer.writerow(registros.first().keys())
-
-    # Escribir los registros en el archivo CSV
-    for registro in registros:
-        writer.writerow(registro.values())
-
-    #RETORNO DEL CSV
-    return response
-
-def socio_a_csv(request):
-    #RECOGEMOS LOS DATOS
-    registros = Socio.objects.all().values()  # Obtener los registros como diccionarios
-
-    #CREAMOS EL ARCHIVO
-    response = HttpResponse(content_type='text/csv')
-    response['Content-Disposition'] = 'attachment; filename="Socios.csv"'
-
-    #PROCESO PARA ESCRIBIR
-    writer = csv.writer(response)
-
-    # Escribir encabezados de columna en el archivo CSV
-    writer.writerow(registros.first().keys())
-
-    # Escribir los registros en el archivo CSV
-    for registro in registros:
-        writer.writerow(registro.values())
-
-    #RETORNO DEL CSV
-    return response
-
-def prestamo_a_csv(request):
-    #RECOGEMOS LOS DATOS
-    registros = Prestamo_libro.objects.all().values()  # Obtener los registros como diccionarios
-
-    #CREAMOS EL ARCHIVO
-    response = HttpResponse(content_type='text/csv')
-    response['Content-Disposition'] = 'attachment; filename="Prestamo_libros.csv"'
-
-    #PROCESO PARA ESCRIBIR
-    writer = csv.writer(response)
-
-    # Escribir encabezados de columna en el archivo CSV
-    writer.writerow(registros.first().keys())
-
-    # Escribir los registros en el archivo CSV
-    for registro in registros:
-        writer.writerow(registro.values())
-
-    #RETORNO DEL CSV
-    return response

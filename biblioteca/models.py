@@ -55,8 +55,3 @@ class Prestamo_libro(models.Model):
 
     def __str__(self):
         return self.libro
-
-class HistorialForm(models.Model):
-    fecha = models.CharField(max_length=20)
-    descripcion = models.TextField()
-    tipo = models.CharField(max_length=20)
