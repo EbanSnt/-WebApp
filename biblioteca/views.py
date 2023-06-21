@@ -169,6 +169,11 @@ def activo_cambiar_empleado(request, id):
 @csrf_exempt
 def borrar_empleado(request, id):
     empleado = get_object_or_404(Empleado, id=id)
+    e  = Empleado.objects.get(id=id)
+    socios = Socio.objects.all()
+    libros = Libro.objects.all()
+    prestamos = Prestamo_libro.objects.all()
+    empleados = Empleado.objects.all()
     now = datetime.now()
     fecha = now.strftime('%d/%m/%Y %H:%M')
     if request.method == "POST":
@@ -178,7 +183,7 @@ def borrar_empleado(request, id):
             fecha=fecha, descripcion=descripcion, tipo="Eliminacion")
         return redirect("empleado_lista")
 
-    return render(request, "empleado_borrar.html", {"empleado": empleado})
+    return render(request, "empleado_borrar.html", {"empleado": empleado,"socios":socios,"libros":libros,"prestamos":prestamos,"empleados":empleados,"e":e})
 
 
 # AUTORES
@@ -302,6 +307,10 @@ def activo_cambiar_autor(request, id):
 @csrf_exempt
 def borrar_autor(request, id):
     autor = get_object_or_404(Autor, id=id)
+    libros = Libro.objects.all()
+    prestamos = Prestamo_libro.objects.all()
+    empleados = Empleado.objects.all()
+    socios = Socio.objects.all()
     now = datetime.now()
     fecha = now.strftime('%d/%m/%Y %H:%M')
     if request.method == "POST":
@@ -311,7 +320,7 @@ def borrar_autor(request, id):
             fecha=fecha, descripcion=descripcion, tipo="Eliminacion")
         return redirect("autor_lista")
 
-    return render(request, "autor_borrar.html", {"autor": autor})
+    return render(request, "autor_borrar.html", {"autor": autor,"libros":libros,"prestamos":prestamos,"socios":socios,"empleados":empleados})
 
 
 # SOCIOS
@@ -445,6 +454,9 @@ def activar_cambiar_socio(request, id):
 @csrf_exempt
 def borrar_socio(request, id):
     socio = get_object_or_404(Socio, id=id)
+    empleados = Empleado.objects.all()
+    prestamos = Prestamo_libro.objects.all()
+    libros = Libro.objects.all()
     now = datetime.now()
     fecha = now.strftime('%d/%m/%Y %H:%M')
     if request.method == "POST":
@@ -454,7 +466,7 @@ def borrar_socio(request, id):
             fecha=fecha, descripcion=descripcion, tipo="Eliminacion")
         return redirect("socio_lista")
 
-    return render(request, "socio_borrar.html", {"socio": socio})
+    return render(request, "socio_borrar.html", {"socio": socio,"empleados":empleados,"libros":libros,"prestamos":prestamos})
 
 
 """
@@ -576,6 +588,10 @@ def activar_cambiar_libro(request, id):
 def borrar_libro(request, id):
     libro = get_object_or_404(Libro, id=id)
     autor_libro_actual = Autor.objects.get(nombre=libro.autor)
+    socios = Socio.objects.all()
+    prestamos = Prestamo_libro.objects.all()
+    empleados = Empleado.objects.all()
+    libros = Libro.objects.all()
     now = datetime.now()
     fecha = now.strftime('%d/%m/%Y %H:%M')
     if request.method == "POST":
@@ -585,7 +601,7 @@ def borrar_libro(request, id):
             fecha=fecha, descripcion=descripcion, tipo="Eliminacion")
         return redirect("libros_lista")
 
-    return render(request, "libro_borrar.html", {"libro": libro, "autor_actual": autor_libro_actual})
+    return render(request, "libro_borrar.html", {"libro": libro, "autor_actual": autor_libro_actual,"socios":socios,"empleados":empleados,"prestamos":prestamos,"libros":libros})
 
 
 """

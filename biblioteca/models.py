@@ -11,7 +11,7 @@ class Autor(models.Model):
     activo = models.BooleanField(default=True)
 
     def __str__(self):
-        return self.nombre
+        return f"{self.nombre} {self.apellido}" 
 
 
 class Libro(models.Model):
@@ -33,8 +33,7 @@ class Empleado(models.Model):
     activo = models.BooleanField(default=True)
 
     def __str__(self):
-        return self.nombre
-
+        return f"{self.nombre} {self.apellido}"
 
 class Socio(models.Model):
     nombre = models.CharField(max_length=50)
@@ -43,7 +42,7 @@ class Socio(models.Model):
     activo = models.BooleanField(default=True)
 
     def __str__(self):
-        return self.nombre
+        return f"{self.nombre} {self.apellido}"
 
 
 class Prestamo_libro(models.Model):
