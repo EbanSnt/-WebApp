@@ -58,6 +58,49 @@
     </div>
     <span class="my-3 text-danger">
       * Los campos no son editables</span><br />
+      <span class="my-3 text-danger">
+        * Al eliminar este Socio, eliminaras todos los registros que esten vinculados. Ver la siguiente lista:</span><br />
+      <div class="d-flex w-100 justify-content-center">
+        <h1>Prestamos solicitados por este Socio</h1><br>
+      </div>
+      <div>
+              <table class="table my-3">
+                <thead>
+                  <tr>
+                    <th>Empleado</th>
+                    <th>Libro</th>
+                    <th>Fecha Prestamo</th>
+                    <th>Fecha Devolucion</th>
+                </tr>
+                </thead>
+              <tbody>
+            {% for prestamo in prestamos %}
+              {% if prestamo.socio.id == socio.id %}
+                <tr>
+                  <td>
+                    {% for empleado in empleados %}
+                      {% if empleado.id == prestamo.empleado.id %}
+                        {{prestamo.empleado.nombre}} {{prestamo.empleado.apellido}} <br> N° de Legajo: {{prestamo.empleado.numero_legajo}}
+                      {% endif %}
+                    {% endfor %}
+                  </td>
+                  <td>
+                  {% for libro in libros %}
+                      {% if libro.id == prestamo.libro.id %}
+                        {{prestamo.libro.titulo}} ({{prestamo.libro.autor.nombre}} {{prestamo.libro.autor.apellido}}) <br>
+                        ISBN: {{prestamo.libro.isbn}}
+                      {% endif %}
+                  {% endfor %}
+                </td>
+                  <td>{{ prestamo.fecha_prestamo }}</td>
+                  <td>{{ prestamo.fecha_devolucion }}</td>
+                </tr>
+                {% endif %}
+              {% endfor %}
+              </tbody>
+              </table>
+          
+          </div>
     <input
       id="button"
       class="btn btn-success"
