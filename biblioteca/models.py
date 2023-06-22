@@ -33,7 +33,7 @@ class Empleado(models.Model):
     activo = models.BooleanField(default=True)
 
     def __str__(self):
-        return f"{self.nombre} {self.apellido}"
+        return f"{self.nombre} {self.apellido}\n(Legajo: {self.numero_legajo})"
 
 class Socio(models.Model):
     nombre = models.CharField(max_length=50)

@@ -72,7 +72,7 @@
                     </button>
                     <form action="/home/empleados/{{ empleado.id }}/changeStatus" method="post">
                       <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
-                      <button class="btn btn-success" type="submit"  title="Cambiar">
+                      <button class="btn btn-success" type="submit"  title="Cambiar estado de Activo (Si/No)">
                         <svg width="20px" height="20px" viewBox="0 0 1800 1800">
                           <g>
                           <path fill="#ffff" d="M899.996,6.911C405.643,6.911,3.458,409.103,3.458,903.462C3.458,1397.811,405.643,1800,899.996,1800   c494.357,0,896.546-402.189,896.546-896.538C1796.542,409.103,1394.353,6.911,899.996,6.911z M899.996,1737.1   c-459.667,0-833.637-373.97-833.637-833.638c0-459.679,373.969-833.649,833.637-833.649c459.672,0,833.644,373.971,833.644,833.649   C1733.64,1363.13,1359.668,1737.1,899.996,1737.1z" />

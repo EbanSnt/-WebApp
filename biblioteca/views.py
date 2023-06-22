@@ -587,7 +587,7 @@ def activar_cambiar_libro(request, id):
 @csrf_exempt
 def borrar_libro(request, id):
     libro = get_object_or_404(Libro, id=id)
-    autor_libro_actual = Autor.objects.get(nombre=libro.autor)
+    autor_libro_actual = Autor.objects.get(id=libro.autor.id)
     socios = Socio.objects.all()
     prestamos = Prestamo_libro.objects.all()
     empleados = Empleado.objects.all()
@@ -716,9 +716,9 @@ def borrar_prestamo_libro(request, id):
     now = datetime.now()
     fecha = now.strftime('%d/%m/%Y %H:%M')
     prestamo = get_object_or_404(Prestamo_libro, id=id)
-    socio_actual = Socio.objects.get(nombre=prestamo.socio)
-    empleado_actual = Empleado.objects.get(nombre=prestamo.empleado)
-    libro_actual = Libro.objects.get(titulo=prestamo.libro)
+    socio_actual = Socio.objects.get(id=prestamo.socio.id)
+    empleado_actual = Empleado.objects.get(id=prestamo.empleado.id)
+    libro_actual = Libro.objects.get(id=prestamo.libro.id)
 
     if request.method == "POST":
         descripcion = f"Se Elimina un Prestamo:\n'{prestamo.libro.titulo}' para {prestamo.socio.nombre} {prestamo.socio.apellido}.\nPrestamo hecho por: {prestamo.empleado.nombre} {prestamo.empleado.apellido} (Legajo:{prestamo.empleado.numero_legajo})\nDia: {prestamo.fecha_prestamo}"
