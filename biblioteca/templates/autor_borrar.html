@@ -39,21 +39,120 @@
     />
     <br />
     <div class="mb-3 form-check">
-      <input  type="checkbox"  class="form-check-input"  id="activo"  name="activo" value="True"  
-      {% if autor.activo %}
+      <input
+        type="checkbox"
+        class="form-check-input"
+        id="activo"
+        name="activo"
+        value="True"
+        {%
+        if
+        autor.activo
+        %}
         checked
-      {% endif %} disabled/>
+        {%
+        endif
+        %}
+        disabled
+      />
       <label class="form-check-label" for="activo">Activo</label>
       <br />
+      <span class="my-3 text-danger"> * Los campos no son editables </span> 
+      <br/>
       <span class="my-3 text-danger">
-        * Los campos no son editables</span><br />
+        * Al eliminar este Autor, eliminaras todos los registros que esten vinculados. Ver las siguientes listas:</span><br />
     </div>
-    <input
-      id="button"
-      class="btn btn-success"
-      type="submit"
-      value="Borrar"
-    />
+    <div class="d-flex w-100 justify-content-center">
+      <h1>Libros registrados por este autor</h1><br>
+    </div>
+      
+    <div>
+      
+            <table class="table my-3">
+             
+              <thead>
+                <tr>
+                  <th>Libro</th>
+                  <th>Descripcion</th>
+                  <th>ISBN</th>
+              </tr>
+              </thead>
+            <tbody>
+              {% for libro in libros %}
+              <tr>
+                
+                <td>
+                  {% if libro.autor.id == autor.id %}
+                      {{ libro.titulo }}
+                  {% endif %}
+                </td>
+
+                <td>
+                  {% if libro.autor.id == autor.id %}
+                    {{ libro.descripcion }}
+                  {% endif %}
+              </td>
+                <td>
+                  {% if libro.autor.id == autor.id %}
+                    {{ libro.isbn }}
+                  {% endif %}
+                </td>
+               
+              </tr>
+              {% endfor %}
+            </tbody>
+            </table>
+          
+      <div class="d-flex w-100 justify-content-center">
+          <h1>Prestamos de los libros de este Autor </h1><br>
+        </div>
+      <div>
+              <table class="table my-3">
+                <thead>
+                  <tr>
+                    <th>Libro</th>
+                    <th>Empleado</th>
+                    <th>Socio</th>
+                    <th>Fecha Prestamo</th>
+                    <th>Fecha Devolucion</th>
+                </tr>
+                </thead>
+              <tbody>
+            {% for prestamo in prestamos %}
+              {% if prestamo.libro.autor.id == autor.id %}
+                <tr>
+                  <td>
+                    {% for libro in libros %}
+                    {% if libro.id == prestamo.libro.id %}
+                      {{prestamo.libro.titulo}} ({{prestamo.libro.autor.nombre}} {{prestamo.libro.autor.apellido}}) <br>
+                      ISBN: {{prestamo.libro.isbn}}
+                    {% endif %}
+                {% endfor %}
+                  </td>
+                  <td>
+                    {% for empleado in empleados %}
+                      {% if empleado.id == prestamo.empleado.id %}
+                        {{prestamo.empleado.nombre}} {{prestamo.empleado.apellido}} <br> N° de Legajo: {{prestamo.empleado.numero_legajo}}
+                      {% endif %}
+                    {% endfor %}
+                  </td>
+                  <td>
+                  {% for socio in socios %}
+                      {% if socio.id == prestamo.socio.id %}
+                        {{prestamo.socio.nombre}} {{prestamo.socio.apellido}} 
+                      {% endif %}
+                  {% endfor %}
+                </td>
+                  <td>{{ prestamo.fecha_prestamo }}</td>
+                  <td>{{ prestamo.fecha_devolucion }}</td>
+                </tr>
+                {% endif %}
+              {% endfor %}
+              </tbody>
+              </table>
+          
+          </div>
+    <input id="button" class="btn btn-success" type="submit" value="Borrar" />
     <div class="mt-2">
       <a class="btn btn-primary text-light" class="" href="/home/autores">
         Volver

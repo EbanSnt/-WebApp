@@ -38,7 +38,49 @@
     <br />
     <span class="my-3 text-danger">
         * Los campos no son editables</span><br />
+    <span class="my-3 text-danger">
+        * Al eliminar este Libro, eliminaras todos los registros que esten vinculados. Ver la siguiente lista:</span><br />
     </div>
+    <div class="d-flex w-100 justify-content-center">
+      <h1>Prestamos sobre este Libro</h1><br>
+    </div>
+    <div>
+            <table class="table my-3">
+              <thead>
+                <tr>
+                  <th>Empleado</th>
+                  <th>Socio</th>
+                  <th>Fecha Prestamo</th>
+                  <th>Fecha Devolucion</th>
+              </tr>
+              </thead>
+            <tbody>
+          {% for prestamo in prestamos %}
+            {% if prestamo.libro.id == libro.id %}
+              <tr>
+                <td>
+                  {% for empleado in empleados %}
+                    {% if empleado.id == prestamo.empleado.id %}
+                      {{prestamo.empleado.nombre}} {{prestamo.empleado.apellido}} <br> N° de Legajo: {{prestamo.empleado.numero_legajo}}
+                    {% endif %}
+                  {% endfor %}
+                </td>
+                <td>
+                {% for socio in socios %}
+                    {% if socio.id == prestamo.socio.id %}
+                      {{prestamo.socio.nombre}} {{prestamo.socio.apellido}} 
+                    {% endif %}
+                {% endfor %}
+              </td>
+                <td>{{ prestamo.fecha_prestamo }}</td>
+                <td>{{ prestamo.fecha_devolucion }}</td>
+              </tr>
+              {% endif %}
+            {% endfor %}
+            </tbody>
+            </table>
+        
+        </div>
     <input id="button" class="btn btn-success" type="submit" value="Borrar" />
     <div class="mt-2 ">
       <a class="btn btn-primary text-light" class="" href="/home/libros">

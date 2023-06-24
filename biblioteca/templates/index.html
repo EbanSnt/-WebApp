@@ -1,59 +1,86 @@
-{% extends 'header.html' %} 
-{% block link %} <head>
+{% extends 'header.html' %}
+{% block link %}
+
+<head>
   <link rel="stylesheet" href="../static/css/index.css ">
-  </head>
+</head>
 {% endblock %}
 {% block content %}
 
 <div class="jumbotron container py-5">
   <h1 class="display-4">BIENVENIDO A NUESTRO TRABAJO INTEGRADOR!</h1>
   <p class="lead">
-    Diseñado para tener controlado los principales aspectos de una biblioteca y sus registros para un dar un servicio de calidad a nuestros socios.
+    Diseñado para tener controlado los principales aspectos de una biblioteca y sus registros para un dar un servicio de
+    calidad a nuestros socios.
   </p>
   <hr class="my-4" />
 
   <p>
     Principales funciones para:
   </p>
-    <div class="row">
-      <div class="col px-3">
-        <ul class="list-group">
-          <li class="list-group-item active"><h2><b>Empleados</b></h2></li>
-          <li class="list-group-item d-flex justify-content-between align-items-center">Ver el listado de registros de Empleados  <span class="badge bg-success rounded-pill">✓</span></li>
-          <li class="list-group-item d-flex justify-content-between align-items-center">Actualizar un registro <span class="badge bg-success rounded-pill">✓</span></li>
-          <li class="list-group-item d-flex justify-content-between align-items-center">Agregar un registro <span class="badge bg-success rounded-pill">✓</span></li>
-          <li class="list-group-item d-flex justify-content-between align-items-center">Eliminar un registro <span class="badge bg-success rounded-pill">✓</span></li>
+  <div class="row">
+    <div class="col px-3">
+      <ul class="list-group">
+        <li class="list-group-item active">
+          <h2><b>Empleados</b></h2>
+        </li>
+        <li class="list-group-item d-flex justify-content-between align-items-center">Ver el listado de registros de
+          Empleados <span class="badge bg-success rounded-pill">✓</span></li>
+        <li class="list-group-item d-flex justify-content-between align-items-center">Actualizar un registro <span
+            class="badge bg-success rounded-pill">✓</span></li>
+        <li class="list-group-item d-flex justify-content-between align-items-center">Agregar un registro <span
+            class="badge bg-success rounded-pill">✓</span></li>
+        <li class="list-group-item d-flex justify-content-between align-items-center">Eliminar un registro <span
+            class="badge bg-success rounded-pill">✓</span></li>
         <ul>
-      </div>
+    </div>
     <div class="col">
-          <ul class="list-group">
-            <li class="list-group-item active"><h2><b>Libros</b></h2></li>
-            <li class="list-group-item d-flex justify-content-between align-items-center">Ver el listado de registros de Libros <span class="badge bg-success rounded-pill">✓</span></li>
-            <li class="list-group-item d-flex justify-content-between align-items-center">Actualizar un registro <span class="badge bg-success rounded-pill">✓</span></li>
-            <li class="list-group-item d-flex justify-content-between align-items-center">Agregar un registro <span class="badge bg-success rounded-pill">✓</span></li>
-            <li class="list-group-item d-flex justify-content-between align-items-center">Eliminar un registro <span class="badge bg-success rounded-pill">✓</span></li>
-          <ul>
-    </div>
-      <div class="col px-3">
-        <ul class="list-group">
-          <li class="list-group-item active"><h2><b>Socios</b></h2></li>
-          <li class="list-group-item d-flex justify-content-between align-items-center">Ver el listado de registros de Socios <span class="badge bg-success rounded-pill">✓</span></li>
-          <li class="list-group-item d-flex justify-content-between align-items-center">Actualizar un registro <span class="badge bg-success rounded-pill">✓</span></li>
-          <li class="list-group-item d-flex justify-content-between align-items-center">Agregar un registro <span class="badge bg-success rounded-pill">✓</span></li>
-          <li class="list-group-item d-flex justify-content-between align-items-center">Eliminar un registro <span class="badge bg-success rounded-pill">✓</span></li>
-        <ul>
-      </div>
-      <div class="col">
-        <ul class="list-group">
-          <li class="list-group-item active"><h2><b>Autores</b></h2></li>
-          <li class="list-group-item d-flex justify-content-between align-items-center">Ver el listado de registros de Autores <span class="badge bg-success rounded-pill">✓</span></li>
-          <li class="list-group-item d-flex justify-content-between align-items-center">Actualizar un registro <span class="badge bg-success rounded-pill">✓</span></li>
-          <li class="list-group-item d-flex justify-content-between align-items-center">Agregar un registro <span class="badge bg-success rounded-pill">✓</span></li>
-          <li class="list-group-item d-flex justify-content-between align-items-center">Eliminar un registro <span class="badge bg-success rounded-pill">✓</span></li>
+      <ul class="list-group">
+        <li class="list-group-item active">
+          <h2><b>Libros</b></h2>
+        </li>
+        <li class="list-group-item d-flex justify-content-between align-items-center">Ver el listado de registros de
+          Libros <span class="badge bg-success rounded-pill">✓</span></li>
+        <li class="list-group-item d-flex justify-content-between align-items-center">Actualizar un registro <span
+            class="badge bg-success rounded-pill">✓</span></li>
+        <li class="list-group-item d-flex justify-content-between align-items-center">Agregar un registro <span
+            class="badge bg-success rounded-pill">✓</span></li>
+        <li class="list-group-item d-flex justify-content-between align-items-center">Eliminar un registro <span
+            class="badge bg-success rounded-pill">✓</span></li>
         <ul>
     </div>
-    
-</div>
+    <div class="col px-3">
+      <ul class="list-group">
+        <li class="list-group-item active">
+          <h2><b>Socios</b></h2>
+        </li>
+        <li class="list-group-item d-flex justify-content-between align-items-center">Ver el listado de registros de
+          Socios <span class="badge bg-success rounded-pill">✓</span></li>
+        <li class="list-group-item d-flex justify-content-between align-items-center">Actualizar un registro <span
+            class="badge bg-success rounded-pill">✓</span></li>
+        <li class="list-group-item d-flex justify-content-between align-items-center">Agregar un registro <span
+            class="badge bg-success rounded-pill">✓</span></li>
+        <li class="list-group-item d-flex justify-content-between align-items-center">Eliminar un registro <span
+            class="badge bg-success rounded-pill">✓</span></li>
+        <ul>
+    </div>
+    <div class="col">
+      <ul class="list-group">
+        <li class="list-group-item active">
+          <h2><b>Autores</b></h2>
+        </li>
+        <li class="list-group-item d-flex justify-content-between align-items-center">Ver el listado de registros de
+          Autores <span class="badge bg-success rounded-pill">✓</span></li>
+        <li class="list-group-item d-flex justify-content-between align-items-center">Actualizar un registro <span
+            class="badge bg-success rounded-pill">✓</span></li>
+        <li class="list-group-item d-flex justify-content-between align-items-center">Agregar un registro <span
+            class="badge bg-success rounded-pill">✓</span></li>
+        <li class="list-group-item d-flex justify-content-between align-items-center">Eliminar un registro <span
+            class="badge bg-success rounded-pill">✓</span></li>
+        <ul>
+    </div>
+
+  </div>
 
   <br>
   <h2 class="h2">PARTICIPANTES: </h2>
@@ -63,58 +90,70 @@
       <div class="row">
         <div class="col-md-3">
           <div>
-          <div class="one">
-            <div class="text-right pr-2 pt-1"><i class="mdi mdi-dots-vertical dotdot"></i></div>
-            <div class="d-flex justify-content-center"><img src="../static/images/esteban.jpg" width="100" class="rounded-circle"></div>
-            <div class="text-center">
-              <span class="name">Esteban Santillan</span>
-              <p class="mail">@EbanSnt</p>
+            <div class="one">
+              <div class="text-right pr-2 pt-1"><i class="mdi mdi-dots-vertical dotdot"></i></div>
+              <div class="d-flex justify-content-center my-2"><img src="../static/images/esteban.jpg" width="100"
+                  class="rounded-circle"></div>
+              <div class="text-center">
+                <span class="name">Esteban Santillan</span>
+                <p class="mail">@EbanSnt</p>
+              </div>
+              <div class="text-center align-items-center d-flex justify-content-center pt-2 pb-2"><a
+                  href="https://github.com/EbanSnt"><span class="details">Repositorio</span><i
+                    class="mdi mdi-arrow-right right pl-1"></a></i></div>
             </div>
-            <div class="text-center align-items-center d-flex justify-content-center pt-2 pb-2"><a href="https://github.com/EbanSnt"><span class="details">Repositorio</span><i class="mdi mdi-arrow-right right pl-1"></a></i></div>
           </div>
+
+        </div>
+        <div class="col-md-3">
+          <div>
+            <div class="one">
+              <div class="text-right pr-2 pt-1"><i class="mdi mdi-dots-vertical dotdot"></i></div>
+              <div class="d-flex justify-content-center my-2"><img src="../static/images/adrian.jpg" width="100"
+                  class="rounded-circle"></div>
+              <div class="text-center">
+                <span class="name">Adrian Martinez</span>
+                <p class="mail">@adrian411997</p>
+              </div>
+              <div class="text-center align-items-center d-flex justify-content-center pt-2 pb-2"><a
+                  href="https://github.com/adrian411997"><span class="details">Repositorio</span><i
+                    class="mdi mdi-arrow-right right pl-1"></a></i></div>
+            </div>
           </div>
-          
+        </div>
+        <div class="col-md-3">
+          <div>
+            <div class="one">
+              <div class="text-right pr-2 pt-1"><i class="mdi mdi-dots-vertical dotdot"></i></div>
+              <div class="d-flex justify-content-center my-2"><img src="../static/images/robinson.png" width="100"
+                  class="rounded-circle"></div>
+              <div class="text-center">
+                <span class="name">Robinson Sinner</span>
+                <p class="mail">@RS4400</p>
+              </div>
+              <div class="text-center align-items-center d-flex justify-content-center pt-2 pb-2"><a
+                  href="https://github.com/RS4400"><span class="details">Repositorio</span><i
+                    class="mdi mdi-arrow-right right pl-1"></a></i></div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div>
+            <div class="one">
+              <div class="text-right pr-2 pt-1"><i class="mdi mdi-dots-vertical dotdot"></i></div>
+              <div class="d-flex justify-content-center my-2"><img src="../static/images/gaston.jpg" width="100"
+                  class="rounded-circle"></div>
+              <div class="text-center">
+                <span class="name">Guillermo Villagra</span>
+                <p class="mail">@gaston010</p>
+              </div>
+              <div class="text-center align-items-center d-flex justify-content-center pt-2 pb-2"><a
+                  href="https://github.com/gaston010"><span class="details">Repositorio</span><i
+                    class="mdi mdi-arrow-right right pl-1"></a></i></div>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="col-md-3">
-        <div>
-        <div class="one">
-          <div class="text-right pr-2 pt-1"><i class="mdi mdi-dots-vertical dotdot"></i></div>
-          <div class="d-flex justify-content-center"><img src="../static/images/adrian.jpg" width="100" class="rounded-circle"></div>
-          <div class="text-center">
-            <span class="name">Adrian Martinez</span>
-            <p class="mail">@adrian411997</p>
-          </div>
-          <div class="text-center align-items-center d-flex justify-content-center pt-2 pb-2"><a href="https://github.com/adrian411997"><span class="details">Repositorio</span><i class="mdi mdi-arrow-right right pl-1"></a></i></div>
-        </div>
-        </div>
-    </div>
-    <div class="col-md-3">
-      <div>
-        <div class="one">
-          <div class="text-right pr-2 pt-1"><i class="mdi mdi-dots-vertical dotdot"></i></div>
-          <div class="d-flex justify-content-center"><img src="../static/images/robinson.png" width="100" class="rounded-circle"></div>
-          <div class="text-center">
-            <span class="name">Robinson Sinner</span>
-            <p class="mail">@RS4400</p>
-          </div>
-          <div class="text-center align-items-center d-flex justify-content-center pt-2 pb-2"><a href="https://github.com/RS4400"><span class="details">Repositorio</span><i class="mdi mdi-arrow-right right pl-1"></a></i></div>
-        </div>
     </div>
   </div>
-    <div class="col-md-3">
-      <div>
-        <div class="one">
-          <div class="text-right pr-2 pt-1"><i class="mdi mdi-dots-vertical dotdot"></i></div>
-          <div class="d-flex justify-content-center"><img src="../static/images/gaston.jpg" width="100" class="rounded-circle"></div>
-          <div class="text-center">
-            <span class="name">Guillermo Villagra</span>
-            <p class="mail">@gaston010</p>
-          </div>
-          <div class="text-center align-items-center d-flex justify-content-center pt-2 pb-2"><a href="https://github.com/gaston010"><span class="details">Repositorio</span><i class="mdi mdi-arrow-right right pl-1"></a></i></div>
-        </div>
-    </div>
-  </div>
-</div>
-</div>
-</div>
-{% endblock %}
+  {% endblock %}
